@@ -13,8 +13,8 @@ class LoginPage extends StatefulWidget {
 }
 
 //Text Editing Controller
-final usernameControl = TextEditingController();
-final passwordControl = TextEditingController();
+var usernameControl = TextEditingController();
+var passwordControl = TextEditingController();
 
 class _LoginPageState extends State<LoginPage> {
   @override

@@ -12,6 +12,11 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
+var usernameControl = TextEditingController();
+var emailControl = TextEditingController();
+var passwordControl = TextEditingController();
+var cPasswordControl = TextEditingController();
+
 class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
@@ -41,14 +46,14 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFields(
                 hintText: "Email",
                 obscureText: false,
-                controller: passwordControl,
+                controller: emailControl,
               ),
 
               const SizedBox(height: 20,),
 
               //Password TextField
               TextFields(
-                controller: usernameControl,
+                controller: passwordControl,
                 obscureText: false,
                 hintText: "Password",
               ),
@@ -59,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFields(
                 hintText: "Confirm Password",
                 obscureText: false,
-                controller: passwordControl,
+                controller: cPasswordControl,
               ),
 
               const SizedBox(height: 25,),

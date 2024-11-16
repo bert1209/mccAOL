@@ -86,6 +86,10 @@ flutter:
          - asset: lib/Font/Poppins-Regular.ttf
          - asset: lib/Font/Poppins-Italic.ttf
   #         weight: 700
+     - family: Bangers
+       fonts:
+         - asset: lib/Font/Bangers-Regular.ttf
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
