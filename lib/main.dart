@@ -2,6 +2,7 @@ import 'package:aol_mcc/Page/AuthPage.dart';
 import 'package:aol_mcc/Page/LoginPage.dart';
 import 'package:aol_mcc/Page/RegisterPage.dart';
 import 'package:aol_mcc/Page/homePage.dart';
+import 'package:aol_mcc/Page/splashscreen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -16,10 +17,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: SplashScreen(),
       routes: {
         '/loginPage': (context) => LoginPage(),
         '/registerPage': (context) => RegisterPage(),
+        '/homePage': (context) => HomePage(),
 
       },
     );

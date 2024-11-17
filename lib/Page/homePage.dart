@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
               iconSize: 60,
               padding: EdgeInsets.all(25),
             ),
-        title: Text("Banboo\n  Store",
+        title: const Text("Banboo\n  Store",
           style: TextStyle(
           fontFamily: "Bangers",
           fontSize: 40,
