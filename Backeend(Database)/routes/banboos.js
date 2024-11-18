@@ -104,7 +104,23 @@ router.get('/:email/:password', function (req, res, next) {
     });
   });
 
+  router.post('/insert-new-banboo-data', (req, res) => {
+    const data = req.body;
 
+    const insertQuery = `INSERT INTO banboo (Banbooname, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, BanbooCRate, BanbooCDmg, BanbooPRatio, 
+    BanbooAMastery, BanbooRank, BanbooDescription) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?)`;
+    con.query(insertQuery, [data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, 
+        data.BanbooCRate, data.BanbooCDmg, data.BanbooPRatio, data.BanbooAMastery, 
+        data.BanbooRank, data.BanbooDescription], (err, result) => {
+        if (err) {
+            console.error('Database error:', err); // Log the error for debugging
+            return res.status(500).send({ message: 'Database error', error: err });
+        }
+
+        console.log('Banboo created:', result); // Log success
+        res.status(200).json({ message: "Banboo created successfully", id: result.insertId });
+    });
+});
 
 
 module.exports = router;

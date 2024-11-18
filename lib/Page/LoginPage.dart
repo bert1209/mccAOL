@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                 //Password TextField
                 TextFields(
                   hintText: "Password",
-                  obscureText: false,
+                  obscureText: true,
                   controller: passwordControl,
                 ),
 
