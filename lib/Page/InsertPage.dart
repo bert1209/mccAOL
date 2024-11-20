@@ -125,9 +125,7 @@ class _InsertPage extends State<InsertPage> {
   @override
   // sign / home / catalog / deskripsi / admin / user
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context)
-        .size
-        .height; //buat screen height tapi pake persentase dari screen
+    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
     final screenWidth = MediaQuery.of(context).size.width;
 
     return SafeArea(
@@ -164,7 +162,9 @@ class _InsertPage extends State<InsertPage> {
               margin: const EdgeInsets.only(left: 24.0),
               child: IconButton(
                   color: Color(0xFF333333),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/adminHomePage');
+                  },
                   icon: const Icon(Icons.arrow_back_rounded)),
             ),
             title: Container(

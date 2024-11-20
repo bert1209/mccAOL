@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       debugShowCheckedModeBanner: false,
-      home: UpdatePage(),
+      home: AdminHomePage(),
       routes: {
         '/loginPage': (context) => LoginPage(),
         '/registerPage': (context) => RegisterPage(),

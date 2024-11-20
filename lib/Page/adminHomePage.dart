@@ -1,4 +1,5 @@
 import 'package:aol_mcc/Function/ImageButton.dart';
+import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:aol_mcc/Function/imageCarousel.dart';
 
@@ -36,20 +37,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
           ),
           centerTitle: true,
           backgroundColor: Color(0xFF999999),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/insertPage");
-                },
-                icon: Icon(Icons.edit),
-                color: Color(0xFF333333),
-                iconSize: 45,
-                padding: EdgeInsets.only(
-                  top: 10,
-                  right: 35,
-                ),
-            )
-          ],
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -141,6 +128,16 @@ class _AdminHomePageState extends State<AdminHomePage> {
                 ),
               ],
             ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: DraggableFab(
+          child: FloatingActionButton(
+          tooltip: 'Editor',
+            onPressed: () {
+              Navigator.pushNamed(context, '/insertPage');
+            },
+            child: Icon(Icons.add_rounded, color: Color(0xFF333333), size: 40),
           ),
         )
     );
