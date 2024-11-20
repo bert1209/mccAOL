@@ -3,29 +3,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-
-
+import 'dart:io';
+import 'package:aol_mcc/Function/user.dart';
+import 'dart:typed_data';
 
 class InsertPage extends StatefulWidget {
-
   const InsertPage({super.key});
 
   @override
   State<InsertPage> createState() => _InsertPage();
 }
 
-
-
 class _InsertPage extends State<InsertPage> {
-  // File? image;
-  //
-  // Future pickImage(ImageSource source) async {
-  //   final image = await ImagePicker().pickImage(source: source);
-  //   if (image == null) return;
-  //
-  //   final imageTemporary = File(image.path);
-  //   setState(() => this.image = imageTemporary);
-  // }
+  Uint8List base64ToUint8List(String base64String) {
+    return base64.decode(base64String);
+  }
+
+  late Future<List<banboo>> banbooList;
+
+  Future<List<banboo>> fetchBanboo() async {
+    String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
+
+    var resp = await http.get(Uri.parse(url));
+    var result = jsonDecode(resp.body);
+
+    print(result);
+
+    List<banboo> banbooList = [];
+
+    for (var i in result) {
+      banboo fetchBanboo = banboo.fromJson(i);
+      banbooList.add(fetchBanboo);
+    }
+
+    return banbooList;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    banbooList = fetchBanboo();
+  }
+
+  File? image;
+
+  Future pickImage(ImageSource source) async {
+    var pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      var image = await pickedImage;
+      var imageByte = await pickedImage.readAsBytes();
+      var imagePreview = File(image.path);
+      setState(() => this.image = imagePreview);
+
+      setState(() {
+        _ImageController = imageByte;
+      });
+    }
+    ;
+    //   final image = await ImagePicker().pickImage(source: source);
+    //   if (image == null) return;
+    //
+    //   final imageTemporary = File(image.path);
+    //   setState(() => this.image = imageTemporary);
+  }
+
   var _nameController = TextEditingController();
   var _HPController = TextEditingController();
   var _descriptionController = TextEditingController();
@@ -37,6 +80,7 @@ class _InsertPage extends State<InsertPage> {
   var _PRatioController = TextEditingController();
   var _AnomMasterController = TextEditingController();
   var _RankController = TextEditingController();
+  var _ImageControll = TextEditingController();
   Uint8List? _ImageController;
 
   void _insertOnPressed(BuildContext context) async {
@@ -51,8 +95,7 @@ class _InsertPage extends State<InsertPage> {
         _PRatioController.text == "" ||
         _AnomMasterController.text == "" ||
         _RankController.text == "" ||
-        _descriptionController == ""
-    ) {
+        _descriptionController == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
@@ -70,22 +113,22 @@ class _InsertPage extends State<InsertPage> {
         "BanbooAMastery": _AnomMasterController.text,
         "BanbooRank": _RankController.text,
         "BanbooDescription": _descriptionController.text,
+        "BanbooImage":
+            _ImageController != null ? base64Encode(_ImageController!) : null,
       });
 
       final resp = await http.post(Uri.parse(url),
-      headers: {"Content-type": "application/json"}, body: json);
+          headers: {"Content-type": "application/json"}, body: json);
       print(resp.statusCode);
 
-      if (resp.statusCode == 200 ) {
+      if (resp.statusCode == 200) {
         Navigator.pushNamed(context, '/adminHomePage');
       } else if (resp.statusCode == 400) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Insert Failed')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Insert Failed')));
       }
     }
   }
-
-
 
   // level: 1 - 70;
   @override
@@ -170,14 +213,15 @@ class _InsertPage extends State<InsertPage> {
                         height: screenHeight * 0.33,
                         //color: Colors.green,
                         child: Center(
-                          child: //image!= null ? Image.file(image!) :
-                          Transform.scale(
-                            scale: 3,
-                            child: Icon(
-                              Icons.photo_library_rounded,
-                              color: Colors.grey,
-                            ),
-                          ),
+                          child: image != null
+                              ? Image.file(image!)
+                              : Transform.scale(
+                                  scale: 3,
+                                  child: Icon(
+                                    Icons.photo_library_rounded,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                         ),
                       ),
                       Column(
@@ -378,7 +422,6 @@ class _InsertPage extends State<InsertPage> {
                                   ],
                                 ),
                                 const SizedBox(height: 30),
-                                const SizedBox(height: 30),
                                 Row(
                                   children: [
                                     Expanded(
@@ -457,15 +500,16 @@ class _InsertPage extends State<InsertPage> {
                             ),
                             child: IconButton(
                               onPressed: () async {
-                                // pickImage(ImageSource.gallery);
-                                var pickedImage = await ImagePicker()
-                                  .pickImage(source: ImageSource.gallery);
-                                if(pickedImage != null){
-                                  var imageByte = await pickedImage.readAsBytes();
-                                  setState(() {
-                                    _ImageController = imageByte;
-                                  });
-                                };
+                                pickImage(ImageSource.gallery);
+                                // var pickedImage = await ImagePicker()
+                                //     .pickImage(source: ImageSource.gallery);
+                                // if (pickedImage != null) {
+                                //   var imageByte =
+                                //       await pickedImage.readAsBytes();
+                                //   setState(() {
+                                //     _ImageController = imageByte;
+                                //   });
+                                // };
                               },
                               icon: const Icon(Icons.edit_rounded,
                                   color: Colors.white),
@@ -487,21 +531,27 @@ class _InsertPage extends State<InsertPage> {
                         padding: const EdgeInsets.all(
                             30), // Padding inside the container
                         decoration: const BoxDecoration(
-                          // warna border
-                          color: Colors.white,
-                          // boxShadow: [ // box shadow
-                          //   BoxShadow(
-                          //     blurRadius: 3,
-                          //     blurStyle: BlurStyle.normal,
-                          //     color: Colors.grey[400]!,
-                          //     offset: Offset.zero,
-                          //     spreadRadius: 2.5,
-                          //   )
-                          // ],
+                          color: Color(0xff777777),
                           borderRadius: BorderRadius.only(
-                              // lengkungan border
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10)),
+                        ),
+                        child: FutureBuilder(
+                          future: banbooList,
+                          builder: (context, snapshot) {
+                            var data = snapshot.data;
+
+                            if (data != null) {
+                              return ListView(
+                                  children: data.map((e) => ListTile(
+                                    leading: Image.memory(base64ToUint8List(e.BanbooImage)),
+                                    title: Text(e.BanbooName),
+                                  )
+                                ).toList());
+                            } else {
+                              return Text("Error");
+                            }
+                          },
                         ),
                       ),
                     ],

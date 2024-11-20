@@ -5,12 +5,14 @@ var con = require('./connect')
 const bcrypt = require('bcrypt');
 var mysql2 = require('mysql2');
 
+
 var opt = {
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'banboo_store'
   };
+
 
 router.get('/', function(req, res, next) {
     const query = "SELECT * FROM user"
@@ -105,21 +107,51 @@ router.get('/:email/:password', function (req, res, next) {
   });
 
   router.post('/insert-new-banboo-data', (req, res) => {
-    const data = req.body;
+   const data = req.body;
+   //var connection = mysql.createConnection(opt);
+   //connection.connect();
+    const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
     const insertQuery = `INSERT INTO banboo (Banbooname, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, BanbooCRate, BanbooCDmg, BanbooPRatio, 
-    BanbooAMastery, BanbooRank, BanbooDescription) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?)`;
+    BanbooAMastery, BanbooRank, BanbooImage, BanbooDescription) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)`;
     con.query(insertQuery, [data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, 
-        data.BanbooCRate, data.BanbooCDmg, data.BanbooPRatio, data.BanbooAMastery, 
-        data.BanbooRank, data.BanbooDescription], (err, result) => {
-        if (err) {
-            console.error('Database error:', err); // Log the error for debugging
-            return res.status(500).send({ message: 'Database error', error: err });
-        }
+       data.BanbooCRate, data.BanbooCDmg, data.BanbooPRatio, data.BanbooAMastery, 
+        data.BanbooRank, imageBuffer, data.BanbooDescription]
+    //  connection.query (`INSERT INTO banboo (Banbooname, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, BanbooCRate, BanbooCDmg, BanbooPRatio, 
+    //  BanbooAMastery, BanbooRank, BanbooDescription, BanbooImage) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    //  [BanbooName, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, 
+    //     BanbooCRate, BanbooCDmg, BanbooPRatio, BanbooAMastery, 
+    //     BanbooRank, BanbooDescription, imageBuffer]
+    , (err, result) => {
+    //         connection.end();
+            if (err) {
+                console.error('Database error:', err); // Log the error for debugging
+                return res.status(500).send({ message: 'Database error', error: err });
+            }
+
 
         console.log('Banboo created:', result); // Log success
         res.status(200).json({ message: "Banboo created successfully", id: result.insertId });
     });
+});
+
+router.get('/display-banboos-data', (req,res) => {
+    const data =  req.body;
+
+    const insertQuery = "SELECT * FROM banboo"
+    con.query(insertQuery, (err, result) => {
+    //     if (err) {
+    //         console.error('Database error:', err); // Log the error for debugging
+    //         return res.status(500).send({ message: 'Database error', error: err });
+    //     }
+
+    // console.log('Banboo Displayed:', result); // Log success
+    // res.status(200).json({ message: "Banboo displayed successfully"});
+    // res.send(result)
+    if(err) throw err;
+    res.send(result)
+    });
+
 });
 
 
