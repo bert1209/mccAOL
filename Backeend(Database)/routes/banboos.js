@@ -116,14 +116,7 @@ router.get('/:email/:password', function (req, res, next) {
     BanbooAMastery, BanbooRank, BanbooImage, BanbooDescription) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)`;
     con.query(insertQuery, [data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, 
        data.BanbooCRate, data.BanbooCDmg, data.BanbooPRatio, data.BanbooAMastery, 
-        data.BanbooRank, imageBuffer, data.BanbooDescription]
-    //  connection.query (`INSERT INTO banboo (Banbooname, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, BanbooCRate, BanbooCDmg, BanbooPRatio, 
-    //  BanbooAMastery, BanbooRank, BanbooDescription, BanbooImage) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    //  [BanbooName, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, 
-    //     BanbooCRate, BanbooCDmg, BanbooPRatio, BanbooAMastery, 
-    //     BanbooRank, BanbooDescription, imageBuffer]
-    , (err, result) => {
-    //         connection.end();
+        data.BanbooRank, imageBuffer, data.BanbooDescription], (err, result) => {
             if (err) {
                 console.error('Database error:', err); // Log the error for debugging
                 return res.status(500).send({ message: 'Database error', error: err });
@@ -137,21 +130,32 @@ router.get('/:email/:password', function (req, res, next) {
 
 router.get('/display-banboos-data', (req,res) => {
     const data =  req.body;
+    const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
     const insertQuery = "SELECT * FROM banboo"
     con.query(insertQuery, (err, result) => {
-    //     if (err) {
-    //         console.error('Database error:', err); // Log the error for debugging
-    //         return res.status(500).send({ message: 'Database error', error: err });
-    //     }
-
-    // console.log('Banboo Displayed:', result); // Log success
-    // res.status(200).json({ message: "Banboo displayed successfully"});
-    // res.send(result)
     if(err) throw err;
+
+    result.forEach(result => {
+        if(result.BanbooImage){
+            result.BanbooImage = Buffer.from(result.BanbooImage).toString('base64');
+        }
+    });
     res.send(result)
     });
 
+});
+
+router.post('/update-banboos-data', (req, res) => {
+    const data = req.body;
+
+    const insertQuery = "UPDATE banboo SET Banbooname = ?, BanbooHP = ?, BanbooATK = ?, BanbooDEF = ?, BanbooImpact = ?, BanbooCRate = ?, BanbooCDmg = ? BanbooPRatio = ?, BanbooAMastery = ?, BanbooRank = ?, BanbooImage = ?, BanbooDescription = ? WHERE BanbooID = ?";
+    con.query(insertQuery,[data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, data.BanbooCRate,data.BanbooCDmg,data.BanbooPRatio,data.BanbooAMastery, data.BanbooRank, imageBuffer, data.BanbooDescription, ] ,(err, result) => {
+        if(err) throw err;
+
+        res.send(result)
+    });
+    
 });
 
 

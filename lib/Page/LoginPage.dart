@@ -55,10 +55,11 @@ class _LoginPageState extends State<LoginPage> {
           child: Center(
             child: Column(
               children: [
+              
                 const SizedBox(
                   height: 50,
                 ),
-
+                
                 Image.asset(
                   'lib/Assets/Judul.png',
                 ),

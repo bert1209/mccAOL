@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:aol_mcc/Function/elevatedButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -15,10 +16,6 @@ class InsertPage extends StatefulWidget {
 }
 
 class _InsertPage extends State<InsertPage> {
-  Uint8List base64ToUint8List(String base64String) {
-    return base64.decode(base64String);
-  }
-
   late Future<List<banboo>> banbooList;
 
   Future<List<banboo>> fetchBanboo() async {
@@ -60,13 +57,7 @@ class _InsertPage extends State<InsertPage> {
       setState(() {
         _ImageController = imageByte;
       });
-    }
-    ;
-    //   final image = await ImagePicker().pickImage(source: source);
-    //   if (image == null) return;
-    //
-    //   final imageTemporary = File(image.path);
-    //   setState(() => this.image = imageTemporary);
+    };
   }
 
   var _nameController = TextEditingController();
@@ -501,15 +492,6 @@ class _InsertPage extends State<InsertPage> {
                             child: IconButton(
                               onPressed: () async {
                                 pickImage(ImageSource.gallery);
-                                // var pickedImage = await ImagePicker()
-                                //     .pickImage(source: ImageSource.gallery);
-                                // if (pickedImage != null) {
-                                //   var imageByte =
-                                //       await pickedImage.readAsBytes();
-                                //   setState(() {
-                                //     _ImageController = imageByte;
-                                //   });
-                                // };
                               },
                               icon: const Icon(Icons.edit_rounded,
                                   color: Colors.white),
@@ -542,12 +524,72 @@ class _InsertPage extends State<InsertPage> {
                             var data = snapshot.data;
 
                             if (data != null) {
-                              return ListView(
-                                  children: data.map((e) => ListTile(
-                                    leading: Image.memory(base64ToUint8List(e.BanbooImage)),
-                                    title: Text(e.BanbooName),
-                                  )
-                                ).toList());
+                              // return ListView(
+                              //     children: data.map((e) => ListTile(
+                              //       leading: Image.memory(base64Decode(e.BanbooImage)),
+                              //       title: Text(e.BanbooName),
+                              //     )
+                              //   ).toList()
+                              // );
+                              return ListView.builder(
+                                itemCount:
+                                    data.length, // Jumlah item dalam data
+                                itemBuilder: (context, index) {
+                                  final item = data[index];
+
+                                  return Card(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 2,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    elevation: 9,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      height: 77,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF999999),
+                                        border: Border.all(
+                                          color: Color(0xFF333333),
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: ListTile(
+                                          leading: Image.memory(
+                                            base64Decode(item.BanbooImage),
+                                            height: 100,
+                                          ),
+                                          title: Text(
+                                            item.BanbooName,
+                                            style: const TextStyle(
+                                              fontFamily: "Poppin",
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            item.BanbooID.toString(),
+                                            style: const TextStyle(
+                                              fontFamily: "Poppin",
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                          trailing: elevatedButtons(
+                                              width: 70,
+                                              height: 30,
+                                              fontSize: 10,
+                                              text: "Update",
+                                              textColor: Color(0xFFFFFFFF),
+                                              buttonColor: Color(0xFF333333),
+                                              onPressed: () {},
+                                              borderRadius: 10,
+                                              FontType: "Poppin")),
+                                    ),
+                                  );
+                                },
+                              );
                             } else {
                               return Text("Error");
                             }
@@ -568,21 +610,78 @@ class _InsertPage extends State<InsertPage> {
                         padding: const EdgeInsets.all(
                             30), // Padding inside the container
                         decoration: const BoxDecoration(
-                          // warna border
-                          color: Colors.white,
-                          // boxShadow: [ // box shadow
-                          //   BoxShadow(
-                          //     blurRadius: 3,
-                          //     blurStyle: BlurStyle.normal,
-                          //     color: Colors.grey[400]!,
-                          //     offset: Offset.zero,
-                          //     spreadRadius: 2.5,
-                          //   )
-                          // ],
+                          color: Color(0xff777777),
                           borderRadius: BorderRadius.only(
-                              // lengkungan border
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10)),
+                        ),
+                        child: FutureBuilder(
+                          future: banbooList,
+                          builder: (context, snapshot) {
+                            var data = snapshot.data;
+
+                            if (data != null) {
+                              return ListView.builder(
+                                itemCount:
+                                    data.length, // Jumlah item dalam data
+                                itemBuilder: (context, index) {
+                                  final item = data[index];
+
+                                  return Card(
+                                    margin: EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 2,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    elevation: 9,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      height: 77,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF999999),
+                                        border: Border.all(
+                                          color: Color(0xFF333333),
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: ListTile(
+                                          leading: Image.memory(
+                                            base64Decode(item.BanbooImage),
+                                            height: 100,
+                                          ),
+                                          title: Text(
+                                            item.BanbooName,
+                                            style: const TextStyle(
+                                              fontFamily: "Poppin",
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            item.BanbooID.toString(),
+                                            style: const TextStyle(
+                                              fontFamily: "Poppin",
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                          trailing: IconButton(
+                                            icon: Icon(
+                                              Icons.delete,
+                                              size: 30,
+                                              color: Color(0xFF333333),
+                                            ),
+                                            onPressed: () {},
+                                          )),
+                                    ),
+                                  );
+                                },
+                              );
+                             } else {
+                                return Text("Error");
+                             }
+                          },
                         ),
                       ),
                     ],
