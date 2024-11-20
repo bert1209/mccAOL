@@ -514,9 +514,6 @@ class _InsertPage extends State<InsertPage> {
                             30), // Padding inside the container
                         decoration: const BoxDecoration(
                           color: Color(0xff777777),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
                         ),
                         child: FutureBuilder(
                           future: banbooList,
@@ -611,9 +608,6 @@ class _InsertPage extends State<InsertPage> {
                             30), // Padding inside the container
                         decoration: const BoxDecoration(
                           color: Color(0xff777777),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
                         ),
                         child: FutureBuilder(
                           future: banbooList,
