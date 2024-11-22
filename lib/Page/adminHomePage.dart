@@ -42,51 +42,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
           child: Center(
             child: Column(
               children: [
-                SizedBox(height: 40,),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    imageButton(
-                        images: "lib/Assets/Inventory.png",
-                        onTap: () {
-
-                        },
-                        height: 70,
-                        widht: 70,
-                        padding: 10
-                    ),
-                    imageButton(
-                        images: "lib/Assets/catalogue.png",
-                        onTap: () {
-
-                        },
-                        height: 70,
-                        widht: 70,
-                        padding: 10
-                    ),
-                    imageButton(
-                        images: "lib/Assets/wallet.png",
-                        onTap: () {
-
-                        },
-                        height: 70,
-                        widht: 70,
-                        padding: 10
-                    ),
-                    imageButton(
-                        images: "lib/Assets/cart.png",
-                        onTap: () {
-
-                        },
-                        height: 70,
-                        widht: 70,
-                        padding: 10
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 15,),
+                SizedBox(height: 10),
 
                 Row(
                   children: [
@@ -105,6 +61,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   ],
                 ),
 
+                SizedBox(height: 10,),
 
                 ImageCarousel(),
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ImageCarousel extends StatefulWidget {
   const ImageCarousel({super.key});
@@ -44,21 +45,34 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 350,
-      height: 200,
-      child: PageView.builder(
-        itemCount: images.length,
-        controller: pageController,
-        onPageChanged: (value) {
-          setState(() {
-            currIdx = value;
-          });
-        },
-        itemBuilder: (context, index) {
-          return Image.asset(images[index]);
-        },
-      ),
-    );
+
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return
+      Container(
+        width: screenWidth * 0.9,
+        height: 200,
+        decoration: BoxDecoration(
+          color: Color(0xFF777777),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15), // Adjust the radius as needed
+          child: PageView.builder(
+            itemCount: images.length,
+            controller: pageController,
+            onPageChanged: (value) {
+              setState(() {
+                currIdx = value;
+              });
+            },
+            itemBuilder: (context, index) {
+              return Image.asset(
+                images[index],
+                fit: BoxFit.cover, // Ensures the image covers the mask properly
+              );
+            },
+          ),
+        ),
+      );
   }
 }

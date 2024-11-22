@@ -116,6 +116,8 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 15,
                   ),
+
+                  SizedBox(height: 10),
                   Row(
                     children: const [
                       Padding(
@@ -131,6 +133,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
+                  SizedBox(height: 10),
                   const ImageCarousel(),
                   const SizedBox(
                     height: 30,
