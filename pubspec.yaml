@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   image_picker: ^1.0.2
+  draggable_fab: ^0.1.4
 
 
 dev_dependencies:
