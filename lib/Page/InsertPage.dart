@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
+import 'package:aol_mcc/Page/UpdatePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:aol_mcc/Function/user.dart';
-import 'dart:typed_data';
 
 class InsertPage extends StatefulWidget {
   const InsertPage({super.key});
@@ -16,6 +16,47 @@ class InsertPage extends StatefulWidget {
 }
 
 class _InsertPage extends State<InsertPage> {
+  void detailPressed(
+    int id,
+    String name,
+    int hp,
+    int atk,
+    int def,
+    int impact,
+    int crate,
+    int cdmg,
+    int pratio,
+    int amaster,
+    String rank,
+    Uint8List? image,
+    String desc,
+    int price,
+  ) {
+    var navigator = Navigator.of(context);
+    navigator.push(
+      MaterialPageRoute(
+        builder: (builder) {
+          return UpdatePage(
+            id: id,
+            name: name,
+            hp: hp,
+            atk: atk,
+            def: def,
+            impact: impact,
+            crate: crate,
+            cdmg: cdmg,
+            pratio: pratio,
+            amaster: amaster,
+            rank: rank,
+            desc: desc,
+            image: image,
+            price: price,
+          );
+        },
+      ),
+    );
+  }
+
   late Future<List<banboo>> banbooList;
 
   Future<List<banboo>> fetchBanboo() async {
@@ -38,7 +79,6 @@ class _InsertPage extends State<InsertPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     banbooList = fetchBanboo();
   }
@@ -57,7 +97,21 @@ class _InsertPage extends State<InsertPage> {
       setState(() {
         _ImageController = imageByte;
       });
-    };
+    }
+    ;
+  }
+
+  Future _deleteOnPressed(int id) async {
+    String url = "http://10.0.2.2:3000/banboos/delete-banboos";
+    var resp = await http.delete(Uri.parse(url),
+        headers: {"Content-type": "application/json"},
+        body: jsonEncode({"BanbooID": id}));
+
+    if (resp.statusCode == 200) {
+      setState(() {
+        banbooList = fetchBanboo();
+      });
+    }
   }
 
   var _nameController = TextEditingController();
@@ -73,6 +127,7 @@ class _InsertPage extends State<InsertPage> {
   var _RankController = TextEditingController();
   var _ImageControll = TextEditingController();
   Uint8List? _ImageController;
+  var _PriceController = TextEditingController();
 
   void _insertOnPressed(BuildContext context) async {
     if (_nameController.text == "" ||
@@ -86,7 +141,9 @@ class _InsertPage extends State<InsertPage> {
         _PRatioController.text == "" ||
         _AnomMasterController.text == "" ||
         _RankController.text == "" ||
-        _descriptionController == "") {
+        _descriptionController == "" ||
+        _PriceController == "" ||
+        _ImageController == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
@@ -106,6 +163,7 @@ class _InsertPage extends State<InsertPage> {
         "BanbooDescription": _descriptionController.text,
         "BanbooImage":
             _ImageController != null ? base64Encode(_ImageController!) : null,
+        "BanbooPrice": _PriceController.text,
       });
 
       final resp = await http.post(Uri.parse(url),
@@ -136,8 +194,8 @@ class _InsertPage extends State<InsertPage> {
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            backgroundColor: Color(0xFF777777),
-            bottom: TabBar(tabs: [
+            backgroundColor: const Color(0xFF777777),
+            bottom: const TabBar(tabs: [
               Tab(
                 child: Text(
                   'Insert',
@@ -163,7 +221,7 @@ class _InsertPage extends State<InsertPage> {
             leading: Container(
               margin: const EdgeInsets.only(left: 24.0),
               child: IconButton(
-                  color: Color(0xFF333333),
+                  color: const Color(0xFF333333),
                   onPressed: () {},
                   icon: const Icon(Icons.arrow_back_rounded)),
             ),
@@ -208,7 +266,7 @@ class _InsertPage extends State<InsertPage> {
                               ? Image.file(image!)
                               : Transform.scale(
                                   scale: 3,
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.photo_library_rounded,
                                     color: Colors.grey,
                                   ),
@@ -224,15 +282,7 @@ class _InsertPage extends State<InsertPage> {
                             decoration: const BoxDecoration(
                               // warna border
                               color: Color(0xFF999999),
-                              // boxShadow: [ // box shadow
-                              //   BoxShadow(
-                              //     blurRadius: 3,
-                              //     blurStyle: BlurStyle.normal,
-                              //     color: Colors.grey[400]!,
-                              //     offset: Offset.zero,
-                              //     spreadRadius: 2.5,
-                              //   )
-                              // ],
+                              
                               borderRadius: BorderRadius.only(
                                   // lengkungan border
                                   topLeft: Radius.circular(10),
@@ -252,10 +302,10 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Name'),
+                                            label: const Text('Name'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -271,10 +321,10 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Health Point'),
+                                            label: const Text('Health Point'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -290,10 +340,10 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Attack'),
+                                            label: const Text('Attack'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -309,10 +359,10 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Deffence'),
+                                            label: const Text('Deffence'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -328,10 +378,10 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Impact'),
+                                            label: const Text('Impact'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -347,10 +397,10 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Critical Rate'),
+                                            label: const Text('Critical Rate'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -366,10 +416,11 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Critical Damage'),
+                                            label:
+                                                const Text('Critical Damage'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -385,10 +436,11 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Penetration Ratio'),
+                                            label:
+                                                const Text('Penetration Ratio'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -404,10 +456,30 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Anomaly Mastery'),
+                                            label:
+                                                const Text('Anomaly Mastery'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 30),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _PriceController,
+                                        decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Price'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -423,10 +495,10 @@ class _InsertPage extends State<InsertPage> {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            label: Text('Rank'),
+                                            label: const Text('Rank'),
                                             filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder()),
                                       ),
                                     ),
                                   ],
@@ -441,10 +513,10 @@ class _InsertPage extends State<InsertPage> {
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(15),
                                       ),
-                                      label: Text('Description'),
+                                      label: const Text('Description'),
                                       filled: true,
-                                      fillColor: Color(0xFFFFFFFF),
-                                      border: OutlineInputBorder()),
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder()),
                                 ),
                                 const SizedBox(height: 50),
                                 Center(
@@ -452,7 +524,7 @@ class _InsertPage extends State<InsertPage> {
                                   child: ElevatedButton(
                                     onPressed: () => _insertOnPressed(context),
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(
+                                      backgroundColor: const Color(
                                           0xFF333333), // Change the background color
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 55, vertical: 10),
@@ -510,8 +582,7 @@ class _InsertPage extends State<InsertPage> {
                     children: [
                       Container(
                         height: screenHeight * 1,
-                        padding: const EdgeInsets.all(
-                            30), // Padding inside the container
+                        padding: const EdgeInsets.all(30),
                         decoration: const BoxDecoration(
                           color: Color(0xff777777),
                           borderRadius: BorderRadius.only(
@@ -524,74 +595,87 @@ class _InsertPage extends State<InsertPage> {
                             var data = snapshot.data;
 
                             if (data != null) {
-                              // return ListView(
-                              //     children: data.map((e) => ListTile(
-                              //       leading: Image.memory(base64Decode(e.BanbooImage)),
-                              //       title: Text(e.BanbooName),
-                              //     )
-                              //   ).toList()
-                              // );
                               return ListView.builder(
                                 itemCount:
                                     data.length, // Jumlah item dalam data
                                 itemBuilder: (context, index) {
                                   final item = data[index];
-
-                                  return Card(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 8,
-                                      horizontal: 2,
+                                  return GestureDetector(
+                                    onTap: () => detailPressed(
+                                      item.BanbooID,
+                                      item.BanbooName,
+                                      item.BanbooHP,
+                                      item.BanbooATK,
+                                      item.BanbooDEF,
+                                      item.BanbooImpact,
+                                      item.BanbooCRate,
+                                      item.BanbooCDmg,
+                                      item.BanbooPRatio,
+                                      item.BanbooAMastery,
+                                      item.BanbooRank,
+                                      base64Decode(item.BanbooImage),
+                                      item.BanbooDescription,
+                                      item.BanbooPrice,
                                     ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    elevation: 9,
-                                    child: Container(
-                                      alignment: Alignment.centerLeft,
-                                      height: 77,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF999999),
-                                        border: Border.all(
-                                          color: Color(0xFF333333),
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
+                                    child: Card(
+                                      margin: const EdgeInsets.symmetric(
+                                        vertical: 8,
+                                        horizontal: 2,
                                       ),
-                                      child: ListTile(
-                                          leading: Image.memory(
-                                            base64Decode(item.BanbooImage),
-                                            height: 100,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      elevation: 9,
+                                      child: Container(
+                                        alignment: Alignment.centerLeft,
+                                        height: 77,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF999999),
+                                          border: Border.all(
+                                            color: const Color(0xFF333333),
+                                            width: 2,
                                           ),
-                                          title: Text(
-                                            item.BanbooName,
-                                            style: const TextStyle(
-                                              fontFamily: "Poppin",
-                                              fontWeight: FontWeight.bold,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: ListTile(
+                                            leading: Image.memory(
+                                              base64Decode(item.BanbooImage),
+                                              height: 100,
                                             ),
-                                          ),
-                                          subtitle: Text(
-                                            item.BanbooID.toString(),
-                                            style: const TextStyle(
-                                              fontFamily: "Poppin",
-                                              fontWeight: FontWeight.normal,
+                                            title: Text(
+                                              item.BanbooName,
+                                              style: const TextStyle(
+                                                fontFamily: "Poppin",
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          trailing: elevatedButtons(
-                                              width: 70,
-                                              height: 30,
-                                              fontSize: 10,
-                                              text: "Update",
-                                              textColor: Color(0xFFFFFFFF),
-                                              buttonColor: Color(0xFF333333),
-                                              onPressed: () {},
-                                              borderRadius: 10,
-                                              FontType: "Poppin")),
+                                            subtitle: Text(
+                                              item.BanbooID.toString(),
+                                              style: const TextStyle(
+                                                fontFamily: "Poppin",
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                            trailing: elevatedButtons(
+                                                width: 70,
+                                                height: 30,
+                                                fontSize: 10,
+                                                text: "Update",
+                                                textColor:
+                                                    const Color(0xFFFFFFFF),
+                                                buttonColor:
+                                                    const Color(0xFF333333),
+                                                onPressed: () {},
+                                                borderRadius: 10,
+                                                FontType: "Poppin")),
+                                      ),
                                     ),
                                   );
                                 },
                               );
                             } else {
-                              return Text("Error");
+                              return const Text("Error");
                             }
                           },
                         ),
@@ -628,7 +712,7 @@ class _InsertPage extends State<InsertPage> {
                                   final item = data[index];
 
                                   return Card(
-                                    margin: EdgeInsets.symmetric(
+                                    margin: const EdgeInsets.symmetric(
                                       vertical: 8,
                                       horizontal: 2,
                                     ),
@@ -640,9 +724,9 @@ class _InsertPage extends State<InsertPage> {
                                       alignment: Alignment.centerLeft,
                                       height: 77,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF999999),
+                                        color: const Color(0xFF999999),
                                         border: Border.all(
-                                          color: Color(0xFF333333),
+                                          color: const Color(0xFF333333),
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(10),
@@ -667,20 +751,21 @@ class _InsertPage extends State<InsertPage> {
                                             ),
                                           ),
                                           trailing: IconButton(
-                                            icon: Icon(
+                                            icon: const Icon(
                                               Icons.delete,
                                               size: 30,
                                               color: Color(0xFF333333),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () =>
+                                                _deleteOnPressed(item.BanbooID),
                                           )),
                                     ),
                                   );
                                 },
                               );
-                             } else {
-                                return Text("Error");
-                             }
+                            } else {
+                              return const Text("Error");
+                            }
                           },
                         ),
                       ),

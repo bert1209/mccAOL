@@ -23,15 +23,6 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.get('/get-user', (req, res) => {
-    const UserID = req.query.UserID
-
-    const query = `SELECT * FROM user WHERE UserID = ${UserID}`
-    con.query(query, (err, result) => {
-        if(err) throw err;
-        res.send(result)
-    })
-})
 
 //Insert User
 router.post('/insert-new-user', (req, res) => {
@@ -63,7 +54,8 @@ router.delete('/delete-user', (req, res) => {
     const data = req.body
 
     const query = `DELETE FROM user WHERE UserID = ${data.UserID}`
-})
+}
+)
 
 router.post('/insert-new-users', (req, res) => {
     const data = req.body;
@@ -87,7 +79,7 @@ router.post('/insert-new-users', (req, res) => {
     });
 });
 
-router.get('/:email/:password', function (req, res, next) {
+router.get('/:email/:password/Role', function (req, res, next) {
     var email = req.params.email;
     var password = req.params.password;
     var connection = mysql2.createConnection(opt);
@@ -95,7 +87,7 @@ router.get('/:email/:password', function (req, res, next) {
     connection.connect();
   
     // QUERY
-    connection.query("SELECT role FROM user WHERE email = ? AND password = ?", [email, password], function (err, results) {
+    connection.query("SELECT Role FROM user WHERE email = ? AND password = ?", [email, password], function (err, results) {
       connection.end();
   
       if (err) {
@@ -113,10 +105,10 @@ router.get('/:email/:password', function (req, res, next) {
     const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
     const insertQuery = `INSERT INTO banboo (Banbooname, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, BanbooCRate, BanbooCDmg, BanbooPRatio, 
-    BanbooAMastery, BanbooRank, BanbooImage, BanbooDescription) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?)`;
+    BanbooAMastery, BanbooRank, BanbooImage, BanbooDescription, BanbooPrice) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     con.query(insertQuery, [data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, 
        data.BanbooCRate, data.BanbooCDmg, data.BanbooPRatio, data.BanbooAMastery, 
-        data.BanbooRank, imageBuffer, data.BanbooDescription], (err, result) => {
+        data.BanbooRank, imageBuffer, data.BanbooDescription, data.BanbooPrice], (err, result) => {
             if (err) {
                 console.error('Database error:', err); // Log the error for debugging
                 return res.status(500).send({ message: 'Database error', error: err });
@@ -148,15 +140,72 @@ router.get('/display-banboos-data', (req,res) => {
 
 router.post('/update-banboos-data', (req, res) => {
     const data = req.body;
+    const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
-    const insertQuery = "UPDATE banboo SET Banbooname = ?, BanbooHP = ?, BanbooATK = ?, BanbooDEF = ?, BanbooImpact = ?, BanbooCRate = ?, BanbooCDmg = ? BanbooPRatio = ?, BanbooAMastery = ?, BanbooRank = ?, BanbooImage = ?, BanbooDescription = ? WHERE BanbooID = ?";
-    con.query(insertQuery,[data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, data.BanbooCRate,data.BanbooCDmg,data.BanbooPRatio,data.BanbooAMastery, data.BanbooRank, imageBuffer, data.BanbooDescription, ] ,(err, result) => {
+    const insertsQuery = "UPDATE banboo SET Banbooname = ?, BanbooHP = ?, BanbooATK = ?, BanbooDEF = ?, BanbooImpact = ?, BanbooCRate = ?, BanbooCDmg = ?, BanbooPRatio = ?, BanbooAMastery = ?, BanbooRank = ?, BanbooImage = ?, BanbooDescription = ?, BanbooPrice = ? WHERE BanbooID = ?";
+    con.query(insertsQuery,[data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, data.BanbooCRate,data.BanbooCDmg,data.BanbooPRatio,data.BanbooAMastery, data.BanbooRank, imageBuffer, data.BanbooDescription,data.BanbooPrice, data.BanbooID ] ,(err, result) => {
         if(err) throw err;
 
         res.send(result)
     });
     
 });
+
+router.delete('/delete-banboos', (req, res) => {
+    const data = req.body
+
+    const query = `DELETE FROM banboo WHERE BanbooID = ${data.BanbooID}`
+    con.query(query, (err, result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+router.get('/search/:prefix', function (req, res) {
+
+    var prefix = req.params.prefix
+    var connection = mysql2.createConnection(opt);
+  
+    connection.connect();
+  
+    // QUERY
+    connection.query("SELECT * FROM banboo WHERE BanbooName LIKE ?", [`%${prefix}%`],function (err, results) {
+      connection.end();
+  
+      if (err) {
+        return res.status(500).json(err); //Return Error dengan HTTP status 500
+      }
+  
+      results.forEach(result => {
+        if(result.BanbooImage){
+          result.BanbooImage = Buffer.from(result.BanbooImage).toString('base64');
+        }
+      });
+  
+      return res.status(200).json(results);
+    });
+  });
+
+  router.post('/get-id', (req, res) => {
+    const data = req.body
+
+    const query = `SELECT UserID FROM user WHERE Email = ?`
+    con.query(query, [data.Email], (err, result) =>{
+        if(err) throw err;
+        res.send(result),
+        res.send(data.UserID)
+    })
+})
+
+router.post('/get-user', (req, res) => {
+    const data = req.body
+
+    const query = `SELECT * FROM user WHERE UserID = ${data.UserID}`
+    con.query(query, (err, result) => {
+        if(err) throw err;
+        res.send(result)
+    })
+})
 
 
 module.exports = router;

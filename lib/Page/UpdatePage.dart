@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
@@ -9,40 +10,43 @@ import 'package:image_picker/image_picker.dart';
 import '../Function/user.dart';
 
 class UpdatePage extends StatefulWidget {
-  const UpdatePage({super.key});
+  int id;
+  String name;
+  int hp;
+  int atk;
+  int def;
+  int impact;
+  int crate;
+  int cdmg;
+  int pratio;
+  int amaster;
+  String rank;
+  Uint8List? image;
+  String desc;
+  int price;
+
+  UpdatePage(
+      {super.key,
+      required this.id,
+      required this.name,
+      required this.hp,
+      required this.atk,
+      required this.def,
+      required this.impact,
+      required this.crate,
+      required this.cdmg,
+      required this.pratio,
+      required this.amaster,
+      required this.rank,
+      required this.image,
+      required this.desc,
+      required this.price});
 
   @override
   State<UpdatePage> createState() => _UpdatePageState();
 }
 
 class _UpdatePageState extends State<UpdatePage> {
-  late Future<List<banboo>> banbooList;
-
-  Future<List<banboo>> fetchBanboo() async {
-    String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
-
-    var resp = await http.get(Uri.parse(url));
-    var result = jsonDecode(resp.body);
-
-    print(result);
-
-    List<banboo> banbooList = [];
-
-    for (var i in result) {
-      banboo fetchBanboo = banboo.fromJson(i);
-      banbooList.add(fetchBanboo);
-    }
-
-    return banbooList;
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    banbooList = fetchBanboo();
-  }
-
   File? image;
 
   Future pickImage(ImageSource source) async {
@@ -73,26 +77,29 @@ class _UpdatePageState extends State<UpdatePage> {
         _PRatioController.text == "" ||
         _AnomMasterController.text == "" ||
         _RankController.text == "" ||
-        _descriptionController == "") {
+        _descriptionController == "" ||
+        _PriceController == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
       // Insert to DB
-      String url = "http://10.0.2.2:3000/banboos/insert-new-banboo-data";
+      String url = "http://10.0.2.2:3000/banboos/update-banboos-data";
       String json = jsonEncode({
+        "BanbooID": widget.id.toString(),
         "BanbooName": _nameController.text,
-        "BanbooHP": _HPController.text,
-        "BanbooATK": _ATKController.text,
-        "BanbooDEF": _DEFController.text,
-        "BanbooImpact": _ImpactController.text,
-        "BanbooCRate": _CRateController.text,
-        "BanbooCDmg": _CDMGController.text,
-        "BanbooPRatio": _PRatioController.text,
-        "BanbooAMastery": _AnomMasterController.text,
+        "BanbooHP": _HPController.text.toString(),
+        "BanbooATK": _ATKController.text.toString(),
+        "BanbooDEF": _DEFController.text.toString(),
+        "BanbooImpact": _ImpactController.text.toString(),
+        "BanbooCRate": _CRateController.text.toString(),
+        "BanbooCDmg": _CDMGController.text.toString(),
+        "BanbooPRatio": _PRatioController.text.toString(),
+        "BanbooAMastery": _AnomMasterController.text.toString(),
         "BanbooRank": _RankController.text,
         "BanbooDescription": _descriptionController.text,
         "BanbooImage":
             _ImageController != null ? base64Encode(_ImageController!) : null,
+        "BanbooPrice": _PriceController.text.toString(),
       });
 
       final resp = await http.post(Uri.parse(url),
@@ -103,7 +110,7 @@ class _UpdatePageState extends State<UpdatePage> {
         Navigator.pushNamed(context, '/adminHomePage');
       } else if (resp.statusCode == 400) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Insert Failed')));
+            .showSnackBar(const SnackBar(content: Text('Update Failed')));
       }
     }
   }
@@ -121,6 +128,26 @@ class _UpdatePageState extends State<UpdatePage> {
   var _RankController = TextEditingController();
   var _ImageControll = TextEditingController();
   Uint8List? _ImageController;
+  var _PriceController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _nameController.text = widget.name;
+    _HPController.text = widget.hp.toString();
+    _descriptionController.text = widget.desc;
+    _ATKController.text = widget.atk.toString();
+    _DEFController.text = widget.def.toString();
+    _ImpactController.text = widget.impact.toString();
+    _CRateController.text = widget.crate.toString();
+    _CDMGController.text = widget.cdmg.toString();
+    _PRatioController.text = widget.pratio.toString();
+    _AnomMasterController.text = widget.amaster.toString();
+    _RankController.text = widget.rank;
+    _ImageController = widget.image;
+    _PriceController.text = widget.price.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,33 +156,45 @@ class _UpdatePageState extends State<UpdatePage> {
         .height; //buat screen height tapi pake persentase dari screen
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Color(0xFF777777),
+        backgroundColor: const Color(0xFF777777),
         appBar: AppBar(
           toolbarHeight: 100,
           leading: IconButton(
-            splashColor: Color(0xFF111111),
+            splashColor: const Color(0xFF111111),
             onPressed: () {},
-            icon: Icon(Icons.arrow_back_rounded),
-            color: Color(0xFF333333),
+            icon: const Icon(Icons.arrow_back_rounded),
+            color: const Color(0xFF333333),
             iconSize: 25,
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
           ),
-          title: const Text(
-            "Banboo\n  Store",
-            style: TextStyle(
-              fontFamily: "Bangers",
-              fontSize: 40,
-              color: Color(0xFF333333),
+          title: RichText(
+            text: const TextSpan(
+              children: [
+                TextSpan(
+                  text: ' Banboo',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 35,
+                    color: Color(0xFF333333), // Original color for 'Banboo'
+                  ),
+                ),
+                TextSpan(
+                  text: '\n  Store',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 35,
+                    color: Colors.white, // White color for 'Store'
+                  ),
+                ),
+              ],
             ),
           ),
           centerTitle: true,
-          backgroundColor: Color(0xFF999999),
+          backgroundColor: const Color(0xFF999999),
         ),
         body: SingleChildScrollView(
-            child: Column(children: [
-          Container(
-            // Insert page ------------------------------------------------------------------------------------------------------------------------------
-            child: SingleChildScrollView(
+          child: Column(children: [
+            Container(
               child: Stack(
                 children: [
                   Container(
@@ -163,10 +202,10 @@ class _UpdatePageState extends State<UpdatePage> {
                     //color: Colors.green,
                     child: Center(
                       child: image != null
-                          ? Image.file(image!)
+                          ? Image.memory(_ImageController!)
                           : Transform.scale(
                               scale: 3,
-                              child: Icon(
+                              child: const Icon(
                                 Icons.photo_library_rounded,
                                 color: Colors.grey,
                               ),
@@ -182,7 +221,15 @@ class _UpdatePageState extends State<UpdatePage> {
                         decoration: const BoxDecoration(
                           // warna border
                           color: Color(0xFF999999),
-
+                          // boxShadow: [ // box shadow
+                          //   BoxShadow(
+                          //     blurRadius: 3,
+                          //     blurStyle: BlurStyle.normal,
+                          //     color: Colors.grey[400]!,
+                          //     offset: Offset.zero,
+                          //     spreadRadius: 2.5,
+                          //   )
+                          // ],
                           borderRadius: BorderRadius.only(
                               // lengkungan border
                               topLeft: Radius.circular(10),
@@ -192,269 +239,254 @@ class _UpdatePageState extends State<UpdatePage> {
                         child: Column(
                           children: [
                             const SizedBox(height: 25),
-                            FutureBuilder(
-                                future: banbooList,
-                                builder: (Context, snapshot) {
-                                  var data = snapshot.data;
-
-                                  if (data != null) {
-                                     return ListView.builder(
-                                itemCount:
-                                    data.length, // Jumlah item dalam data
-                                itemBuilder: (context, index) {
-                                  final item = data[index];
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _nameController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Name'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _HPController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Health Point'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _ATKController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Attack'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _DEFController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Deffence'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _ImpactController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Impact'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _CRateController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Critical Rate'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _CDMGController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Critical Damage'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _PRatioController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label:
-                                                      Text('Penetration Ratio'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _AnomMasterController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Anomaly Mastery'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              controller: _RankController,
-                                              decoration: InputDecoration(
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(15),
-                                                  ),
-                                                  label: Text('Rank'),
-                                                  filled: true,
-                                                  fillColor: Color(0xFFFFFFFF),
-                                                  border: OutlineInputBorder()),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      const SizedBox(height: 30);
-                                      TextField(
-                                        maxLines: null,
-                                        minLines: 5,
-                                        maxLength: 500,
-                                        controller: _descriptionController,
-                                        decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                            label: Text('Description'),
-                                            filled: true,
-                                            fillColor: Color(0xFFFFFFFF),
-                                            border: OutlineInputBorder()),
-                                      );
-                                      const SizedBox(height: 50);
-                                      Center(
-                                        // Tombol Add Product
-                                        child: ElevatedButton(
-                                          onPressed: () =>
-                                              _insertOnPressed(context),
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color(
-                                                0xFF333333), // Change the background color
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 55, vertical: 10),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ), // Add padding if needed
-                                          ),
-                                          child: const Text(
-                                            'Add',
-                                            style: TextStyle(
-                                              fontFamily: 'SemiPoppins',
-                                              fontSize: 16.0,
-                                              color: Colors.white,
-                                            ),
-                                          ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _nameController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
-                                      );
-
-                                      const SizedBox(height: 40);
-                                  }, 
-                                  );
-                                }else {
-                                    return const Text('data');
-                                  }
-                                }
-                                )
+                                        label: const Text('Name'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _HPController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Health Point'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _ATKController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Attack'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _DEFController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Deffence'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _ImpactController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Impact'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _CRateController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Critical Rate'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _CDMGController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Critical Damage'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _PRatioController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Penetration Ratio'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _AnomMasterController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Anomaly Mastery'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _PriceController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Price'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _RankController,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        label: const Text('Rank'),
+                                        filled: true,
+                                        fillColor: const Color(0xFFFFFFFF),
+                                        border: const OutlineInputBorder()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            TextField(
+                              maxLines: null,
+                              minLines: 5,
+                              maxLength: 500,
+                              controller: _descriptionController,
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  label: const Text('Description'),
+                                  filled: true,
+                                  fillColor: const Color(0xFFFFFFFF),
+                                  border: const OutlineInputBorder()),
+                            ),
+                            const SizedBox(height: 50),
+                            Center(
+                              // Tombol Add Product
+                              child: ElevatedButton(
+                                onPressed: () => _insertOnPressed(context),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(
+                                      0xFF333333), // Change the background color
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 55, vertical: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ), // Add padding if needed
+                                ),
+                                child: const Text(
+                                  'Update',
+                                  style: TextStyle(
+                                    fontFamily: 'SemiPoppins',
+                                    fontSize: 16.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 40),
                           ],
                         ),
                       ),
@@ -476,15 +508,6 @@ class _UpdatePageState extends State<UpdatePage> {
                         child: IconButton(
                           onPressed: () async {
                             pickImage(ImageSource.gallery);
-                            // var pickedImage = await ImagePicker()
-                            //     .pickImage(source: ImageSource.gallery);
-                            // if (pickedImage != null) {
-                            //   var imageByte =
-                            //       await pickedImage.readAsBytes();
-                            //   setState(() {
-                            //     _ImageController = imageByte;
-                            //   });
-                            // };
                           },
                           icon: const Icon(Icons.edit_rounded,
                               color: Colors.white),
@@ -494,8 +517,9 @@ class _UpdatePageState extends State<UpdatePage> {
                   ),
                 ],
               ),
+              // Insert page ------------------------------------------------------------------------------------------------------------------------------
             ),
-          ),
-        ])));
+          ]),
+        ));
   }
 }

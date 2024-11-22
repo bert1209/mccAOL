@@ -21,8 +21,7 @@ var cPasswordControl = TextEditingController();
 void _insertOnPressed(BuildContext context) async {
   if (usernameControl.text == "" ||
       emailControl.text == "" ||
-      passwordControl.text == "" ||
-      cPasswordControl.text == "") {
+      passwordControl.text == "") {
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('All Fields Must be Filled!')));
   } else {
@@ -37,8 +36,8 @@ void _insertOnPressed(BuildContext context) async {
     final resp = await http.post(Uri.parse(url),
         headers: {"Content-type": "application/json"}, body: json);
 
-    if (resp.statusCode == 200 && passwordControl == cPasswordControl) {
-      Navigator.pushNamed(context, '/homePage');
+    if (resp.statusCode == 200) {
+      Navigator.pushNamed(context, '/loginPage');
     } else if (resp.statusCode == 400) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Email Already Exists')));
@@ -87,14 +86,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: "Password",
               ),
 
-              const SizedBox(height: 20),
-
-              // Confirm Password TextField
-              TextFields(
-                hintText: "Confirm Password",
-                obscureText: true,
-                controller: cPasswordControl,
-              ),
+            
+              
 
               const SizedBox(height: 25),
 

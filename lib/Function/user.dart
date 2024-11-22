@@ -1,5 +1,3 @@
-
-
 class user {
   int UserID;
   String Username;
@@ -38,6 +36,7 @@ class banboo {
   String BanbooRank;
   String BanbooImage;
   String BanbooDescription;
+  int BanbooPrice;
 
   banboo({
     required this.BanbooID,
@@ -53,6 +52,7 @@ class banboo {
     required this.BanbooRank,
     required this.BanbooImage,
     required this.BanbooDescription,
+    required this.BanbooPrice,
   });
   factory banboo.fromJson(Map<String, dynamic> json) => banboo(
         BanbooID: json["BanbooID"] as int,
@@ -68,5 +68,6 @@ class banboo {
         BanbooRank: json["BanbooRank"].toString(),
         BanbooImage: json["BanbooImage"].toString(),
         BanbooDescription: json["BanbooDescription"].toString(),
+        BanbooPrice: json["BanbooPrice"] as int,
       );
 }
