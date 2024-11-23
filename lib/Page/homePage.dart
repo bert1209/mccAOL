@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:aol_mcc/Function/NavBar.dart';
+import 'package:aol_mcc/Page/ProductPage.dart';
 import 'package:aol_mcc/Page/ProfilePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -19,16 +20,16 @@ class _HomePageState extends State<HomePage> {
   late final int id;
 
   // void detailPressed(int id) {
-    // var navigator = Navigator.of(context);
-    // navigator.push(
-    //   MaterialPageRoute(
-    //     builder: (builder) {
-    //       return ProfilePage(
-    //         UserID: id,
-    //       );
-    //     },
-    //   ),
-    // );
+  // var navigator = Navigator.of(context);
+  // navigator.push(
+  //   MaterialPageRoute(
+  //     builder: (builder) {
+  //       return ProfilePage(
+  //         UserID: id,
+  //       );
+  //     },
+  //   ),
+  // );
   // }
 
   late Future<List<banboo>> banbooList;
@@ -75,7 +76,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             );
-
           },
           icon: const Icon(Icons.account_circle_rounded),
           color: const Color(0xFF333333),
@@ -116,7 +116,6 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 15,
                   ),
-
                   SizedBox(height: 10),
                   Row(
                     children: const [
@@ -163,63 +162,63 @@ class _HomePageState extends State<HomePage> {
 
                       if (data != null) {
                         return GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    crossAxisSpacing: 8,
-                                    mainAxisSpacing: 8,
-                                    childAspectRatio: 0.8),
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            padding: const EdgeInsets.all(10),
-                            itemCount: data.length,
-                            itemBuilder: ((context, index) {
-                              final item = data[index];
-                              return GestureDetector(
-                                onTap: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => ProductPage(
-                                  //       banboo_id: banboo.banboo_id,
-                                  //       price: banboo.price,
-                                  //       account_id: id_,
-                                  //     ),
-                                  //   ),
-                                  // );
-                                },
-                                child: Card(
-                                  color: Colors.transparent,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 0,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 8,
+                                  childAspectRatio: 0.8),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.all(10),
+                          itemCount: data.length,
+                          itemBuilder: ((context, index) {
+                            final item = data[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ProductPage(
+                                      BanbooID: item.BanbooID,
+                                      UserID: widget.UserID,
                                     ),
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      item.BanbooImage.isNotEmpty
-                                          ? Image.memory(
-                                              base64Decode(item.BanbooImage),
-                                              width: 100,
-                                              height: 100,
-                                              errorBuilder:
-                                                  (context, error, stackTrace) {
-                                                return const Icon(Icons.error,
-                                                    size: 50);
-                                              },
-                                            )
-                                          : const Icon(Icons.image,
-                                              size: 50, color: Colors.blue),
-                                      const SizedBox(height: 8),
-                                    ],
+                                );
+                              },
+                              child: Card(
+                                color: Colors.transparent,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: const BorderSide(
+                                    color: Colors.transparent,
+                                    width: 0,
                                   ),
                                 ),
-                              );
-                            }));
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    item.BanbooImage.isNotEmpty
+                                        ? Image.memory(
+                                            base64Decode(item.BanbooImage),
+                                            width: 100,
+                                            height: 100,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return const Icon(Icons.error,
+                                                  size: 50);
+                                            },
+                                          )
+                                        : const Icon(Icons.image,
+                                            size: 50, color: Colors.blue),
+                                    const SizedBox(height: 8),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                        );
                       } else {
                         return const Text("data");
                       }
@@ -229,7 +228,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          const Align(alignment: Alignment.bottomCenter, child: navBar()),
+          Align(alignment: Alignment.bottomCenter, child: navBar(UserID: id)),
         ],
       ),
     );

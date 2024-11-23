@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:aol_mcc/Page/ProductPage.dart';
+import 'package:aol_mcc/Page/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -7,7 +9,8 @@ import '../Function/elevatedButtons.dart';
 import '../Function/user.dart';
 
 class StorePage extends StatefulWidget {
-  const StorePage({super.key});
+  final int UserID;
+  const StorePage({super.key, required this.UserID});
 
   @override
   State<StorePage> createState() => _StorePageState();
@@ -68,7 +71,16 @@ class _StorePageState extends State<StorePage> {
         toolbarHeight: 100,
         leading: IconButton(
           splashColor: const Color(0xFF111111),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(
+                  UserID: widget.UserID,
+                ),
+              ),
+            );
+          },
           icon: const Icon(Icons.arrow_back_rounded),
           color: const Color(0xFF333333),
           iconSize: 30,
@@ -193,7 +205,16 @@ class _StorePageState extends State<StorePage> {
                                           text: "Buy",
                                           textColor: const Color(0xFFFFFFFF),
                                           buttonColor: const Color(0xFF333333),
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductPage(BanbooID: item.BanbooID,
+                                                    UserID: widget.UserID),
+                                              ),
+                                            );
+                                          },
                                           borderRadius: 10,
                                           FontType: "Poppin")),
                                 ),
@@ -210,7 +231,11 @@ class _StorePageState extends State<StorePage> {
               ],
             ),
           ),
-          const Align(alignment: Alignment.bottomCenter, child: navBar()),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: navBar(
+                UserID: widget.UserID,
+              )),
         ],
       ),
     );

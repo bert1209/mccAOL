@@ -1,6 +1,7 @@
 import 'package:aol_mcc/Page/AuthPage.dart';
 import 'package:aol_mcc/Page/InsertPage.dart';
 import 'package:aol_mcc/Page/LoginPage.dart';
+import 'package:aol_mcc/Page/ProductPage.dart';
 import 'package:aol_mcc/Page/ProfilePage.dart';
 import 'package:aol_mcc/Page/RegisterPage.dart';
 import 'package:aol_mcc/Page/StorePage.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(UserID: 1,),
+      home: SplashScreen(),
       routes: {
         '/loginPage': (context) => const LoginPage(),
         '/registerPage': (context) => const RegisterPage(),

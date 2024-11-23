@@ -19,12 +19,13 @@ class _AuthPageState extends State<AuthPage> {
             children: [
               const SizedBox(height: 50,),
 
-              Image.asset('lib/Assets/Judul.png',),
+              Image.asset('lib/Assets/Judul.png',
+              height: 75,),
 
               const SizedBox(height: 50,),
 
               Image.asset('lib/Assets/Logo.png',
-              height: 350,),
+              height: 300,),
 
               SizedBox(height: 25,),
 

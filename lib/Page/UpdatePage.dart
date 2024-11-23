@@ -24,6 +24,7 @@ class UpdatePage extends StatefulWidget {
   Uint8List? image;
   String desc;
   int price;
+  int level;
 
   UpdatePage(
       {super.key,
@@ -40,7 +41,8 @@ class UpdatePage extends StatefulWidget {
       required this.rank,
       required this.image,
       required this.desc,
-      required this.price});
+      required this.price,
+      required this.level});
 
   @override
   State<UpdatePage> createState() => _UpdatePageState();
@@ -220,16 +222,7 @@ class _UpdatePageState extends State<UpdatePage> {
                             30), // Padding inside the container
                         decoration: const BoxDecoration(
                           // warna border
-                          color: Color(0xFF999999),
-                          // boxShadow: [ // box shadow
-                          //   BoxShadow(
-                          //     blurRadius: 3,
-                          //     blurStyle: BlurStyle.normal,
-                          //     color: Colors.grey[400]!,
-                          //     offset: Offset.zero,
-                          //     spreadRadius: 2.5,
-                          //   )
-                          // ],
+                          color: Color(0xFF999999), 
                           borderRadius: BorderRadius.only(
                               // lengkungan border
                               topLeft: Radius.circular(10),

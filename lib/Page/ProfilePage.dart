@@ -286,7 +286,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          const Align(alignment: Alignment.bottomCenter, child: navBar()),
+          Align(alignment: Alignment.bottomCenter, child: navBar(UserID: widget.UserID,)),
         ],
       ),
     );

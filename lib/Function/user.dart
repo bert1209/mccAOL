@@ -37,6 +37,7 @@ class banboo {
   String BanbooImage;
   String BanbooDescription;
   int BanbooPrice;
+  int BanbooLevel;
 
   banboo({
     required this.BanbooID,
@@ -53,6 +54,7 @@ class banboo {
     required this.BanbooImage,
     required this.BanbooDescription,
     required this.BanbooPrice,
+    required this.BanbooLevel,
   });
   factory banboo.fromJson(Map<String, dynamic> json) => banboo(
         BanbooID: json["BanbooID"] as int,
@@ -69,5 +71,6 @@ class banboo {
         BanbooImage: json["BanbooImage"].toString(),
         BanbooDescription: json["BanbooDescription"].toString(),
         BanbooPrice: json["BanbooPrice"] as int,
+        BanbooLevel: json["BanbooLevel"] as int,
       );
 }

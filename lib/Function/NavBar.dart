@@ -1,7 +1,10 @@
+import 'package:aol_mcc/Page/StorePage.dart';
 import 'package:flutter/material.dart';
 
 class navBar extends StatelessWidget {
-  const navBar({super.key});
+  late final int UserID;
+  navBar({super.key, required this.UserID});
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +16,9 @@ class navBar extends StatelessWidget {
         left: 24,
       ),
       decoration: BoxDecoration(
-        color: Color(0xFF999999),
+        color: const Color(0xFF999999),
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color(0xFF333333),
             blurRadius: 5,
@@ -28,25 +31,34 @@ class navBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            padding: EdgeInsets.only(top: 10.5),
+            padding: const EdgeInsets.only(top: 10.5),
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.account_balance_wallet_rounded,
               size: 40,
             ),
           ),
           IconButton(
-            padding: EdgeInsets.only(top: 10.5),
+            padding: const EdgeInsets.only(top: 10.5),
             onPressed: () {},
-            icon: Icon(
+            icon: const Icon(
               Icons.home,
               size: 40,
             ),
           ),
           IconButton(
-            padding: EdgeInsets.only(top: 10.5),
-            onPressed: () {},
-            icon: Icon(
+            padding: const EdgeInsets.only(top: 10.5),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StorePage(
+                    UserID: UserID,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(
               Icons.store,
               size: 40,
             ),

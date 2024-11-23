@@ -31,6 +31,7 @@ class _InsertPage extends State<InsertPage> {
     Uint8List? image,
     String desc,
     int price,
+    int level,
   ) {
     var navigator = Navigator.of(context);
     navigator.push(
@@ -51,6 +52,7 @@ class _InsertPage extends State<InsertPage> {
             desc: desc,
             image: image,
             price: price,
+            level: level,
           );
         },
       ),
@@ -128,6 +130,7 @@ class _InsertPage extends State<InsertPage> {
   var _ImageControll = TextEditingController();
   Uint8List? _ImageController;
   var _PriceController = TextEditingController();
+  var _LevelController = TextEditingController();
 
   void _insertOnPressed(BuildContext context) async {
     if (_nameController.text == "" ||
@@ -164,6 +167,7 @@ class _InsertPage extends State<InsertPage> {
         "BanbooImage":
             _ImageController != null ? base64Encode(_ImageController!) : null,
         "BanbooPrice": _PriceController.text,
+        "BanbooLevel": _LevelController.text,
       });
 
       final resp = await http.post(Uri.parse(url),
@@ -282,7 +286,7 @@ class _InsertPage extends State<InsertPage> {
                             decoration: const BoxDecoration(
                               // warna border
                               color: Color(0xFF999999),
-                              
+
                               borderRadius: BorderRadius.only(
                                   // lengkungan border
                                   topLeft: Radius.circular(10),
@@ -489,6 +493,26 @@ class _InsertPage extends State<InsertPage> {
                                   children: [
                                     Expanded(
                                       child: TextField(
+                                        controller: _LevelController,
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          label: const Text('Level'),
+                                          filled: true,
+                                          fillColor: const Color(0xFFFFFFFF),
+                                          border: const OutlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 30),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
                                         controller: _RankController,
                                         decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
@@ -616,6 +640,7 @@ class _InsertPage extends State<InsertPage> {
                                       base64Decode(item.BanbooImage),
                                       item.BanbooDescription,
                                       item.BanbooPrice,
+                                      item.BanbooLevel,
                                     ),
                                     child: Card(
                                       margin: const EdgeInsets.symmetric(
@@ -639,36 +664,39 @@ class _InsertPage extends State<InsertPage> {
                                               BorderRadius.circular(10),
                                         ),
                                         child: ListTile(
-                                            leading: Image.memory(
-                                              base64Decode(item.BanbooImage),
-                                              height: 100,
+                                          leading: Image.memory(
+                                            base64Decode(item.BanbooImage),
+                                            height: 100,
+                                          ),
+                                          title: Text(
+                                            item.BanbooName,
+                                            style: const TextStyle(
+                                              fontFamily: "Poppin",
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            title: Text(
-                                              item.BanbooName,
-                                              style: const TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                          ),
+                                          subtitle: RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                const TextSpan(
+                                                  text: "BanbooID = ",
+                                                  style: TextStyle(
+                                                    fontFamily: "Poppin",
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      item.BanbooID.toString(),
+                                                  style: const TextStyle(
+                                                    fontFamily: "Poppin",
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            subtitle: Text(
-                                              item.BanbooID.toString(),
-                                              style: const TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                            trailing: elevatedButtons(
-                                                width: 70,
-                                                height: 30,
-                                                fontSize: 10,
-                                                text: "Update",
-                                                textColor:
-                                                    const Color(0xFFFFFFFF),
-                                                buttonColor:
-                                                    const Color(0xFF333333),
-                                                onPressed: () {},
-                                                borderRadius: 10,
-                                                FontType: "Poppin")),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   );
@@ -743,11 +771,25 @@ class _InsertPage extends State<InsertPage> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                          subtitle: Text(
-                                            item.BanbooID.toString(),
-                                            style: const TextStyle(
-                                              fontFamily: "Poppin",
-                                              fontWeight: FontWeight.normal,
+                                          subtitle: RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                const TextSpan(
+                                                  text: "BanbooID = ",
+                                                  style: TextStyle(
+                                                    fontFamily: "Poppin",
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      item.BanbooID.toString(),
+                                                  style: const TextStyle(
+                                                    fontFamily: "Poppin",
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           trailing: IconButton(
