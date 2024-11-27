@@ -146,7 +146,8 @@ class _InsertPage extends State<InsertPage> {
         _RankController.text == "" ||
         _descriptionController == "" ||
         _PriceController == "" ||
-        _ImageController == "") {
+        _ImageController == "" || 
+        _LevelController == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
@@ -175,7 +176,7 @@ class _InsertPage extends State<InsertPage> {
       print(resp.statusCode);
 
       if (resp.statusCode == 200) {
-        Navigator.pushNamed(context, '/adminHomePage');
+        Navigator.pushNamed(context, '/adminVerif');
       } else if (resp.statusCode == 400) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Insert Failed')));
@@ -229,6 +230,14 @@ class _InsertPage extends State<InsertPage> {
                   onPressed: () {},
                   icon: const Icon(Icons.arrow_back_rounded)),
             ),
+            actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/authPage');
+              },
+              icon: Icon(Icons.logout)),
+          Padding(padding: EdgeInsets.only(right: 15))
+        ],
             title: Container(
               margin: const EdgeInsets.only(left: 8.0),
               child: RichText(
@@ -588,6 +597,9 @@ class _InsertPage extends State<InsertPage> {
                             child: IconButton(
                               onPressed: () async {
                                 pickImage(ImageSource.gallery);
+                                setState(() {
+                                  
+                                });
                               },
                               icon: const Icon(Icons.edit_rounded,
                                   color: Colors.white),
@@ -703,7 +715,7 @@ class _InsertPage extends State<InsertPage> {
                                 },
                               );
                             } else {
-                              return const Text("Error");
+                              return const Text("");
                             }
                           },
                         ),
@@ -806,7 +818,7 @@ class _InsertPage extends State<InsertPage> {
                                 },
                               );
                             } else {
-                              return const Text("Error");
+                              return const Text("");
                             }
                           },
                         ),

@@ -4,6 +4,7 @@ class user {
   String Email;
   String Password;
   int Role;
+  int UserMoney;
 
   user({
     required this.UserID,
@@ -11,6 +12,7 @@ class user {
     required this.Email,
     required this.Password,
     required this.Role,
+    required this.UserMoney,
   });
 
   factory user.fromJson(Map<String, dynamic> json) => user(
@@ -19,6 +21,7 @@ class user {
         Email: json["Email"].toString(),
         Password: json["Password"].toString(),
         Role: json["Role"] as int,
+        UserMoney: json["UserMoney"] as int,
       );
 }
 

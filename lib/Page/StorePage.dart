@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:aol_mcc/Page/ProductPage.dart';
 import 'package:aol_mcc/Page/homePage.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,12 @@ import '../Function/user.dart';
 
 class StorePage extends StatefulWidget {
   final int UserID;
-  const StorePage({super.key, required this.UserID});
+  final int UserMoney;
+  const StorePage({
+    super.key,
+    required this.UserID,
+    required this.UserMoney,
+  });
 
   @override
   State<StorePage> createState() => _StorePageState();
@@ -77,6 +83,7 @@ class _StorePageState extends State<StorePage> {
               MaterialPageRoute(
                 builder: (context) => HomePage(
                   UserID: widget.UserID,
+                  UserMoney: widget.UserMoney,
                 ),
               ),
             );
@@ -210,8 +217,11 @@ class _StorePageState extends State<StorePage> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ProductPage(BanbooID: item.BanbooID,
-                                                    UserID: widget.UserID),
+                                                    ProductPage(
+                                                  BanbooID: item.BanbooID,
+                                                  UserID: widget.UserID,
+                                                  UserMoney: widget.UserMoney,
+                                                ),
                                               ),
                                             );
                                           },
@@ -223,7 +233,7 @@ class _StorePageState extends State<StorePage> {
                           },
                         );
                       } else {
-                        return const Text("test");
+                        return const Text("");
                       }
                     },
                   ),
@@ -235,6 +245,7 @@ class _StorePageState extends State<StorePage> {
               alignment: Alignment.bottomCenter,
               child: navBar(
                 UserID: widget.UserID,
+                UserMoney: widget.UserMoney,
               )),
         ],
       ),

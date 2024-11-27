@@ -1,10 +1,17 @@
 import 'package:aol_mcc/Page/StorePage.dart';
+import 'package:aol_mcc/Page/TopUpPage.dart';
+import 'package:aol_mcc/Page/homePage.dart';
 import 'package:flutter/material.dart';
 
 class navBar extends StatelessWidget {
   late final int UserID;
-  navBar({super.key, required this.UserID});
+  late final int UserMoney;
+  navBar({
+    super.key,
+    required this.UserID,
+    required this.UserMoney,
 
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +39,17 @@ class navBar extends StatelessWidget {
         children: [
           IconButton(
             padding: const EdgeInsets.only(top: 10.5),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TopUpPage(
+                    UserID: UserID,
+                    UserMoney: UserMoney,
+                  ),
+                ),
+              );
+            },
             icon: const Icon(
               Icons.account_balance_wallet_rounded,
               size: 40,
@@ -40,7 +57,17 @@ class navBar extends StatelessWidget {
           ),
           IconButton(
             padding: const EdgeInsets.only(top: 10.5),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                    UserID: UserID,
+                    UserMoney: UserMoney,
+                  ),
+                ),
+              );
+            },
             icon: const Icon(
               Icons.home,
               size: 40,
@@ -54,6 +81,7 @@ class navBar extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => StorePage(
                     UserID: UserID,
+                    UserMoney: UserMoney,
                   ),
                 ),
               );

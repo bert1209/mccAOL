@@ -189,7 +189,7 @@ router.get('/search/:prefix', function (req, res) {
   router.post('/get-id', (req, res) => {
     const data = req.body
 
-    const query = `SELECT UserID FROM user WHERE Email = ?`
+    const query = `SELECT UserID, UserMoney FROM user WHERE Email = ?`
     con.query(query, [data.Email], (err, result) =>{
         if(err) throw err;
         res.send(result),
@@ -221,7 +221,35 @@ router.post('/get-banboo-detail', (req, res) => {
          });
         res.send(result)
     })
-})
+});
+
+router.post('/update-user-money', (req, res) => {
+    const data = req.body;
+
+    const insertsQuery = "UPDATE user SET UserMoney = UserMoney + ? WHERE UserID = ?";
+    con.query(insertsQuery,[data.money, data.UserID] ,(err, result) => {
+        if(err) {
+            return res.status(500).json(err);
+        };
+
+        res.send(result)
+    });
+    
+});
+
+router.post('/checkout-banboo', (req, res) => {
+    const data = req.body;
+
+    const insertsQuery = "UPDATE user SET UserMoney = UserMoney - ? WHERE UserID = ?";
+    con.query(insertsQuery,[data.price, data.UserID] ,(err, result) => {
+        if(err){
+            return res.status(500).json(err);
+        }
+
+        res.send(result)
+    });
+    
+});
 
 
 module.exports = router;

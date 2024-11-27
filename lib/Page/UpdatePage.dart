@@ -80,7 +80,9 @@ class _UpdatePageState extends State<UpdatePage> {
         _AnomMasterController.text == "" ||
         _RankController.text == "" ||
         _descriptionController == "" ||
-        _PriceController == "") {
+        _PriceController == "" ||
+        _LevelController.text == ""
+        ) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
@@ -102,6 +104,7 @@ class _UpdatePageState extends State<UpdatePage> {
         "BanbooImage":
             _ImageController != null ? base64Encode(_ImageController!) : null,
         "BanbooPrice": _PriceController.text.toString(),
+        "BanbooLevel" : _LevelController.text.toString(),
       });
 
       final resp = await http.post(Uri.parse(url),
@@ -109,7 +112,7 @@ class _UpdatePageState extends State<UpdatePage> {
       print(resp.statusCode);
 
       if (resp.statusCode == 200) {
-        Navigator.pushNamed(context, '/adminHomePage');
+        Navigator.pushNamed(context, '/insertPage');
       } else if (resp.statusCode == 400) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Update Failed')));
@@ -131,6 +134,7 @@ class _UpdatePageState extends State<UpdatePage> {
   var _ImageControll = TextEditingController();
   Uint8List? _ImageController;
   var _PriceController = TextEditingController();
+  var _LevelController = TextEditingController();
 
   @override
   void initState() {
@@ -149,6 +153,7 @@ class _UpdatePageState extends State<UpdatePage> {
     _RankController.text = widget.rank;
     _ImageController = widget.image;
     _PriceController.text = widget.price.toString();
+    _LevelController.text = widget.level.toString();
   }
 
   @override

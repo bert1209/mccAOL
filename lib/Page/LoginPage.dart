@@ -58,6 +58,7 @@ void _insertOnPressed(BuildContext context) async {
           builder: (builder) {
             return HomePage(
               UserID: result[0]["UserID"],
+              UserMoney: result[0]["UserMoney"],
             );
           },
         ),
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFields(
                   controller: emailControl,
                   obscureText: false,
-                  hintText: "Username",
+                  hintText: "Email",
                 ),
 
                 const SizedBox(

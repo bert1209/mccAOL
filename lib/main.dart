@@ -1,4 +1,5 @@
 import 'package:aol_mcc/Page/AuthPage.dart';
+import 'package:aol_mcc/Page/InsertAdminVerif.dart';
 import 'package:aol_mcc/Page/InsertPage.dart';
 import 'package:aol_mcc/Page/LoginPage.dart';
 import 'package:aol_mcc/Page/ProductPage.dart';
@@ -10,7 +11,7 @@ import 'package:aol_mcc/Page/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'Page/UpdatePage.dart';
-import 'Page/adminHomePage.dart';
+
 
 
 
@@ -39,10 +40,12 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       routes: {
         '/loginPage': (context) => const LoginPage(),
+        '/authPage': (context) => const AuthPage(),
         '/registerPage': (context) => const RegisterPage(),
-        '/homePage': (context) =>  HomePage(UserID: 13),
-        '/adminHomePage' : (context) => const AdminHomePage(),
+      //   // '/homePage': (context) =>  HomePage(UserID: 13),
+      //   '/adminHomePage' : (context) => const AdminHomePage(),
         '/insertPage' : (context) => const InsertPage(),
+        "/adminVerif" : (context) => const AdminVerificationPage(),
       },
     );
   }

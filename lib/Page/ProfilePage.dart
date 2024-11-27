@@ -9,8 +9,9 @@ import '../Function/user.dart';
 
 class ProfilePage extends StatefulWidget {
   int UserID;
+  int UserMoney;
 
-  ProfilePage({super.key, required this.UserID});
+  ProfilePage({super.key, required this.UserID, required this.UserMoney});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -19,7 +20,6 @@ class ProfilePage extends StatefulWidget {
 var idController = TextEditingController();
 
 class _ProfilePageState extends State<ProfilePage> {
-
   var idController = TextEditingController();
 
   late Future<List<user>> userList;
@@ -69,6 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
               MaterialPageRoute(
                 builder: (context) => HomePage(
                   UserID: widget.UserID,
+                  UserMoney: widget.UserMoney,
                 ),
               ),
             );
@@ -102,6 +103,14 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         centerTitle: true,
         backgroundColor: const Color(0xFF999999),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/authPage');
+              },
+              icon: Icon(Icons.logout)),
+          Padding(padding: EdgeInsets.only(right: 15))
+        ],
       ),
       body: Stack(
         children: [
@@ -286,7 +295,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          Align(alignment: Alignment.bottomCenter, child: navBar(UserID: widget.UserID,)),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: navBar(
+                UserID: widget.UserID,
+                UserMoney: widget.UserMoney,
+              )),
         ],
       ),
     );
