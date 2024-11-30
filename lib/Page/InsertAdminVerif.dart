@@ -20,7 +20,7 @@ class _AdminVerificationPageState extends State<AdminVerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF999999),
+      backgroundColor: const Color(0xFF999999),
       body: SafeArea(
           child: Center(
         child: Column(
@@ -30,12 +30,12 @@ class _AdminVerificationPageState extends State<AdminVerificationPage> {
               width: 200,
               child: Image.asset("lib/Assets/Judul.png"),
             ),
-            SizedBox(height: 100),
-            ImagesFunction(
+            const SizedBox(height: 100),
+            const ImagesFunction(
               images: "lib/Assets/Success.png"
             ),
-            SizedBox(height: 10),
-            TextFunc(
+            const SizedBox(height: 10),
+            const TextFunc(
               Text1: "Success",
               Text2: "Successfuly Added Banboo",
               jenisFont: "Poppin",
@@ -47,19 +47,19 @@ class _AdminVerificationPageState extends State<AdminVerificationPage> {
               ukuranFonts: 15,
               warnaFonts: Color(0xFF333333),
             ),
-            SizedBox(height: 130),
+            const SizedBox(height: 130),
             elevatedButtons(
                 width: 90,
                 height: 40,
                 fontSize: 20,
                 text: "OK",
                 textColor: Colors.white,
-                buttonColor: Color(0xFF333333),
+                buttonColor: const Color(0xFF333333),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => InsertPage(
+                      builder: (context) => const InsertPage(
                       ),
                     ),
                   );

@@ -18,21 +18,20 @@ class TextFields extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: TextField(
         controller: controller,
+        style: TextStyle(fontFamily: "Poppin"),
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color : Color(0xFF777777),
+              borderSide: const BorderSide(
+                color: Color(0xFF777777),
               ),
-              borderRadius: BorderRadius.circular(15)
-          ),
+              borderRadius: BorderRadius.circular(15)),
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color : Color(0xFF333333),
+              borderSide: const BorderSide(
+                color: Color(0xFF333333),
               ),
-              borderRadius: BorderRadius.circular(15)
-          ),
-          fillColor: Color(0xFFFFFFFF),
+              borderRadius: BorderRadius.circular(15)),
+          fillColor: const Color(0xFFFFFFFF),
           filled: true,
           hintText: hintText,
         ),

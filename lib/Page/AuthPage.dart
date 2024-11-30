@@ -12,7 +12,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF777777),
+      backgroundColor: const Color(0xFF777777),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -32,13 +32,13 @@ class _AuthPageState extends State<AuthPage> {
               //Login Button
               elevatedButtons(
                 width: 300,
-                textColor: Color(0xFF555555),
+                textColor: const Color(0xFF555555),
                 text: "Login",
                 onPressed: () {
                   Navigator.pushNamed(context, '/loginPage');
                 },
                 height: 50,
-                buttonColor: Color(0xFFFFFFFF),
+                buttonColor: const Color(0xFFFFFFFF),
                 borderRadius: 10,
                 fontSize: 20,
                 FontType: "Poppin",
@@ -49,13 +49,13 @@ class _AuthPageState extends State<AuthPage> {
               //Register Button
               elevatedButtons(
                   width: 300,
-                  textColor: Color(0xFF555555),
+                  textColor: const Color(0xFF555555),
                   text: "Register",
                   onPressed: () {
                     Navigator.pushNamed(context, '/registerPage');
                   },
                   height: 50,
-                  buttonColor: Color(0xFFFFFFFF),
+                  buttonColor: const Color(0xFFFFFFFF),
                   borderRadius: 10,
                   fontSize: 20,
                   FontType: "Poppin",

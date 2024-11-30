@@ -87,7 +87,7 @@ router.get('/:email/:password/Role', function (req, res, next) {
     connection.connect();
   
     // QUERY
-    connection.query("SELECT Role FROM user WHERE email = ? AND password = ?", [email, password], function (err, results) {
+    connection.query("SELECT Role FROM user WHERE email = ? AND BINARY password = ?", [email, password], function (err, results) {
       connection.end();
   
       if (err) {

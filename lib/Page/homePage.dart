@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:aol_mcc/Function/NavBar.dart';
-import 'package:aol_mcc/Function/wallet.dart';
 import 'package:aol_mcc/Page/ProductPage.dart';
 import 'package:aol_mcc/Page/ProfilePage.dart';
 import 'package:http/http.dart' as http;
@@ -192,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 10),
                     Row(
-                      children: [
+                      children: const [
                         Padding(
                           padding: EdgeInsets.only(left: 20),
                         ),
@@ -204,7 +203,6 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // Text(widget.UserMoney.toString()),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -240,12 +238,12 @@ class _HomePageState extends State<HomePage> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
-                                    crossAxisSpacing: 8,
+                                    crossAxisSpacing: 0,
                                     mainAxisSpacing: 8,
                                     childAspectRatio: 0.8),
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(1),
                             itemCount: data.length,
                             itemBuilder: ((context, index) {
                               final item = data[index];
@@ -288,7 +286,7 @@ class _HomePageState extends State<HomePage> {
                                             )
                                           : const Icon(Icons.image,
                                               size: 50, color: Colors.blue),
-                                      const SizedBox(height: 3),
+                                      const SizedBox(height: 1),
                                     ],
                                   ),
                                 ),
@@ -299,7 +297,8 @@ class _HomePageState extends State<HomePage> {
                           return const Text("data");
                         }
                       },
-                    )
+                    ),
+                    const SizedBox(height: 70)
                   ],
                 ),
               ),

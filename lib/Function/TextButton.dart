@@ -25,6 +25,7 @@ class TextButtons extends StatelessWidget {
             fontSize: TextSize,
             color: TextColor,
             fontWeight: FontWeights,
+            fontFamily: "Poppin",
           ),
         ),
         onPressed: onPress,

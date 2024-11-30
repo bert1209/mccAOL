@@ -9,10 +9,6 @@ var banboosRouter = require('./routes/banboos');
 
 var app = express();
 
-// const bodyParser = require('body-parser');
-
-// app.use(bodyParser.json({ limit: '10mb' })); // Sesuaikan ukuran
-// app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 
 app.use(logger('dev'));

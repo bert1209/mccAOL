@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             Image.asset('lib/Assets/splashScreen.png'),
             SizedBox(height: screenHeight * 0.02),
             Text(
-              'BANBOO TEAMS',
+              'BANBOO STORE',
               style: TextStyle(
                 fontFamily: 'Bangers',
                 fontSize: 40,
