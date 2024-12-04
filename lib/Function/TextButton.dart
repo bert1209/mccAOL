@@ -4,14 +4,12 @@ class TextButtons extends StatelessWidget {
 
   final String Texts;
   final double TextSize;
-  final Color TextColor;
   final FontWeight FontWeights;
   final VoidCallback onPress;
   const TextButtons({
     super.key,
     required this.Texts,
     required this.TextSize,
-    required this.TextColor,
     required this.FontWeights,
     required this.onPress,
   });
@@ -23,7 +21,7 @@ class TextButtons extends StatelessWidget {
         style: TextButton.styleFrom(
           textStyle: TextStyle(
             fontSize: TextSize,
-            color: TextColor,
+            color: Colors.blue,
             fontWeight: FontWeights,
             fontFamily: "Poppin",
           ),

@@ -17,9 +17,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (_) => AuthPage()
+          builder: (_) => const AuthPage()
       ));
     });
   }
@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF777777), Color(0xFF333333)],
             begin: Alignment.topRight,
@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           children: [
             Image.asset('lib/Assets/splashScreen.png'),
             SizedBox(height: screenHeight * 0.02),
-            Text(
+            const Text(
               'BANBOO STORE',
               style: TextStyle(
                 fontFamily: 'Bangers',

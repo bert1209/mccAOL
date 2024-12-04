@@ -145,7 +145,7 @@ class _StorePageState extends State<StorePage> {
             child: Column(
               children: [
                 Container(
-                  height: 5000,
+                  height: 2050,
                   padding: const EdgeInsets.all(30),
                   decoration: const BoxDecoration(
                     color: Color(0xff777777),

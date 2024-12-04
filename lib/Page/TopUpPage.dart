@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:aol_mcc/Page/ValidationPage.dart';
 import 'package:aol_mcc/Page/VerificationPage.dart';
@@ -77,7 +79,7 @@ class _TopUpPageState extends State<TopUpPage> {
               UserMoney: widget.UserMoney,
               Images: "lib/Assets/Failed.png",
               Text1: "Error",
-              Text2: "TopUp Has Failed"),
+              Text2: "9999 Limit is Reached"),
         ),
       );
     }
@@ -154,7 +156,24 @@ class _TopUpPageState extends State<TopUpPage> {
                           .map(
                             (e) => Column(
                               children: [
-                                const SizedBox(height: 75),
+                                const SizedBox(height: 25),
+                                Row(
+                                  children: const [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        "My Wallet :",
+                                        style: TextStyle(
+                                          fontFamily: "Poppin",
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30,
+                                          color: Color(0xFF333333),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
                                 const Align(alignment: Alignment.center),
                                 Container(
                                   height: 100,
@@ -183,10 +202,27 @@ class _TopUpPageState extends State<TopUpPage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 125),
+                                const SizedBox(height: 80),
+                                Row(
+                                  children: const [
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        "Top Up Amount :",
+                                        style: TextStyle(
+                                          fontFamily: "Poppin",
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30,
+                                          color: Color(0xFF333333),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 25),
                                 Row(
                                   children: [
-                                    SizedBox(width: 16.5),
+                                    const SizedBox(width: 16.5),
                                     GestureDetector(
                                       onTap: () => onPressed(100),
                                       child: Container(
@@ -219,7 +255,7 @@ class _TopUpPageState extends State<TopUpPage> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 10),
+                                    const SizedBox(width: 10),
                                     GestureDetector(
                                       onTap: () => onPressed(300),
                                       child: Container(
@@ -252,7 +288,7 @@ class _TopUpPageState extends State<TopUpPage> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 10),
+                                    const SizedBox(width: 10),
                                     GestureDetector(
                                       onTap: () => onPressed(500),
                                       child: Container(

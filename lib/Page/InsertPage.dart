@@ -294,9 +294,10 @@ class _InsertPage extends State<InsertPage> {
                                 color: Color(0xFF999999),
 
                                 borderRadius: BorderRadius.only(
-                                    // lengkungan border
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10)),
+                                  // lengkungan border
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
                               ),
 
                               child: Column(
@@ -308,16 +309,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _nameController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text('Name'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Name'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -329,16 +329,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _HPController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text('Health Point'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Health Point'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -350,16 +349,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _ATKController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text('Attack'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Attack'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -371,16 +369,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _DEFController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text('Deffence'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Deffence'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -392,16 +389,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _ImpactController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text('Impact'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Impact'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -413,17 +409,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _CRateController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label:
-                                                  const Text('Critical Rate'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Critical Rate'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -435,17 +429,16 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _CDMGController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label:
-                                                  const Text('Critical Damage'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label:
+                                                const Text('Critical Damage'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -457,17 +450,16 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _PRatioController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text(
-                                                  'Penetration Ratio'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label:
+                                                const Text('Penetration Ratio'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -479,17 +471,16 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _AnomMasterController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label:
-                                                  const Text('Anomaly Mastery'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label:
+                                                const Text('Anomaly Mastery'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -501,16 +492,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _PriceController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text('Price'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Price'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -542,16 +532,15 @@ class _InsertPage extends State<InsertPage> {
                                         child: TextField(
                                           controller: _RankController,
                                           decoration: InputDecoration(
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              label: const Text('Rank'),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0xFFFFFFFF),
-                                              border:
-                                                  const OutlineInputBorder()),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('Rank'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -563,14 +552,14 @@ class _InsertPage extends State<InsertPage> {
                                     maxLength: 500,
                                     controller: _descriptionController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Description'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Description'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                   const SizedBox(height: 50),
                                   Center(

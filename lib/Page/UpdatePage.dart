@@ -81,8 +81,7 @@ class _UpdatePageState extends State<UpdatePage> {
         _RankController.text == "" ||
         _descriptionController == "" ||
         _PriceController == "" ||
-        _LevelController.text == ""
-        ) {
+        _LevelController.text == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
@@ -104,7 +103,7 @@ class _UpdatePageState extends State<UpdatePage> {
         "BanbooImage":
             _ImageController != null ? base64Encode(_ImageController!) : null,
         "BanbooPrice": _PriceController.text.toString(),
-        "BanbooLevel" : _LevelController.text.toString(),
+        "BanbooLevel": _LevelController.text.toString(),
       });
 
       final resp = await http.post(Uri.parse(url),
@@ -163,44 +162,45 @@ class _UpdatePageState extends State<UpdatePage> {
         .height; //buat screen height tapi pake persentase dari screen
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: const Color(0xFF777777),
-        appBar: AppBar(
-          toolbarHeight: 100,
-          leading: IconButton(
-            splashColor: const Color(0xFF111111),
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_back_rounded),
-            color: const Color(0xFF333333),
-            iconSize: 25,
-            padding: const EdgeInsets.all(25),
-          ),
-          title: RichText(
-            text: const TextSpan(
-              children: [
-                TextSpan(
-                  text: ' Banboo',
-                  style: TextStyle(
-                    fontFamily: 'Bangers',
-                    fontSize: 35,
-                    color: Color(0xFF333333), // Original color for 'Banboo'
-                  ),
-                ),
-                TextSpan(
-                  text: '\n  Store',
-                  style: TextStyle(
-                    fontFamily: 'Bangers',
-                    fontSize: 35,
-                    color: Colors.white, // White color for 'Store'
-                  ),
-                ),
-              ],
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF999999),
+      backgroundColor: const Color(0xFF777777),
+      appBar: AppBar(
+        toolbarHeight: 100,
+        leading: IconButton(
+          splashColor: const Color(0xFF111111),
+          onPressed: () {},
+          icon: const Icon(Icons.arrow_back_rounded),
+          color: const Color(0xFF333333),
+          iconSize: 25,
+          padding: const EdgeInsets.all(25),
         ),
-        body: SingleChildScrollView(
-          child: Column(children: [
+        title: RichText(
+          text: const TextSpan(
+            children: [
+              TextSpan(
+                text: ' Banboo',
+                style: TextStyle(
+                  fontFamily: 'Bangers',
+                  fontSize: 35,
+                  color: Color(0xFF333333), // Original color for 'Banboo'
+                ),
+              ),
+              TextSpan(
+                text: '\n  Store',
+                style: TextStyle(
+                  fontFamily: 'Bangers',
+                  fontSize: 35,
+                  color: Colors.white, // White color for 'Store'
+                ),
+              ),
+            ],
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0xFF999999),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
             Container(
               child: Stack(
                 children: [
@@ -227,7 +227,7 @@ class _UpdatePageState extends State<UpdatePage> {
                             30), // Padding inside the container
                         decoration: const BoxDecoration(
                           // warna border
-                          color: Color(0xFF999999), 
+                          color: Color(0xFF999999),
                           borderRadius: BorderRadius.only(
                               // lengkungan border
                               topLeft: Radius.circular(10),
@@ -243,14 +243,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _nameController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Name'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Name'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -262,14 +262,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _HPController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Health Point'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Health Point'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -281,14 +281,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _ATKController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Attack'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Attack'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -300,14 +300,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _DEFController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Deffence'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Deffence'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -319,14 +319,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _ImpactController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Impact'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Impact'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -338,14 +338,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _CRateController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Critical Rate'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Critical Rate'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -357,14 +357,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _CDMGController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Critical Damage'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Critical Damage'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -376,14 +376,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _PRatioController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Penetration Ratio'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Penetration Ratio'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -395,14 +395,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _AnomMasterController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Anomaly Mastery'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Anomaly Mastery'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -414,14 +414,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _PriceController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Price'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Price'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -433,14 +433,14 @@ class _UpdatePageState extends State<UpdatePage> {
                                   child: TextField(
                                     controller: _RankController,
                                     decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        label: const Text('Rank'),
-                                        filled: true,
-                                        fillColor: const Color(0xFFFFFFFF),
-                                        border: const OutlineInputBorder()),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('Rank'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -452,13 +452,14 @@ class _UpdatePageState extends State<UpdatePage> {
                               maxLength: 500,
                               controller: _descriptionController,
                               decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  label: const Text('Description'),
-                                  filled: true,
-                                  fillColor: const Color(0xFFFFFFFF),
-                                  border: const OutlineInputBorder()),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                label: const Text('Description'),
+                                filled: true,
+                                fillColor: const Color(0xFFFFFFFF),
+                                border: const OutlineInputBorder(),
+                              ),
                             ),
                             const SizedBox(height: 50),
                             Center(
@@ -517,7 +518,9 @@ class _UpdatePageState extends State<UpdatePage> {
               ),
               // Insert page ------------------------------------------------------------------------------------------------------------------------------
             ),
-          ]),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 }

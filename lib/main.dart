@@ -42,8 +42,6 @@ class MyApp extends StatelessWidget {
         '/loginPage': (context) => const LoginPage(),
         '/authPage': (context) => const AuthPage(),
         '/registerPage': (context) => const RegisterPage(),
-      //   // '/homePage': (context) =>  HomePage(UserID: 13),
-      //   '/adminHomePage' : (context) => const AdminHomePage(),
         '/insertPage' : (context) => const InsertPage(),
         "/adminVerif" : (context) => const AdminVerificationPage(),
       },

@@ -1,4 +1,6 @@
 const mysql = require('mysql2')
+const jwtSecret = 'banboo_store'; // Ganti dengan secret key yang aman
+
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -6,6 +8,10 @@ const connection = mysql.createConnection({
     password: '',
     database: 'banboo_store'
 })
+
 connection.connect()
+
+
+
 
 module.exports = connection;

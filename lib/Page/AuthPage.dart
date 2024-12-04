@@ -27,7 +27,7 @@ class _AuthPageState extends State<AuthPage> {
               Image.asset('lib/Assets/Logo.png',
               height: 300,),
 
-              SizedBox(height: 25,),
+              const SizedBox(height: 25,),
 
               //Login Button
               elevatedButtons(
@@ -44,7 +44,7 @@ class _AuthPageState extends State<AuthPage> {
                 FontType: "Poppin",
               ),
 
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
 
               //Register Button
               elevatedButtons(

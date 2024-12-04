@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
-
 var con = require('./connect')
 const bcrypt = require('bcrypt');
 var mysql2 = require('mysql2');
+const jwt = require('jsonwebtoken');
+const jwtSecret = 'banboo_store'; // Ganti dengan secret key yang aman
+
+// Fungsi untuk membuat token
+function generateToken(payload) {
+    return jwt.sign(payload, jwtSecret, { expiresIn: '1h' }); // Token berlaku 1 jam
+}
 
 
 var opt = {
@@ -22,6 +28,25 @@ router.get('/', function(req, res, next) {
     res.send(result)
     })
 });
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) return res.status(401).json({ message: "Access denied, token missing" });
+
+    jwt.verify(token, jwtSecret, (err, user) => {
+        if (err) return res.status(403).json({ message: "Invalid token" });
+
+        req.user = user; // Simpan payload token ke req
+        next();
+    });
+}
+
+router.get('/protected', authenticateToken, (req, res) => {
+    res.json({ message: "This is a protected route", user: req.user });
+});
+
 
 
 //Insert User
@@ -79,24 +104,44 @@ router.post('/insert-new-users', (req, res) => {
     });
 });
 
-router.get('/:email/:password/Role', function (req, res, next) {
-    var email = req.params.email;
-    var password = req.params.password;
-    var connection = mysql2.createConnection(opt);
-  
+router.get('/:email/:password', function (req, res, next) {
+    const email = req.params.email;
+    const password = req.params.password;
+
+    const connection = mysql2.createConnection(opt);
+
     connection.connect();
-  
-    // QUERY
-    connection.query("SELECT Role FROM user WHERE email = ? AND BINARY password = ?", [email, password], function (err, results) {
-      connection.end();
-  
-      if (err) {
-        return res.status(500).json(err); //Return Error dengan HTTP status 500
-      }
-  
-      return res.status(200).json(results);
+
+    connection.query("SELECT UserID FROM user WHERE email = ? AND BINARY password = ?", [email, password], function (err, results) {
+        connection.end(); // Tutup koneksi setelah query selesai
+
+        if (err) {
+            return res.status(500).json({ message: "Database error", error: err });
+        }
+
+        if (results.length === 0) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        const user = results[0];
+        const token = jwt.sign({ userId: user.UserID, email: email, role: user.Role }, jwtSecret, { expiresIn: '1h' });
+
+        const updateQuery = `UPDATE user SET userToken = ? WHERE UserID = ?`;
+        con.query(updateQuery, [token, user.UserID], (updateErr) => {
+            if (updateErr) {
+                return res.status(500).json({ message: "Error updating token in database", error: updateErr });
+            }
+
+            return res.status(200).json({
+                message: "Login successful",
+                token: token,
+                role: user.Role
+            });
+        });
     });
-  });
+});
+
+
 
   router.post('/insert-new-banboo-data', (req, res) => {
    const data = req.body;
@@ -190,6 +235,17 @@ router.get('/search/:prefix', function (req, res) {
     const data = req.body
 
     const query = `SELECT UserID, UserMoney FROM user WHERE Email = ?`
+    con.query(query, [data.Email], (err, result) =>{
+        if(err) throw err;
+        res.send(result),
+        res.send(data.UserID)
+    })
+})
+
+router.post('/get-role', (req, res) => {
+    const data = req.body
+
+    const query = `SELECT Role FROM user WHERE Email = ?`
     con.query(query, [data.Email], (err, result) =>{
         if(err) throw err;
         res.send(result),

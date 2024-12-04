@@ -22,7 +22,7 @@ var passwordControl = TextEditingController();
 
 void _insertOnPressed(BuildContext context) async {
   var validate =
-      "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}/Role";
+      "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
   var login = await http.get(
     Uri.parse(validate),
     headers: {"Content-Type": "application/json"},
@@ -31,16 +31,28 @@ void _insertOnPressed(BuildContext context) async {
   print(login.body);
 
   if (login.statusCode == 200 && login.body != '[]') {
-    var role = "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}/Role";
+    var role =
+        "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
     var roleCheck = await http.get(
       Uri.parse(role),
       headers: {"Content-Type": "application/json"},
     );
-    if (roleCheck.statusCode == 200 && roleCheck.body.contains('1')) {
-      Navigator.pushNamed(context, '/insertPage');
-    } else {
-      //Navigator.pushNamed(context, '/adminHomePage');
-      String url = "http://10.0.2.2:3000/banboos/get-id";
+    if (roleCheck.statusCode == 200) {
+      String url = "http://10.0.2.2:3000/banboos/get-role";
+      String json = jsonEncode({
+        "Email": emailControl.text,
+      });
+      var resp = await http.post(
+        Uri.parse(url),
+        headers: {"Content-Type": "application/json"},
+        body: json,
+      );
+      var result = jsonDecode(resp.body);
+      if(result[0]["Role"] == 1){
+        Navigator.pushNamed(context, '/insertPage');
+      }
+      else{
+        String url = "http://10.0.2.2:3000/banboos/get-id";
       String json = jsonEncode({
         "Email": emailControl.text,
       });
@@ -62,6 +74,19 @@ void _insertOnPressed(BuildContext context) async {
           },
         ),
       );
+      }
+      // Navigator.pushNamed(context, '/insertPage');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Error Login',
+          style: TextStyle(
+            fontFamily: 'Poppin',
+          ),
+        ),
+      ),
+    );
     }
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -182,7 +207,6 @@ class _LoginPageState extends State<LoginPage> {
                 TextButtons(
                   Texts: "Register Now!",
                   TextSize: 15,
-                  TextColor: const Color(0xFF1e0fbe),
                   FontWeights: FontWeight.bold,
                   onPress: () {
                     Navigator.pushNamed(context, '/registerPage');

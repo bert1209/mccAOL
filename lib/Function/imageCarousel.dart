@@ -13,6 +13,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
   List<String> images = [
     "lib/Assets/BangboosFanart0.png",
     "lib/Assets/BangboosFanart1.png",
+    "lib/Assets/BangboosFanart2.png",
+    //"lib/Assets/TierList.png"
   ];
 
   int currIdx = 0;
