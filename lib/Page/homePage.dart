@@ -98,11 +98,12 @@ class _HomePageState extends State<HomePage> {
             iconSize: 60,
             padding: const EdgeInsets.all(25),
           ),
-          title: RichText(
+          title:
+          RichText(
             text: const TextSpan(
               children: [
                 TextSpan(
-                  text: ' Banboo',
+                  text: 'Banboo',
                   style: TextStyle(
                     fontFamily: 'Bangers',
                     fontSize: 35,
@@ -110,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 TextSpan(
-                  text: '\n  Store',
+                  text: '\n Store',
                   style: TextStyle(
                     fontFamily: 'Bangers',
                     fontSize: 35,
@@ -228,77 +229,81 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    FutureBuilder(
-                      future: banbooList,
-                      builder: (context, snapshot) {
-                        var data = snapshot.data;
+                    Container(
+                      color: Colors.transparent,
+                      padding: EdgeInsets.only(left: 7, right: 7),
+                      child: FutureBuilder(
+                        future: banbooList,
+                        builder: (context, snapshot) {
+                          var data = snapshot.data;
 
-                        if (data != null) {
-                          return GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    crossAxisSpacing: 0,
-                                    mainAxisSpacing: 8,
-                                    childAspectRatio: 0.8),
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            padding: const EdgeInsets.all(1),
-                            itemCount: data.length,
-                            itemBuilder: ((context, index) {
-                              final item = data[index];
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductPage(
-                                        BanbooID: item.BanbooID,
-                                        UserID: widget.UserID,
-                                        UserMoney: widget.UserMoney,
+                          if (data != null) {
+                            return GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 0,
+                                      mainAxisSpacing: 0,
+                                      childAspectRatio: 0.8),
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              //padding: const EdgeInsets.all(1),
+                              itemCount: data.length,
+                              itemBuilder: ((context, index) {
+                                final item = data[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ProductPage(
+                                          BanbooID: item.BanbooID,
+                                          UserID: widget.UserID,
+                                          UserMoney: widget.UserMoney,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    color: Colors.transparent,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 0,
                                       ),
                                     ),
-                                  );
-                                },
-                                child: Card(
-                                  color: Colors.transparent,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 0,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        item.BanbooImage.isNotEmpty
+                                            ? Image.memory(
+                                                base64Decode(item.BanbooImage),
+                                                width: 135,
+                                                height: 135,
+                                                errorBuilder:
+                                                    (context, error, stackTrace) {
+                                                  return const Icon(Icons.error,
+                                                      size: 50);
+                                                },
+                                              )
+                                            : const Icon(Icons.image,
+                                                size: 50, color: Colors.blue),
+                                        const SizedBox(height: 1),
+                                      ],
                                     ),
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      item.BanbooImage.isNotEmpty
-                                          ? Image.memory(
-                                              base64Decode(item.BanbooImage),
-                                              width: 100,
-                                              height: 100,
-                                              errorBuilder:
-                                                  (context, error, stackTrace) {
-                                                return const Icon(Icons.error,
-                                                    size: 50);
-                                              },
-                                            )
-                                          : const Icon(Icons.image,
-                                              size: 50, color: Colors.blue),
-                                      const SizedBox(height: 1),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                          );
-                        } else {
-                          return const Text("data");
-                        }
-                      },
+                                );
+                              }),
+                            );
+                          } else {
+                            return const Text("data");
+                          }
+                        },
+                      ),
                     ),
-                    const SizedBox(height: 70)
+                    const SizedBox(height: 90)
                   ],
                 ),
               ),
