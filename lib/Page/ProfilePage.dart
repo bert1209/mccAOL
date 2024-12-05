@@ -162,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   width: screenWidth * 1,
-                  height: screenHeight * 0.2,
+                  height: 140,
                   child: FutureBuilder(
                     future: userList,
                     builder: (context, snapshot) {
