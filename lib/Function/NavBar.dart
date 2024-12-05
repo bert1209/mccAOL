@@ -70,7 +70,7 @@ class navBar extends StatelessWidget {
               );
             },
             icon: const Icon(
-              Icons.home,
+              Icons.home_rounded,
               size: 35,
               color: Color(0xFF999999)
             ),
@@ -89,7 +89,7 @@ class navBar extends StatelessWidget {
               );
             },
             icon: const Icon(
-              Icons.store,
+              Icons.shopping_cart_rounded,
               size: 35,
               color: Color(0xFF999999)
             ),
