@@ -260,7 +260,7 @@ class _ProductPageState extends State<ProductPage> {
                               children: [
                                 SizedBox(height: 25),
                                 Container(
-                                  height: screenHeight * 0.33,
+                                  height: screenHeight * 0.28,
                                   alignment: Alignment.center,
                                   child: Image.memory(
                                     base64Decode(e.BanbooImage),

@@ -183,6 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           fontFamily: "Poppin",
                                           fontWeight: FontWeight.bold,
                                           fontSize: 40,
+                                          color: Color(0xFFEFEFEF),
                                         ),
                                       ),
                                       const TextSpan(text: "\n"),
@@ -191,6 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         style: const TextStyle(
                                           fontFamily: "SemiPoppins",
                                           fontSize: 20,
+                                          color: Color(0xFFEFEFEF),
                                         ),
                                       ),
                                       const TextSpan(
@@ -198,6 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         style: TextStyle(
                                           fontFamily: "SemiPoppins",
                                           fontSize: 20,
+                                          color: Color(0xFFEFEFEF),
                                         ),
                                       ),
                                       TextSpan(
@@ -205,6 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         style: const TextStyle(
                                           fontFamily: "SemiPoppins",
                                           fontSize: 20,
+                                          color: Color(0xFFEFEFEF),
                                         ),
                                       )
                                     ],
@@ -233,7 +237,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontFamily: "Poppin",
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
-                          color: Color(0xFFFFFFFF),
+                          color: Color(0xFFEFEFEF),
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -245,7 +249,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               "Bangboo, the spirited mascot of Banboo Store, turns every shopping trip into a comedy show. Need a phone case? He’s juggling three. Checking out a laptop? He’s using it as a surfboard. Lovable and chaotic, he’s the unexpected highlight of every visit!",
                               style: TextStyle(
                                 fontFamily: "SemiPoppins",
-                                color: Color(0xFFFFFFFF),
+                                color: Color(0xFFEFEFEF),
                                 fontSize: 17,
                               ),
                               softWrap: true,
@@ -260,7 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Icon(
                             Icons.store,
-                            color: Color(0xFFFFFFFF),
+                            color: Color(0xFFEFEFEF),
                             size: 35,
                           ),
                           SizedBox(
@@ -271,8 +275,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Color(0xFFFFFFFF),
+                              fontSize: 17,
+                              color: Color(0xFFEFEFEF),
                             ),
                           ),
                         ],
@@ -282,7 +286,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Icon(
                             Icons.facebook,
-                            color: Color(0xFFFFFFFF),
+                            color: Color(0xFFEFEFEF),
                             size: 35,
                           ),
                           SizedBox(
@@ -293,8 +297,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Color(0xFFFFFFFF),
+                              fontSize: 17,
+                              color: Color(0xFFEFEFEF),
                             ),
                           ),
                         ],
@@ -314,8 +318,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Color(0xFFFFFFFF),
+                              fontSize: 17,
+                              color: Color(0xFFEFEFEF),
                             ),
                           ),
                         ],
@@ -335,8 +339,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Color(0xFFFFFFFF),
+                              fontSize: 17,
+                              color: Color(0xFFEFEFEF),
                             ),
                           ),
                         ],
