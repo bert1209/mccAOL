@@ -2,7 +2,6 @@ import 'package:aol_mcc/Function/Image.dart';
 import 'package:aol_mcc/Function/TextFunc.dart';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
 import 'package:aol_mcc/Page/InsertPage.dart';
-import 'package:aol_mcc/Page/ProductPage.dart';
 import 'package:flutter/material.dart';
 
 class AdminVerificationPage extends StatefulWidget {
@@ -25,7 +24,7 @@ class _AdminVerificationPageState extends State<AdminVerificationPage> {
           child: Center(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 85,
               width: 200,
               child: Image.asset("lib/Assets/Judul.png"),

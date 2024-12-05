@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../Function/ImageButton.dart';
 import '../Function/MyTextField.dart';
 import '../Function/elevatedButtons.dart';
-import 'LoginPage.dart';
 import 'package:http/http.dart' as http;
 
 class RegisterPage extends StatefulWidget {

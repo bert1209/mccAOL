@@ -4,7 +4,6 @@ import 'package:aol_mcc/Function/ImageButton.dart';
 import 'package:aol_mcc/Function/MyTextField.dart';
 import 'package:aol_mcc/Function/TextButton.dart';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
-import 'package:aol_mcc/Page/ProfilePage.dart';
 import 'package:aol_mcc/Page/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -107,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFF777777),
+      backgroundColor: const Color(0xFF777777),
       body: SafeArea(
         child: Center(
           child: Column(

@@ -55,7 +55,7 @@ class _UpdatePageState extends State<UpdatePage> {
     var pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
-      var image = await pickedImage;
+      var image = pickedImage;
       var imageByte = await pickedImage.readAsBytes();
       var imagePreview = File(image.path);
       setState(() => this.image = imagePreview);
@@ -64,7 +64,6 @@ class _UpdatePageState extends State<UpdatePage> {
         _ImageController = imageByte;
       });
     }
-    ;
   }
 
   void _insertOnPressed(BuildContext context) async {
@@ -119,21 +118,21 @@ class _UpdatePageState extends State<UpdatePage> {
     }
   }
 
-  var _nameController = TextEditingController();
-  var _HPController = TextEditingController();
-  var _descriptionController = TextEditingController();
-  var _ATKController = TextEditingController();
-  var _DEFController = TextEditingController();
-  var _ImpactController = TextEditingController();
-  var _CRateController = TextEditingController();
-  var _CDMGController = TextEditingController();
-  var _PRatioController = TextEditingController();
-  var _AnomMasterController = TextEditingController();
-  var _RankController = TextEditingController();
-  var _ImageControll = TextEditingController();
+  final _nameController = TextEditingController();
+  final _HPController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _ATKController = TextEditingController();
+  final _DEFController = TextEditingController();
+  final _ImpactController = TextEditingController();
+  final _CRateController = TextEditingController();
+  final _CDMGController = TextEditingController();
+  final _PRatioController = TextEditingController();
+  final _AnomMasterController = TextEditingController();
+  final _RankController = TextEditingController();
+  final _ImageControll = TextEditingController();
   Uint8List? _ImageController;
-  var _PriceController = TextEditingController();
-  var _LevelController = TextEditingController();
+  final _PriceController = TextEditingController();
+  final _LevelController = TextEditingController();
 
   @override
   void initState() {
@@ -204,7 +203,7 @@ class _UpdatePageState extends State<UpdatePage> {
             Container(
               child: Stack(
                 children: [
-                  Container(
+                  SizedBox(
                     height: screenHeight * 0.33,
                     //color: Colors.green,
                     child: Center(
@@ -248,7 +247,7 @@ class _UpdatePageState extends State<UpdatePage> {
                                       ),
                                       label: const Text('Name'),
                                       filled: true,
-                                      fillColor: const Color(0xFFFFFFFFF),
+                                      fillColor: const Color(0xfffffffff),
                                       border: const OutlineInputBorder(),
                                     ),
                                   ),

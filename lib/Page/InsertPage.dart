@@ -91,7 +91,7 @@ class _InsertPage extends State<InsertPage> {
     var pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedImage != null) {
-      var image = await pickedImage;
+      var image = pickedImage;
       var imageByte = await pickedImage.readAsBytes();
       var imagePreview = File(image.path);
       setState(() => this.image = imagePreview);
@@ -100,7 +100,6 @@ class _InsertPage extends State<InsertPage> {
         _ImageController = imageByte;
       });
     }
-    ;
   }
 
   Future _deleteOnPressed(int id) async {
@@ -116,21 +115,21 @@ class _InsertPage extends State<InsertPage> {
     }
   }
 
-  var _nameController = TextEditingController();
-  var _HPController = TextEditingController();
-  var _descriptionController = TextEditingController();
-  var _ATKController = TextEditingController();
-  var _DEFController = TextEditingController();
-  var _ImpactController = TextEditingController();
-  var _CRateController = TextEditingController();
-  var _CDMGController = TextEditingController();
-  var _PRatioController = TextEditingController();
-  var _AnomMasterController = TextEditingController();
-  var _RankController = TextEditingController();
-  var _ImageControll = TextEditingController();
+  final _nameController = TextEditingController();
+  final _HPController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _ATKController = TextEditingController();
+  final _DEFController = TextEditingController();
+  final _ImpactController = TextEditingController();
+  final _CRateController = TextEditingController();
+  final _CDMGController = TextEditingController();
+  final _PRatioController = TextEditingController();
+  final _AnomMasterController = TextEditingController();
+  final _RankController = TextEditingController();
+  final _ImageControll = TextEditingController();
   Uint8List? _ImageController;
-  var _PriceController = TextEditingController();
-  var _LevelController = TextEditingController();
+  final _PriceController = TextEditingController();
+  final _LevelController = TextEditingController();
 
   void _insertOnPressed(BuildContext context) async {
     if (_nameController.text == "" ||
@@ -231,8 +230,8 @@ class _InsertPage extends State<InsertPage> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/authPage');
                     },
-                    icon: Icon(Icons.logout)),
-                Padding(padding: EdgeInsets.only(right: 15))
+                    icon: const Icon(Icons.logout)),
+                const Padding(padding: EdgeInsets.only(right: 15))
               ],
               title: Container(
                 margin: const EdgeInsets.only(left: 8.0),
@@ -268,7 +267,7 @@ class _InsertPage extends State<InsertPage> {
                   child: SingleChildScrollView(
                     child: Stack(
                       children: [
-                        Container(
+                        SizedBox(
                           height: screenHeight * 0.33,
                           //color: Colors.green,
                           child: Center(
@@ -315,7 +314,7 @@ class _InsertPage extends State<InsertPage> {
                                             ),
                                             label: const Text('Name'),
                                             filled: true,
-                                            fillColor: const Color(0xFFFFFFFFF),
+                                            fillColor: const Color(0xfffffffff),
                                             border: const OutlineInputBorder(),
                                           ),
                                         ),

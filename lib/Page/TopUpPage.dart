@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'package:aol_mcc/Page/ValidationPage.dart';
-import 'package:aol_mcc/Page/VerificationPage.dart';
 import 'package:aol_mcc/Page/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -157,8 +156,8 @@ class _TopUpPageState extends State<TopUpPage> {
                             (e) => Column(
                               children: [
                                 const SizedBox(height: 25),
-                                Row(
-                                  children: const [
+                                const Row(
+                                  children: [
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
                                       child: Text(
@@ -203,8 +202,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 80),
-                                Row(
-                                  children: const [
+                                const Row(
+                                  children: [
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
                                       child: Text(
@@ -233,8 +232,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: Column(
-                                          children: const [
+                                        child: const Column(
+                                          children: [
                                             SizedBox(height: 40),
                                             Align(alignment: Alignment.center),
                                             Icon(
@@ -266,8 +265,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: Column(
-                                          children: const [
+                                        child: const Column(
+                                          children: [
                                             SizedBox(height: 40),
                                             Align(alignment: Alignment.center),
                                             Icon(
@@ -299,8 +298,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: Column(
-                                          children: const [
+                                        child: const Column(
+                                          children: [
                                             SizedBox(height: 40),
                                             Align(alignment: Alignment.center),
                                             Icon(

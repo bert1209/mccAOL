@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:convert';
-import 'package:aol_mcc/Function/MyTextField.dart';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
 import 'package:aol_mcc/Page/VerificationPage.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
 import 'package:aol_mcc/Page/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -323,7 +321,7 @@ class _ProductPageState extends State<ProductPage> {
                                           const Padding(
                                             padding: EdgeInsets.only(left: 35),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             width: 350,
                                             child: Text(
                                               e.BanbooDescription,
@@ -376,7 +374,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 80,
                                                       child: Text(
                                                         "HP",
@@ -408,7 +406,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 80,
                                                       child: Text(
                                                         "ATK",
@@ -440,7 +438,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 80,
                                                       child: Text(
                                                         "DEF",
@@ -472,7 +470,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 80,
                                                       child: Text(
                                                         "Impact",
@@ -523,7 +521,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 90,
                                                       child: Text(
                                                         "Crit Rate",
@@ -555,7 +553,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 90,
                                                       child: Text(
                                                         "Crit DMG",
@@ -587,7 +585,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 90,
                                                       child: Text(
                                                         "Pen Ratio",
@@ -619,7 +617,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 Row(
                                                   children: [
                                                     SizedBox(width: 10),
-                                                    Container(
+                                                    SizedBox(
                                                       width: 90,
                                                       child: Text(
                                                         "AMastery",

@@ -32,13 +32,6 @@ class elevatedButtons extends StatelessWidget {
       height: height,
         child: ElevatedButton(
           onPressed: onPressed,
-          child:
-          Text(text,
-            style: TextStyle(
-            fontSize: fontSize,
-                fontFamily: FontType,
-            ),
-          ),
             style: ElevatedButton.styleFrom(
                 foregroundColor: textColor,
                 backgroundColor: buttonColor,
@@ -46,6 +39,13 @@ class elevatedButtons extends StatelessWidget {
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
             ),
+          child:
+          Text(text,
+            style: TextStyle(
+            fontSize: fontSize,
+                fontFamily: FontType,
+            ),
+          ),
         )
     );
   }

@@ -29,21 +29,21 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF999999),
+      backgroundColor: const Color(0xFF999999),
       body: SafeArea(
           child: Center(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 85,
               width: 200,
               child: Image.asset("lib/Assets/Judul.png"),
             ),
-            SizedBox(height: 100),
+            const SizedBox(height: 100),
             ImagesFunction(
               images: widget.Images,
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextFunc(
               Text1: widget.Text1,
               Text2: widget.Text2,
@@ -54,16 +54,16 @@ class _VerificationPageState extends State<VerificationPage> {
               jenisFonts: "Poppin",
               tipeFonts: FontWeight.bold,
               ukuranFonts: 15,
-              warnaFonts: Color(0xFF333333),
+              warnaFonts: const Color(0xFF333333),
             ),
-            SizedBox(height: 130),
+            const SizedBox(height: 130),
             elevatedButtons(
                 width: 90,
                 height: 40,
                 fontSize: 20,
                 text: "OK",
                 textColor: Colors.white,
-                buttonColor: Color(0xFF333333),
+                buttonColor: const Color(0xFF333333),
                 onPressed: () {
                   Navigator.push(
                     context,

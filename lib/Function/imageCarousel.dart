@@ -23,7 +23,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   @override
   void initState() {
-    timer = Timer.periodic(Duration(seconds: 3), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       currIdx = (currIdx + 1) % images.length;
       moveCarousel(currIdx);
     });
@@ -40,7 +40,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
   void moveCarousel(int idx) {
     pageController.animateToPage(
       idx,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
   }
@@ -54,7 +54,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
       Container(
         width: screenWidth * 0.9,
         height: 200,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xFF777777),
         ),
         child: ClipRRect(

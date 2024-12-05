@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:aol_mcc/Page/homePage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -56,60 +55,84 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF777777),
       appBar: AppBar(
-        toolbarHeight: 100,
-        leading: IconButton(
-          splashColor: const Color(0xFF111111),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(
-                  UserID: widget.UserID,
-                  UserMoney: widget.UserMoney,
+        toolbarHeight: 80,
+        centerTitle: true,
+        backgroundColor: const Color(0xFF333333),
+        leading: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF999999),
+              borderRadius: BorderRadius.circular(15)
+          ),
+
+          margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+          child: IconButton(
+            color: const Color(0xFF333333),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                    UserID: widget.UserID,
+                    UserMoney: widget.UserMoney,
+                  ),
                 ),
-              ),
-            );
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-          color: const Color(0xFF333333),
-          iconSize: 30,
-          padding: const EdgeInsets.only(left: 25),
-        ),
-        title: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: ' Banboo',
-                style: TextStyle(
-                  fontFamily: 'Bangers',
-                  fontSize: 35,
-                  color: Color(0xFF333333), // Original color for 'Banboo'
-                ),
-              ),
-              TextSpan(
-                text: '\n  Store',
-                style: TextStyle(
-                  fontFamily: 'Bangers',
-                  fontSize: 35,
-                  color: Colors.white, // White color for 'Store'
-                ),
-              ),
-            ],
+              );
+            },
+            icon: const Icon(Icons.arrow_back_rounded),
           ),
         ),
-        centerTitle: true,
-        backgroundColor: const Color(0xFF999999),
+        title:
+        Container(
+
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: const TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Banboo\n',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 30,
+                    color: Color(0xFF999999), // Original color for 'Banboo'
+                  ),
+                ),
+                TextSpan(
+                  text: 'Store',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 30,
+                    color: Color(0xFFEFEFEF), // White color for 'Store'
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
         actions: [
-          IconButton(
+          Container(
+            margin: const EdgeInsets.fromLTRB(0, 20, 16, 20),
+            width: 40, // Set width
+            height: 40,
+            decoration: BoxDecoration(
+              color: const Color(0xFF999999),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/authPage');
               },
-              icon: Icon(Icons.logout)),
-          Padding(padding: EdgeInsets.only(right: 15))
+              icon: const Icon(Icons.logout),
+              color: Color(0xFF333333), // Change icon color if needed
+            ),
+          ),
         ],
       ),
       body: Stack(
@@ -117,10 +140,29 @@ class _ProfilePageState extends State<ProfilePage> {
           SingleChildScrollView(
             child: Column(
               children: [
-                Image.asset("lib/Assets/GambarProfilePage.png"),
-                const SizedBox(height: 15),
+                Image.asset(
+                  "lib/Assets/GambarProfilePage.png",
+                  width: screenWidth * 1, // Set desired width
+                  height: screenHeight * 0.32, // Set desired height
+                  fit: BoxFit.cover, // Adjust how the image scales
+                ),
+
+                //const SizedBox(height: 15),
+
                 Container(
-                  padding: const EdgeInsets.only(right: 60, left: 10),
+                  padding: const EdgeInsets.only(top: 15, right: 40), // Padding inside the container
+                  decoration: const BoxDecoration(
+                    // warna border
+                    color: Color(0xFF555555),
+
+                    borderRadius: BorderRadius.only(
+                      // lengkungan border
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                  ),
+                  width: screenWidth * 1,
+                  height: screenHeight * 0.2,
                   child: FutureBuilder(
                     future: userList,
                     builder: (context, snapshot) {
@@ -147,21 +189,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                       TextSpan(
                                         text: e.Email,
                                         style: const TextStyle(
-                                          fontFamily: "Poppin",
+                                          fontFamily: "SemiPoppins",
                                           fontSize: 20,
                                         ),
                                       ),
                                       const TextSpan(
                                         text: " - ",
                                         style: TextStyle(
-                                          fontFamily: "Poppin",
+                                          fontFamily: "SemiPoppins",
                                           fontSize: 20,
                                         ),
                                       ),
                                       TextSpan(
                                         text: widget.UserID.toString(),
                                         style: const TextStyle(
-                                          fontFamily: "Poppin",
+                                          fontFamily: "SemiPoppins",
                                           fontSize: 20,
                                         ),
                                       )
@@ -180,7 +222,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(height: 15),
                 Container(
                   padding: const EdgeInsets.only(left: 25),
-                  color: const Color(0xFF333333),
+                  color: const Color(0xFF777777),
                   height: 420,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -196,19 +238,19 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       const SizedBox(height: 5),
-                      Row(
+                      const Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             "Bangboo, the spirited mascot of Banboo Store, \nturns every shopping trip into a comedy \nshow. Need a phone case? He’s juggling three. \nChecking out a laptop? He’s using it as a surfboard. \nLovable and chaotic, he’s the unexpected \nhighlight of every visit!",
                             style: TextStyle(
-                                fontFamily: "Poppin", color: Color(0xFFFFFFFF)),
+                                fontFamily: "SemiPoppins", color: Color(0xFFFFFFFF)),
                           ),
                         ],
                       ),
                       const SizedBox(height: 20),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Icon(
                             Icons.store,
                             color: Color(0xFFFFFFFF),
@@ -228,8 +270,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Icon(
                             Icons.facebook,
                             color: Color(0xFFFFFFFF),

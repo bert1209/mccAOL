@@ -75,54 +75,67 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return WillPopScope(
       child: Scaffold(
         backgroundColor: const Color(0xFF777777),
         appBar: AppBar(
-          toolbarHeight: 100,
-          leading: IconButton(
-            splashColor: const Color(0xFF111111),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProfilePage(
-                    UserID: id,
-                    UserMoney: widget.UserMoney,
+          toolbarHeight: 80,
+          centerTitle: true,
+          backgroundColor: const Color(0xFF333333),
+          leading: Container(
+            decoration: BoxDecoration(
+                color: const Color(0xFF999999),
+                borderRadius: BorderRadius.circular(15)
+            ),
+
+            margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+            child: IconButton(
+              color: const Color(0xFF333333),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfilePage(
+                      UserID: id,
+                      UserMoney: widget.UserMoney,
+                    ),
                   ),
-                ),
-              );
-            },
-            icon: const Icon(Icons.account_circle_rounded),
-            color: const Color(0xFF333333),
-            iconSize: 60,
-            padding: const EdgeInsets.all(25),
-          ),
-          title:
-          RichText(
-            text: const TextSpan(
-              children: [
-                TextSpan(
-                  text: 'Banboo',
-                  style: TextStyle(
-                    fontFamily: 'Bangers',
-                    fontSize: 35,
-                    color: Color(0xFF333333), // Original color for 'Banboo'
-                  ),
-                ),
-                TextSpan(
-                  text: '\n Store',
-                  style: TextStyle(
-                    fontFamily: 'Bangers',
-                    fontSize: 35,
-                    color: Colors.white, // White color for 'Store'
-                  ),
-                ),
-              ],
+                );
+              },
+              icon: const Icon(Icons.person),
             ),
           ),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF999999),
+
+          title:
+          Container(
+            child: RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Banboo\n',
+                    style: TextStyle(
+                      fontFamily: 'Bangers',
+                      fontSize: 30,
+                      color: Color(0xFF999999), // Original color for 'Banboo'
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Store',
+                    style: TextStyle(
+                      fontFamily: 'Bangers',
+                      fontSize: 30,
+                      color: Color(0xFFEFEFEF), // White color for 'Store'
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           actions: [
             FutureBuilder(
               future: userList,
@@ -134,45 +147,45 @@ class _HomePageState extends State<HomePage> {
                       children: data
                           .map(
                             (e) => Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 5, right: 19, top: 30, bottom: 10),
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xFF333333),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              const WidgetSpan(
-                                                child: Icon(
-                                                    Icons
-                                                        .monetization_on_rounded,
-                                                    size: 20,
-                                                    color: Colors.white),
-                                              ),
-                                              TextSpan(
-                                                text:
-                                                    "  ${e.UserMoney.toString()}",
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20,
-                                                    fontFamily: "Poppin",
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 16, right: 20, top: 16, bottom: 0),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFF999999),
+                                    borderRadius:
+                                    BorderRadius.circular(15)),
+                                child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          const WidgetSpan(
+                                            child: Icon(
+                                                Icons
+                                                    .monetization_on_rounded,
+                                                size: 20,
+                                                color: Color(0xFF333333)),
                                           ),
-                                        )),
-                                  ),
-                                ),
-                              ],
+                                          TextSpan(
+                                            text:
+                                            "  ${e.UserMoney.toString()}",
+                                            style: const TextStyle(
+                                                color: Color(0xFF333333),
+                                                fontSize: 20,
+                                                fontFamily: "Poppin",
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                              ),
                             ),
-                          )
+                          ],
+                        ),
+                      )
                           .toList());
                 } else {
                   return const Text("error");
@@ -187,51 +200,35 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 15,
+                    SizedBox(height: screenHeight * 0.03),
+
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                          padding: const EdgeInsets.only(left: 18),
+                          child: const Text("Popular Arts", style: TextStyle(fontFamily: 'Poppin', color: Color(0xFF333333), fontWeight: FontWeight.bold, fontSize: 35),)
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(left: 20),
-                        ),
-                        Text(
-                          "Popular Art",
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontFamily: "Poppin",
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
+
+                    SizedBox(height: screenHeight * 0.01),
+
                     const ImageCarousel(),
-                    const SizedBox(
-                      height: 30,
+
+                    SizedBox(height: screenHeight * 0.035),
+
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                          padding: const EdgeInsets.only(left: 18),
+                          child: const Text("All Banboos", style: TextStyle(fontFamily: 'Poppin', color: Color(0xFF333333), fontWeight: FontWeight.bold, fontSize: 35),)
+                      ),
                     ),
-                    Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.only(left: 20),
-                        ),
-                        Text(
-                          "All Banboos",
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontFamily: "Poppin",
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+
+                    SizedBox(height: screenHeight * 0.01),
+
                     Container(
                       color: Colors.transparent,
-                      padding: EdgeInsets.only(left: 7, right: 7),
+                      padding: const EdgeInsets.only(left: 18, right: 18),
                       child: FutureBuilder(
                         future: banbooList,
                         builder: (context, snapshot) {
@@ -244,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisCount: 3,
                                       crossAxisSpacing: 0,
                                       mainAxisSpacing: 0,
-                                      childAspectRatio: 0.8),
+                                      childAspectRatio: 0.82),
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               //padding: const EdgeInsets.all(1),
@@ -268,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                                     color: Colors.transparent,
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(15),
                                       side: const BorderSide(
                                         color: Colors.transparent,
                                         width: 0,

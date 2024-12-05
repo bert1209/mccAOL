@@ -23,7 +23,7 @@ class navBar extends StatelessWidget {
         left: 24,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xFF999999),
+        color: const Color(0xFF333333),
         borderRadius: BorderRadius.circular(20),
         boxShadow: const [
           BoxShadow(
@@ -38,7 +38,7 @@ class navBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            padding: const EdgeInsets.only(top: 10.5),
+            padding: EdgeInsets.only(top: 10.5),
             onPressed: () {
               Navigator.push(
                 context,
@@ -50,9 +50,10 @@ class navBar extends StatelessWidget {
                 ),
               );
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.account_balance_wallet_rounded,
-              size: 40,
+              size: 35,
+              color: Color(0xFF999999)
             ),
           ),
           IconButton(
@@ -70,7 +71,8 @@ class navBar extends StatelessWidget {
             },
             icon: const Icon(
               Icons.home,
-              size: 40,
+              size: 35,
+              color: Color(0xFF999999)
             ),
           ),
           IconButton(
@@ -88,7 +90,8 @@ class navBar extends StatelessWidget {
             },
             icon: const Icon(
               Icons.store,
-              size: 40,
+              size: 35,
+              color: Color(0xFF999999)
             ),
           ),
         ],
