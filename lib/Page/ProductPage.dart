@@ -129,49 +129,59 @@ class _ProductPageState extends State<ProductPage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF777777),
       appBar: AppBar(
-        toolbarHeight: 100,
-        leading: IconButton(
-          splashColor: const Color(0xFF111111),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(
-                  UserID: widget.UserID,
-                  UserMoney: widget.UserMoney,
+        toolbarHeight: 80,
+        centerTitle: true,
+        backgroundColor: const Color(0xFF333333),
+        leading: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF999999),
+              borderRadius: BorderRadius.circular(15)
+          ),
+
+          margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+          child: IconButton(
+            color: const Color(0xFF333333),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                    UserID: widget.UserID,
+                    UserMoney: widget.UserMoney,
+                  ),
                 ),
-              ),
-            );
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-          color: const Color(0xFF333333),
-          iconSize: 30,
-          padding: const EdgeInsets.only(left: 25),
-        ),
-        title: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: ' Banboo',
-                style: TextStyle(
-                  fontFamily: 'Bangers',
-                  fontSize: 35,
-                  color: Color(0xFF333333), // Original color for 'Banboo'
-                ),
-              ),
-              TextSpan(
-                text: '\n  Store',
-                style: TextStyle(
-                  fontFamily: 'Bangers',
-                  fontSize: 35,
-                  color: Colors.white, // White color for 'Store'
-                ),
-              ),
-            ],
+              );
+            },
+            icon: const Icon(Icons.arrow_back_rounded),
           ),
         ),
-        centerTitle: true,
-        backgroundColor: const Color(0xFF999999),
+
+        title:
+        Container(
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: const TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Banboo\n',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 30,
+                    color: Color(0xFF999999), // Original color for 'Banboo'
+                  ),
+                ),
+                TextSpan(
+                  text: 'Store',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 30,
+                    color: Color(0xFFEFEFEF), // White color for 'Store'
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
         actions: [
           FutureBuilder(
             future: userList,
@@ -183,42 +193,45 @@ class _ProductPageState extends State<ProductPage> {
                     children: data
                         .map(
                           (e) => Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 5, right: 19, top: 30, bottom: 10),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFF333333),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            const WidgetSpan(
-                                              child: Icon(
-                                                  Icons.monetization_on_rounded,
-                                                  size: 20,
-                                                  color: Colors.white),
-                                            ),
-                                            TextSpan(
-                                              text:
-                                                  "  ${e.UserMoney.toString()}",
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
-                                                  fontFamily: "Poppin",
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16, right: 20, top: 16, bottom: 0),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                  color: const Color(0xFF999999),
+                                  borderRadius:
+                                  BorderRadius.circular(15)),
+                              child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const WidgetSpan(
+                                          child: Icon(
+                                              Icons
+                                                  .monetization_on_rounded,
+                                              size: 20,
+                                              color: Color(0xFF333333)),
                                         ),
-                                      )),
-                                ),
-                              ),
-                            ],
+                                        TextSpan(
+                                          text:
+                                          "  ${e.UserMoney.toString()}",
+                                          style: const TextStyle(
+                                              color: Color(0xFF333333),
+                                              fontSize: 20,
+                                              fontFamily: "Poppin",
+                                              fontWeight:
+                                              FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
                           ),
-                        )
+                        ],
+                      ),
+                    )
                         .toList());
               } else {
                 return const Text("error");

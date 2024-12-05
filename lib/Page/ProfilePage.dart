@@ -223,7 +223,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 Container(
                   padding: const EdgeInsets.only(left: 25),
                   color: const Color(0xFF777777),
-                  height: 420,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -241,11 +240,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       const Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Bangboo, the spirited mascot of Banboo Store, \nturns every shopping trip into a comedy \nshow. Need a phone case? He’s juggling three. \nChecking out a laptop? He’s using it as a surfboard. \nLovable and chaotic, he’s the unexpected \nhighlight of every visit!",
-                            style: TextStyle(
-                                fontFamily: "SemiPoppins", color: Color(0xFFFFFFFF)),
+                          Expanded(
+                            child: Text(
+                              "Bangboo, the spirited mascot of Banboo Store, turns every shopping trip into a comedy show. Need a phone case? He’s juggling three. Checking out a laptop? He’s using it as a surfboard. Lovable and chaotic, he’s the unexpected highlight of every visit!",
+                              style: TextStyle(
+                                fontFamily: "SemiPoppins",
+                                color: Color(0xFFFFFFFF),
+                                fontSize: 17,
+                              ),
+                              softWrap: true,
+                              overflow: TextOverflow.clip,
+                            ),
                           ),
+
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -331,6 +338,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ],
                       ),
+                      SizedBox(height: screenHeight * 0.15),
                     ],
                   ),
                 ),
