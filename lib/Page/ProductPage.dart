@@ -125,6 +125,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF777777),
@@ -257,10 +258,9 @@ class _ProductPageState extends State<ProductPage> {
                           .map(
                             (e) => Column(
                               children: [
-                                const SizedBox(height: 40),
+                                SizedBox(height: 25),
                                 Container(
-                                  height: 200,
-                                  width: 200,
+                                  height: screenHeight * 0.33,
                                   alignment: Alignment.center,
                                   child: Image.memory(
                                     base64Decode(e.BanbooImage),
@@ -695,7 +695,7 @@ class _ProductPageState extends State<ProductPage> {
                                                 widget.UserMoney,
                                                 e.BanbooPrice),
                                             borderRadius: 5,
-                                            FontType: "Poppin",
+                                            FontType: "SemiPoppins",
                                           ),
                                         ],
                                       ),

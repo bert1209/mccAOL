@@ -143,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Image.asset(
                   "lib/Assets/GambarProfilePage.png",
                   width: screenWidth * 1, // Set desired width
-                  height: screenHeight * 0.32, // Set desired height
+                  height: screenHeight * 0.33, // Set desired height
                   fit: BoxFit.cover, // Adjust how the image scales
                 ),
 
@@ -261,7 +261,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Icon(
                             Icons.store,
                             color: Color(0xFFFFFFFF),
-                            size: 30,
+                            size: 35,
                           ),
                           SizedBox(
                             width: 10,
@@ -271,18 +271,19 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 16,
                               color: Color(0xFFFFFFFF),
                             ),
                           ),
                         ],
                       ),
+                      SizedBox(height: 2),
                       const Row(
                         children: [
                           Icon(
                             Icons.facebook,
                             color: Color(0xFFFFFFFF),
-                            size: 30,
+                            size: 35,
                           ),
                           SizedBox(
                             width: 10,
@@ -292,17 +293,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 16,
                               color: Color(0xFFFFFFFF),
                             ),
                           ),
                         ],
                       ),
+                      SizedBox(height: 2),
                       Row(
                         children: [
                           Image.asset(
                             "lib/Assets/instagram.png",
-                            height: 30,
+                            height: 35,
                           ),
                           const SizedBox(
                             width: 10,
@@ -312,17 +314,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 16,
                               color: Color(0xFFFFFFFF),
                             ),
                           ),
                         ],
                       ),
+                      SizedBox(height: 5),
                       Row(
                         children: [
                           Image.asset(
                             "lib/Assets/youtube.png",
-                            height: 21.5,
+                            height: 25,
                           ),
                           const SizedBox(
                             width: 10,
@@ -332,7 +335,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                              fontSize: 16,
                               color: Color(0xFFFFFFFF),
                             ),
                           ),

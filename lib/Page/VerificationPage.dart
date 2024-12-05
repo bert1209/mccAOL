@@ -1,7 +1,7 @@
 import 'package:aol_mcc/Function/Image.dart';
 import 'package:aol_mcc/Function/TextFunc.dart';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
-import 'package:aol_mcc/Page/ProductPage.dart';
+import 'package:aol_mcc/Page/HomePage.dart';
 import 'package:flutter/material.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -68,10 +68,9 @@ class _VerificationPageState extends State<VerificationPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProductPage(
+                      builder: (context) => HomePage(
                         UserID: widget.UserID,
                         UserMoney: widget.UserMoney,
-                        BanbooID: widget.BanbooID,
                       ),
                     ),
                   );
