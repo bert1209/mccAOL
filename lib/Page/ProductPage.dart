@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
 import 'package:aol_mcc/Page/VerificationPage.dart';
 import 'package:aol_mcc/Page/homePage.dart';
+import 'package:aol_mcc/Page/TopUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../Function/user.dart';
@@ -195,15 +196,27 @@ class _ProductPageState extends State<ProductPage> {
                         .map(
                           (e) => Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16, right: 20, top: 16, bottom: 0),
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: const Color(0xFF999999),
-                                  borderRadius:
-                                  BorderRadius.circular(15)),
-                              child: Padding(
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TopUpPage(
+                                    UserID: widget.UserID,
+                                    UserMoney: widget.UserMoney,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 16, right: 20, top: 16, bottom: 0),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFF999999),
+                                    borderRadius:
+                                    BorderRadius.circular(15)),
+                                child: Padding(
                                   padding: const EdgeInsets.all(8),
                                   child: RichText(
                                     text: TextSpan(
@@ -227,7 +240,9 @@ class _ProductPageState extends State<ProductPage> {
                                         ),
                                       ],
                                     ),
-                                  )),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
