@@ -17,22 +17,33 @@ class _AuthPageState extends State<AuthPage> {
         child: Center(
           child: Column(
             children: [
-              const SizedBox(height: 50,),
+              const SizedBox(
+                height: 50,
+              ),
 
-              Image.asset('lib/Assets/Judul.png',
-              height: 75,),
+              Image.asset(
+                'lib/Assets/Judul.png',
+                height: 85,
+              ),
 
-              const SizedBox(height: 50,),
+              const SizedBox(
+                height: 50,
+              ),
 
-              Image.asset('lib/Assets/Logo.png',
-              height: 300,),
+              Image.asset(
+                'lib/Assets/Logo.png',
+                height: 300,
+              ),
 
-              const SizedBox(height: 25,),
+              const SizedBox(
+                height: 25,
+              ),
 
               //Login Button
               elevatedButtons(
+                fontWeight: FontWeight.bold,
                 width: 300,
-                textColor: const Color(0xFF555555),
+                textColor: const Color(0xFF333333),
                 text: "Login",
                 onPressed: () {
                   Navigator.pushNamed(context, '/loginPage');
@@ -44,21 +55,24 @@ class _AuthPageState extends State<AuthPage> {
                 FontType: "Poppin",
               ),
 
-              const SizedBox(height: 15,),
+              const SizedBox(
+                height: 15,
+              ),
 
               //Register Button
               elevatedButtons(
-                  width: 300,
-                  textColor: const Color(0xFF555555),
-                  text: "Register",
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/registerPage');
-                  },
-                  height: 50,
-                  buttonColor: const Color(0xFFFFFFFF),
-                  borderRadius: 10,
-                  fontSize: 20,
-                  FontType: "Poppin",
+                fontWeight: FontWeight.bold,
+                width: 300,
+                textColor: const Color(0xFFFFFFFF),
+                text: "Register",
+                onPressed: () {
+                  Navigator.pushNamed(context, '/registerPage');
+                },
+                height: 50,
+                buttonColor: const Color(0xFF333333),
+                borderRadius: 10,
+                fontSize: 20,
+                FontType: "Poppin",
               ),
             ],
           ),

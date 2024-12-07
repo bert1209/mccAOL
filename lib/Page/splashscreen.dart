@@ -9,29 +9,35 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin{
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   @override
-
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (_) => const AuthPage()
-      ));
-    });
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const AuthPage()),
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+    final screenHeight = MediaQuery.of(context)
+        .size
+        .height; //buat screen height tapi pake persentase dari screen
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
@@ -44,8 +50,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: screenWidth * 0.5),
             Image.asset('lib/Assets/splashScreen.png'),
             SizedBox(height: screenHeight * 0.02),
             const Text(
@@ -53,13 +60,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               style: TextStyle(
                 fontFamily: 'Bangers',
                 fontSize: 40,
-                color: Colors.white70
-              )
-            )
+                color: Colors.white70,
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.15),
+            CircularProgressIndicator(),
           ],
-        )
+        ),
       ),
     );
   }
 }
-

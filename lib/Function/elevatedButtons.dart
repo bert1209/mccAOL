@@ -10,43 +10,43 @@ class elevatedButtons extends StatelessWidget {
   final double height;
   final double fontSize;
   final String FontType;
+  final FontWeight fontWeight;
 
-
-   const elevatedButtons ({
-     super.key,
-     required this.width,
-     required this.height,
-     required this.fontSize,
-     required this.text,
-     required this.textColor,
-     required this.buttonColor,
-     required this.onPressed,
-     required this.borderRadius,
-     required this.FontType,
-   });
+  const elevatedButtons({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.fontSize,
+    required this.text,
+    required this.textColor,
+    required this.buttonColor,
+    required this.onPressed,
+    required this.borderRadius,
+    required this.FontType,
+    required this.fontWeight,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
-      height: height,
+        width: width,
+        height: height,
         child: ElevatedButton(
           onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-                foregroundColor: textColor,
-                backgroundColor: buttonColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
-            ),
-          child:
-          Text(text,
-            style: TextStyle(
-            fontSize: fontSize,
-                fontFamily: FontType,
+          style: ElevatedButton.styleFrom(
+            foregroundColor: textColor,
+            backgroundColor: buttonColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
           ),
-        )
-    );
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontFamily: FontType,
+            ),
+          ),
+        ));
   }
 }

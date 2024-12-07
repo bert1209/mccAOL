@@ -1,14 +1,16 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously, avoid_print, duplicate_ignore
+
 import 'dart:convert';
 // import 'dart:html';
 // import 'dart:html';
 // import 'dart:html';
 
 import 'package:aol_mcc/Function/AuthService.dart';
-import 'package:aol_mcc/Function/ImageButton.dart';
+// import 'package:aol_mcc/Function/ImageButton.dart';
 import 'package:aol_mcc/Function/MyTextField.dart';
 import 'package:aol_mcc/Function/TextButton.dart';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
-import 'package:aol_mcc/Function/googleAuth.dart';
+// import 'package:aol_mcc/Function/googleAuth.dart';
 import 'package:aol_mcc/Function/user.dart';
 import 'package:aol_mcc/Page/homePage.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +124,7 @@ void signInGoogles(BuildContext context) async {
 void _insertOnPressed(BuildContext context) async {
   if (passwordControl.text == " " ||
       passwordControl.text == "" ||
-      emailControl == "") {
+      emailControl.text == "") {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(
@@ -220,6 +222,13 @@ void _insertOnPressed(BuildContext context) async {
 
 class _LoginPageState extends State<LoginPage> {
   @override
+  void initState() {
+    emailControl.text = "";
+    passwordControl.text = "";
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -234,6 +243,7 @@ class _LoginPageState extends State<LoginPage> {
 
               Image.asset(
                 'lib/Assets/Judul.png',
+                height: 90,
               ),
 
               const SizedBox(
@@ -263,6 +273,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               elevatedButtons(
+                fontWeight: FontWeight.bold,
                 width: 325,
                 height: 50,
                 fontSize: 25,
@@ -280,71 +291,90 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               const SizedBox(
-                height: 25,
+                height: 70,
               ),
 
               const Text(
                 "---Or Continue With---",
                 style: TextStyle(
-                  color: Color(0xFFFFFFFF),
+                  color: Color(0xFF333333),
                   fontSize: 15,
+                  fontFamily: "Poppin",
+                  fontWeight: FontWeight.bold,
                 ),
               ),
 
               const SizedBox(
-                height: 20,
-              ),
-
-              SizedBox(
-                width: 300,
-                height: 50,
-                child: ElevatedButton(
-                    onPressed: () {
-                      // googleSignIn();
-                      signInGoogles(context);
-                      // signOutGoogle();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: const Color(0xFF333333),
-                      backgroundColor: const Color(0xFF999999),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "lib/Assets/google.png",
-                          height: 37,
-                          width: 37,
-                        ),
-                        const SizedBox(width: 5),
-                        const Text(
-                          "Google",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: "Poppin",
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
-              const SizedBox(
                 height: 10,
               ),
 
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Text("Didn't have an account?"),
-                TextButtons(
-                  Texts: "Register Now!",
-                  TextSize: 15,
-                  FontWeights: FontWeight.bold,
-                  onPress: () {
-                    Navigator.pushNamed(context, '/registerPage');
+              SizedBox(
+                width: 350,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // googleSignIn();
+                    signInGoogles(context);
+                    // signOutGoogle();
                   },
-                )
-              ]),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: const Color(0xFF333333),
+                    backgroundColor: const Color(0xFF999999),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // const SizedBox(width: 100),
+                      SizedBox(
+                        child: Container(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: const Color(0xFFFFFFFF),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Image.asset(
+                              "lib/Assets/googles.png",
+                              height: 37,
+                              width: 37,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "Sign in With Google",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: "Poppin",
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Didn't have an account?",
+                  ),
+                  TextButtons(
+                    Texts: "Register Now!",
+                    TextSize: 15,
+                    onPress: () {
+                      Navigator.pushNamed(context, '/registerPage');
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

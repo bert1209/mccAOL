@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../Function/ImageButton.dart';
 import '../Function/MyTextField.dart';
+import '../Function/TextButton.dart';
 import '../Function/elevatedButtons.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_sign_in/google_sign_in.dart';
@@ -85,7 +86,10 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               const SizedBox(height: 50),
 
-              Image.asset('lib/Assets/Judul.png'),
+              Image.asset(
+                'lib/Assets/Judul.png',
+                height: 90,
+              ),
 
               const SizedBox(height: 75),
 
@@ -117,6 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 25),
 
               elevatedButtons(
+                fontWeight: FontWeight.bold,
                 width: 325,
                 height: 50,
                 fontSize: 25,
@@ -127,41 +132,80 @@ class _RegisterPageState extends State<RegisterPage> {
                 borderRadius: 10,
                 FontType: "Poppin",
               ),
-
-              const SizedBox(height: 15),
+              const SizedBox(height: 10),
+              const Text(
+                "---OR---",
+                style: TextStyle(
+                  fontFamily: "Poppin",
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF333333),
+                ),
+              ),
+              const SizedBox(height: 10),
               SizedBox(
-                width: 300,
+                width: 350,
                 height: 50,
                 child: ElevatedButton(
-                    onPressed: () {
-                      // googleSignIn();
-                      signInGoogle(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: const Color(0xFF333333),
-                      backgroundColor: const Color(0xFF999999),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  onPressed: () {
+                    // googleSignIn();
+                    signInGoogle(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: const Color(0xFF333333),
+                    backgroundColor: const Color(0xFF999999),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          "lib/Assets/google.png",
-                          height: 37,
-                          width: 37,
-                        ),
-                        const SizedBox(width: 5),
-                        const Text(
-                          "Google",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: "Poppin",
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // const SizedBox(width: 100),
+                      SizedBox(
+                        child: Container(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: const Color(0xFFFFFFFF),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Image.asset(
+                              "lib/Assets/googles.png",
+                              height: 37,
+                              width: 37,
+                            ),
                           ),
                         ),
-                      ],
-                    )),
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "Register With Google",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: "Poppin",
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Already Have an Account?"),
+                  TextButtons(
+                    Texts: "Sign In Now!",
+                    TextSize: 15,
+                    onPress: () {
+                      Navigator.pushNamed(context, '/loginPage');
+                    },
+                  ),
+                ],
               ),
             ],
           ),

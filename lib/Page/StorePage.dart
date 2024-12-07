@@ -32,7 +32,7 @@ class _StorePageState extends State<StorePage> {
       String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
       var token = AuthService.loggedUser!.token;
       // ignore: avoid_print
-    print(token);
+      print(token);
       var resp = await http.get(Uri.parse(url), headers: {"token": token});
       var result = jsonDecode(resp.body);
 
@@ -115,13 +115,14 @@ class _StorePageState extends State<StorePage> {
         title: Container(
           padding: const EdgeInsets.only(
             left: 20,
-            top: 10,
+            top: 11,
           ),
-          width: 350,
+          width: 375,
           height: 70,
           child: TextField(
             controller: searchController,
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(10),
               enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: Color(0xFF777777),
@@ -147,8 +148,13 @@ class _StorePageState extends State<StorePage> {
             child: Column(
               children: [
                 Container(
-                  height: 2050,
-                  padding: const EdgeInsets.all(30),
+                  // height: 2200,
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                    right: 30,
+                    left: 30,
+                    bottom: 100,
+                  ),
                   decoration: const BoxDecoration(
                     color: Color(0xff777777),
                     borderRadius: BorderRadius.only(
@@ -162,6 +168,8 @@ class _StorePageState extends State<StorePage> {
 
                       if (data != null) {
                         return ListView.builder(
+                          shrinkWrap: true, // Menyesuaikan tinggi dengan isi
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount:
                               snapshot.data!.length, // Jumlah item dalam data
                           itemBuilder: (context, index) {
@@ -179,7 +187,7 @@ class _StorePageState extends State<StorePage> {
                                 elevation: 9,
                                 child: Container(
                                   alignment: Alignment.centerLeft,
-                                  height: 77,
+                                  height: 80,
                                   decoration: BoxDecoration(
                                     color: const Color(0xFF999999),
                                     border: Border.all(
@@ -208,6 +216,7 @@ class _StorePageState extends State<StorePage> {
                                         ),
                                       ),
                                       trailing: elevatedButtons(
+                                          fontWeight: FontWeight.bold,
                                           width: 70,
                                           height: 30,
                                           fontSize: 10,

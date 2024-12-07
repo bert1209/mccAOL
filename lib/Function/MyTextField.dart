@@ -34,6 +34,7 @@ class TextFields extends StatelessWidget {
           fillColor: const Color(0xFFFFFFFF),
           filled: true,
           hintText: hintText,
+          contentPadding: EdgeInsets.all(15),
         ),
       ),
     );

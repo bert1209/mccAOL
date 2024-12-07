@@ -19,7 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   late final int id;
 
   late Future<List<banboo>> banbooList;
@@ -150,59 +149,62 @@ class _HomePageState extends State<HomePage> {
                       children: data
                           .map(
                             (e) => Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => TopUpPage(
-                                      UserID: id,
-                                      UserMoney: widget.UserMoney,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 16, right: 20, top: 16, bottom: 0),
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFF999999),
-                                      borderRadius:
-                                      BorderRadius.circular(15)),
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TopUpPage(
+                                          UserID: id,
+                                          UserMoney: widget.UserMoney,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          const WidgetSpan(
-                                            child: Icon(
-                                                Icons
-                                                    .monetization_on_rounded,
-                                                size: 20,
-                                                color: Color(0xFF333333)),
+                                    padding: const EdgeInsets.only(
+                                        left: 16,
+                                        right: 20,
+                                        top: 16,
+                                        bottom: 0),
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xFF999999),
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              const WidgetSpan(
+                                                child: Icon(
+                                                    Icons
+                                                        .monetization_on_rounded,
+                                                    size: 20,
+                                                    color: Color(0xFF333333)),
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    "  ${e.UserMoney.toString()}",
+                                                style: const TextStyle(
+                                                    color: Color(0xFF333333),
+                                                    fontSize: 20,
+                                                    fontFamily: "Poppin",
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
-                                          TextSpan(
-                                            text:
-                                            "  ${e.UserMoney.toString()}",
-                                            style: const TextStyle(
-                                                color: Color(0xFF333333),
-                                                fontSize: 20,
-                                                fontFamily: "Poppin",
-                                                fontWeight:
-                                                FontWeight.bold),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
+                          )
                           .toList());
                 } else {
                   return const Text("error");
@@ -260,10 +262,11 @@ class _HomePageState extends State<HomePage> {
                             return GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 0,
-                                      mainAxisSpacing: 0,
-                                      childAspectRatio: 0.82),
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 0,
+                                mainAxisSpacing: 0,
+                                childAspectRatio: 0.82,
+                              ),
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               //padding: const EdgeInsets.all(1),

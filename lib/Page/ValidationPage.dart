@@ -56,6 +56,7 @@ class _ValidationPageState extends State<ValidationPage> {
             ),
             const SizedBox(height: 130),
             elevatedButtons(
+              fontWeight: FontWeight.bold,
                 width: 90,
                 height: 40,
                 fontSize: 20,

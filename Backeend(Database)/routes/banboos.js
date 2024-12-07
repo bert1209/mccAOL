@@ -117,33 +117,6 @@ router.post('/insert-new-users', (req, res) => {
     });
 });
 
-router.post('/login', function (req, res, next) {
-    var Email = req.body.email;
-    var Password = req.body.password;
-    var connection = mysql.createConnection(opt);
-    connection.connect();
-  
-    // QUERY
-    connection.query("SELECT * FROM user WHERE Email = ? AND Password = ?", [Email, Password], function (err, results) {
-  
-      if (err) throw err;
-      if (results.length === 0) {
-        return res.status(403).send('Invalid user creds.');
-      }
-  
-      var user = results[0];
-      var token = generateToken(user);
-  
-      connection.query("UPDATE user SET userToken = ? WHERE UserID = ?", [token, user.UserId]);
-      connection.end();
-      var data = {
-        UserID: user.UserID,
-        Username: user.Username,
-        token: token
-      }
-      return res.status(200).json(data);
-    });
-  });
 
 router.get('/:Email/:Password', function (req, res, next) {
     const Email = req.params.Email;
@@ -299,20 +272,6 @@ router.post('/get-user', (req, res) => {
     })
 })
 
-// router.post('/get-banboo-detail', (req, res) => {
-//     const data = req.body
-
-//     const query = `SELECT * FROM banboo WHERE BanbooID = ${data.BanbooID}`
-//     con.query(query, (err, result) => {
-//         if(err) throw err;
-//         result.forEach(result => {
-//             if(result.BanbooImage){
-//               result.BanbooImage = Buffer.from(result.BanbooImage).toString('base64');
-//             }
-//          });
-//         res.send(result)
-//     })
-// });
 
 router.post('/get-banboo-detail', (req, res) => {
     const data = req.body

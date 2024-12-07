@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
+import 'package:aol_mcc/Function/googleAuth.dart';
 import 'package:aol_mcc/Page/UpdatePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -107,10 +108,17 @@ class _InsertPage extends State<InsertPage> {
   }
 
   Future _deleteOnPressed(int id) async {
+    var token = AuthService.loggedUser!.token;
     String url = "http://10.0.2.2:3000/banboos/delete-banboos";
-    var resp = await http.delete(Uri.parse(url),
-        headers: {"Content-type": "application/json"},
-        body: jsonEncode({"BanbooID": id}));
+    var resp = await http.delete(
+      Uri.parse(url),
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: jsonEncode(
+        {"BanbooID": id},
+      ),
+    );
 
     if (resp.statusCode == 200) {
       setState(() {
@@ -176,9 +184,10 @@ class _InsertPage extends State<InsertPage> {
         "BanbooLevel": _LevelController.text,
         "ElementID": _ElementIDController.text,
       });
-
+      var token = AuthService.loggedUser!.token;
       final resp = await http.post(Uri.parse(url),
-          headers: {"Content-type": "application/json"}, body: json);
+          headers: {"Content-type": "application/json", "token": token},
+          body: json);
       print(resp.statusCode);
 
       if (resp.statusCode == 200) {
@@ -237,6 +246,7 @@ class _InsertPage extends State<InsertPage> {
                 IconButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/authPage');
+                      signOutGoogle();
                     },
                     icon: const Icon(Icons.logout)),
                 const Padding(padding: EdgeInsets.only(right: 15))
@@ -656,7 +666,7 @@ class _InsertPage extends State<InsertPage> {
                     child: Column(
                       children: [
                         Container(
-                          height: screenHeight * 1,
+                          // height: screenHeight * 1,
                           padding: const EdgeInsets.all(30),
                           decoration: const BoxDecoration(
                             color: Color(0xff777777),
@@ -671,6 +681,9 @@ class _InsertPage extends State<InsertPage> {
 
                               if (data != null) {
                                 return ListView.builder(
+                                  shrinkWrap:
+                                      true, // Menyesuaikan tinggi dengan isi
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemCount:
                                       data.length, // Jumlah item dalam data
                                   itemBuilder: (context, index) {
@@ -771,7 +784,7 @@ class _InsertPage extends State<InsertPage> {
                     child: Column(
                       children: [
                         Container(
-                          height: screenHeight * 1,
+                          // height: screenHeight * 1,
                           padding: const EdgeInsets.all(
                               30), // Padding inside the container
                           decoration: const BoxDecoration(
@@ -787,6 +800,9 @@ class _InsertPage extends State<InsertPage> {
 
                               if (data != null) {
                                 return ListView.builder(
+                                  shrinkWrap:
+                                      true, // Menyesuaikan tinggi dengan isi
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemCount:
                                       data.length, // Jumlah item dalam data
                                   itemBuilder: (context, index) {
