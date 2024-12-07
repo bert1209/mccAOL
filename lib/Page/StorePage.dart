@@ -72,49 +72,58 @@ class _StorePageState extends State<StorePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF777777),
       appBar: AppBar(
-        toolbarHeight: 100,
-        leading: IconButton(
-          splashColor: const Color(0xFF111111),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(
-                  UserID: widget.UserID,
-                  UserMoney: widget.UserMoney,
+        toolbarHeight: 80,
+        backgroundColor: const Color(0xFF333333),
+        leading: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF999999),
+              borderRadius: BorderRadius.circular(15)
+          ),
+
+          margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+          child: IconButton(
+            color: const Color(0xFF333333),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                    UserID: widget.UserID,
+                    UserMoney: widget.UserMoney,
+                  ),
                 ),
-              ),
-            );
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-          color: const Color(0xFF333333),
-          iconSize: 30,
-          padding: const EdgeInsets.only(
-            left: 35,
+              );
+            },
+            icon: const Icon(Icons.arrow_back_rounded),
           ),
         ),
+
         actions: [
-          IconButton(
-            onPressed: () {
-              fetchBanboo();
-              setState(() {});
-            },
-            icon: const Icon(Icons.search),
-            color: const Color(0xFF333333),
-            iconSize: 30,
-            padding: const EdgeInsets.only(
-              top: 10,
-              right: 20,
+          Container(
+            margin: const EdgeInsets.fromLTRB(0, 20, 16, 20),
+            width: 40, // Set width
+            height: 40,
+            decoration: BoxDecoration(
+              color: const Color(0xFF999999),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: IconButton(
+              onPressed: () {
+                fetchBanboo();
+                setState(() {});
+              },
+              icon: const Icon(Icons.search_rounded),
+              color: Color(0xFF333333), // Change icon color if needed
             ),
           ),
         ],
         title: Container(
           padding: const EdgeInsets.only(
-            left: 20,
             top: 11,
           ),
           width: 375,
@@ -140,7 +149,6 @@ class _StorePageState extends State<StorePage> {
             ),
           ),
         ),
-        backgroundColor: const Color(0xFF999999),
       ),
       body: Stack(
         children: [
@@ -153,7 +161,6 @@ class _StorePageState extends State<StorePage> {
                     top: 30,
                     right: 30,
                     left: 30,
-                    bottom: 100,
                   ),
                   decoration: const BoxDecoration(
                     color: Color(0xff777777),
@@ -249,6 +256,7 @@ class _StorePageState extends State<StorePage> {
                     },
                   ),
                 ),
+                SizedBox(height: screenHeight * 0.15),
               ],
             ),
           ),

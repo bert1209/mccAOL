@@ -88,58 +88,71 @@ class _TopUpPageState extends State<TopUpPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xFF777777),
       appBar: AppBar(
-        toolbarHeight: 100,
-        leading: IconButton(
-          splashColor: const Color(0xFF111111),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(
-                  UserID: widget.UserID,
-                  UserMoney: widget.UserMoney,
+        toolbarHeight: 80,
+        centerTitle: true,
+        backgroundColor: const Color(0xFF333333),
+        leading: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF999999),
+              borderRadius: BorderRadius.circular(15)
+          ),
+
+          margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+          child: IconButton(
+            color: const Color(0xFF333333),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                    UserID: widget.UserID,
+                    UserMoney: widget.UserMoney,
+                  ),
                 ),
-              ),
-            );
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-          color: const Color(0xFF333333),
-          iconSize: 30,
-          padding: const EdgeInsets.only(left: 40),
-        ),
-        title: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: ' Banboo',
-                style: TextStyle(
-                  fontFamily: 'Bangers',
-                  fontSize: 35,
-                  color: Color(0xFF333333), // Original color for 'Banboo'
-                ),
-              ),
-              TextSpan(
-                text: '\n  Store',
-                style: TextStyle(
-                  fontFamily: 'Bangers',
-                  fontSize: 35,
-                  color: Colors.white, // White color for 'Store'
-                ),
-              ),
-            ],
+              );
+            },
+            icon: const Icon(Icons.arrow_back_rounded),
           ),
         ),
-        centerTitle: true,
-        backgroundColor: const Color(0xFF999999),
-        actions: const [
-          //Wallet()
-        ],
+        title:
+        Container(
+
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: const TextSpan(
+              children: [
+                TextSpan(
+                  text: 'Banboo\n',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 30,
+                    color: Color(0xFF999999), // Original color for 'Banboo'
+                  ),
+                ),
+                TextSpan(
+                  text: 'Store',
+                  style: TextStyle(
+                    fontFamily: 'Bangers',
+                    fontSize: 30,
+                    color: Color(0xFFEFEFEF), // White color for 'Store'
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Stack(
         children: [
+
+
           Column(
             children: [
               FutureBuilder(
@@ -153,72 +166,44 @@ class _TopUpPageState extends State<TopUpPage> {
                       // mainAxisAlignment: MainAxisAlignment.start,
                       children: data
                           .map(
-                            (e) => Column(
+                            (e) => Stack(
+                          children: [
+
+                            Column(
                               children: [
-                                const SizedBox(height: 25),
-                                Row(
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        "My Wallet :",
-                                        style: TextStyle(
-                                          fontFamily: "Poppin",
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
-                                          color: Color(0xFF333333),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                const Align(alignment: Alignment.center),
+
+
                                 Container(
-                                  height: 100,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF999999),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Row(
+                                  height: screenHeight * 0.25,
+                                  color: Color(0xFF333333),
+                                  child:
+                                  Column(
                                     children: [
-                                      const SizedBox(width: 45),
-                                      const Icon(
-                                        Icons.monetization_on_rounded,
-                                        size: 40,
-                                        color: Color(0xFF333333),
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        e.UserMoney.toString(),
-                                        style: const TextStyle(
-                                          fontFamily: "Poppin",
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
+                                      SizedBox(height: screenHeight * 0.085),
+
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Container(
+                                            padding: const EdgeInsets.only(left: 18),
+                                            child: const Text("My Wallet :", style: TextStyle(fontFamily: 'Poppin', color: Color(0xFFEFEFEF), fontWeight: FontWeight.bold, fontSize: 35),)
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 80),
-                                Row(
-                                  children: const [
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        "Top Up Amount :",
-                                        style: TextStyle(
-                                          fontFamily: "Poppin",
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
-                                          color: Color(0xFF333333),
-                                        ),
-                                      ),
-                                    )
-                                  ],
+
+                                SizedBox(height: screenHeight * 0.11),
+
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Container(
+                                      padding: const EdgeInsets.only(left: 18),
+                                      child: const Text("Top Up Amount :", style: TextStyle(fontFamily: 'Poppin', color: Color(0xFF333333), fontWeight: FontWeight.bold, fontSize: 35),)
+                                  ),
                                 ),
-                                const SizedBox(height: 25),
+
+                                SizedBox(height: screenHeight * 0.01),
+
                                 Row(
                                   children: [
                                     const SizedBox(width: 16.5),
@@ -226,29 +211,44 @@ class _TopUpPageState extends State<TopUpPage> {
                                       onTap: () => onPressed(100),
                                       child: Container(
                                         height: 150,
-                                        width: 120,
+                                        width: 110,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFF999999),
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                          BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.2), // Shadow color with transparency
+                                              spreadRadius: 2, // How much the shadow spreads
+                                              blurRadius: 8, // How soft the shadow is
+                                              offset: Offset(0, 4), // Position of the shadow (x, y)
+                                            ),
+                                          ],
                                         ),
                                         child: Column(
-                                          children: const [
-                                            SizedBox(height: 40),
-                                            Align(alignment: Alignment.center),
-                                            Icon(
-                                              Icons.monetization_on_rounded,
-                                              size: 40,
-                                              color: Color(0xFF333333),
-                                            ),
-                                            Text(
-                                              "100",
-                                              style: TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25,
-                                                color: Color(0xFF333333),
-                                              ),
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
+                                            const Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(height: 40),
+                                                Align(alignment: Alignment.center),
+                                                Icon(
+                                                  Icons.monetization_on_rounded,
+                                                  size: 35,
+                                                  color: Color(0xFF333333),
+                                                ),
+                                                Text(
+                                                  "100",
+                                                  style: TextStyle(
+                                                    fontFamily: "Poppin",
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 25,
+                                                    color: Color(0xFF333333),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -259,29 +259,44 @@ class _TopUpPageState extends State<TopUpPage> {
                                       onTap: () => onPressed(300),
                                       child: Container(
                                         height: 150,
-                                        width: 120,
+                                        width: 110,
                                         decoration: BoxDecoration(
                                           color: const Color(0xFF999999),
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                          BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.2), // Shadow color with transparency
+                                              spreadRadius: 2, // How much the shadow spreads
+                                              blurRadius: 8, // How soft the shadow is
+                                              offset: Offset(0, 4), // Position of the shadow (x, y)
+                                            ),
+                                          ],
                                         ),
                                         child: Column(
-                                          children: const [
-                                            SizedBox(height: 40),
-                                            Align(alignment: Alignment.center),
-                                            Icon(
-                                              Icons.monetization_on_rounded,
-                                              size: 40,
-                                              color: Color(0xFF333333),
-                                            ),
-                                            Text(
-                                              "300",
-                                              style: TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25,
-                                                color: Color(0xFF333333),
-                                              ),
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
+                                            const Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(height: 40),
+                                                Align(alignment: Alignment.center),
+                                                Icon(
+                                                  Icons.monetization_on_rounded,
+                                                  size: 35,
+                                                  color: Color(0xFF333333),
+                                                ),
+                                                Text(
+                                                  "300",
+                                                  style: TextStyle(
+                                                    fontFamily: "Poppin",
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 25,
+                                                    color: Color(0xFF333333),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -292,29 +307,45 @@ class _TopUpPageState extends State<TopUpPage> {
                                       onTap: () => onPressed(500),
                                       child: Container(
                                         height: 150,
-                                        width: 120,
+                                        width: 110,
+
                                         decoration: BoxDecoration(
                                           color: const Color(0xFF999999),
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                          BorderRadius.circular(15),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.2), // Shadow color with transparency
+                                              spreadRadius: 2, // How much the shadow spreads
+                                              blurRadius: 8, // How soft the shadow is
+                                              offset: Offset(0, 4), // Position of the shadow (x, y)
+                                            ),
+                                          ],
                                         ),
                                         child: Column(
-                                          children: const [
-                                            SizedBox(height: 40),
-                                            Align(alignment: Alignment.center),
-                                            Icon(
-                                              Icons.monetization_on_rounded,
-                                              size: 40,
-                                              color: Color(0xFF333333),
-                                            ),
-                                            Text(
-                                              "500",
-                                              style: TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 25,
-                                                color: Color(0xFF333333),
-                                              ),
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
+                                            const Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(height: 40),
+                                                Align(alignment: Alignment.center),
+                                                Icon(
+                                                  Icons.monetization_on_rounded,
+                                                  size: 35,
+                                                  color: Color(0xFF333333),
+                                                ),
+                                                Text(
+                                                  "500",
+                                                  style: TextStyle(
+                                                    fontFamily: "Poppin",
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 25,
+                                                    color: Color(0xFF333333),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -324,7 +355,72 @@ class _TopUpPageState extends State<TopUpPage> {
                                 ),
                               ],
                             ),
-                          )
+                            Positioned(
+                                top: screenHeight * 0.18,
+                                left: screenWidth * 0.125,
+                                child:
+                                Container(
+                                  width: screenWidth * 0.75,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF999999), // Background color
+                                    borderRadius: BorderRadius.circular(12), // Rounded corners (optional)
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2), // Shadow color with transparency
+                                        spreadRadius: 2, // How much the shadow spreads
+                                        blurRadius: 8, // How soft the shadow is
+                                        offset: Offset(0, 4), // Position of the shadow (x, y)
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: screenHeight * 0.017),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Container(
+                                          padding: const EdgeInsets.only(left: 30),
+                                          child: const Text(
+                                            "Remaining Balance",
+                                            style: TextStyle(
+                                              fontFamily: 'SemiPoppins',
+                                              color: Color(0xFF444444),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: screenHeight * 0.001),
+                                      Row(
+                                        children: [
+                                          SizedBox(width: 30),
+                                          const Icon(
+                                            Icons.monetization_on_rounded,
+                                            size: 40,
+                                            color: Color(0xFF333333),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            e.UserMoney.toString(),
+                                            style: const TextStyle(
+                                              fontFamily: "Poppin",
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 35,
+                                              color: Color(0xFF333333),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: screenHeight * 0.017),
+                                    ],
+                                  ),
+                                )
+
+                            ),
+                          ],
+                        ),
+                      )
                           .toList(),
                     );
                   } else {

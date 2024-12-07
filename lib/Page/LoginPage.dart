@@ -276,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
                 fontWeight: FontWeight.bold,
                 width: 325,
                 height: 50,
-                fontSize: 25,
+                fontSize: 22,
                 text: "Sign In",
                 textColor: const Color(0xFFFFFFFF),
                 buttonColor: const Color(0xFF333333),
@@ -348,10 +348,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(width: 10),
                       const Text(
-                        "Sign in With Google",
+                        "Sign In With Google",
                         style: TextStyle(
                           fontSize: 20,
-                          fontFamily: "Poppin",
+                          fontFamily: "SemiPoppins",
                           fontWeight: FontWeight.bold,
                         ),
                       ),

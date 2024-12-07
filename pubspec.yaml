@@ -40,6 +40,7 @@ dependencies:
   image_picker: ^1.0.2
   draggable_fab: ^0.1.4
   google_sign_in: ^6.1.4
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:
