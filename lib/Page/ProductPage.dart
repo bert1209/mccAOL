@@ -30,7 +30,7 @@ class _ProductPageState extends State<ProductPage> {
   late Future<List<banboo>> banbooList;
 
   Future<List<banboo>> fetchBanboo() async {
-    String url = "http://10.0.2.2:3000/banboos/get-banboo-detail";
+    String url = "http://10.0.2.2:3000/banboo/get-banboo-detail";
     String json = jsonEncode({
       "BanbooID": widget.BanbooID,
     });
@@ -56,7 +56,7 @@ class _ProductPageState extends State<ProductPage> {
   late Future<List<user>> userList;
 
   Future<List<user>> fetchUser() async {
-    String url = "http://10.0.2.2:3000/banboos/get-user";
+    String url = "http://10.0.2.2:3000/banboo/get-user";
     String json = jsonEncode({
       "UserID": widget.UserID.toString(),
     });
@@ -86,7 +86,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   void onPressed(int money, int price) async {
-    String url = "http://10.0.2.2:3000/banboos/checkout-banboo";
+    String url = "http://10.0.2.2:3000/banboo/checkout-banboo";
     String json = jsonEncode(
         {"price": price.toString(), "UserID": widget.UserID.toString()});
 

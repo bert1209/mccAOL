@@ -29,7 +29,7 @@ class _StorePageState extends State<StorePage> {
 
   Future<List<banboo>> fetchBanboo() async {
     if (searchController.text == "") {
-      String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
+      String url = "http://10.0.2.2:3000/banboo/display-banboos-data";
       var token = AuthService.loggedUser!.token;
       // ignore: avoid_print
       print(token);
@@ -50,7 +50,7 @@ class _StorePageState extends State<StorePage> {
       //return banbooList
     } else if (searchController.text != "") {
       String url =
-          "http://10.0.2.2:3000/banboos/search/${Uri.encodeComponent(searchController.text)}";
+          "http://10.0.2.2:3000/banboo/search/${Uri.encodeComponent(searchController.text)}";
 
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {

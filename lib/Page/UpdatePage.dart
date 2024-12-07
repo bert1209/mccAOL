@@ -87,7 +87,7 @@ class _UpdatePageState extends State<UpdatePage> {
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
       // Insert to DB
-      String url = "http://10.0.2.2:3000/banboos/update-banboos-data";
+      String url = "http://10.0.2.2:3000/banboo/update-banboos-data";
       String json = jsonEncode({
         "BanbooID": widget.id.toString(),
         "BanbooName": _nameController.text,

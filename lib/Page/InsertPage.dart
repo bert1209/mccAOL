@@ -67,7 +67,7 @@ class _InsertPage extends State<InsertPage> {
   late Future<List<banboo>> banbooList;
 
   Future<List<banboo>> fetchBanboo() async {
-    String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
+    String url = "http://10.0.2.2:3000/banboo/display-banboos-data";
     var token = AuthService.loggedUser!.token;
     var resp = await http.get(Uri.parse(url), headers: {"token": token});
     var result = jsonDecode(resp.body);
@@ -109,7 +109,7 @@ class _InsertPage extends State<InsertPage> {
 
   Future _deleteOnPressed(int id) async {
     var token = AuthService.loggedUser!.token;
-    String url = "http://10.0.2.2:3000/banboos/delete-banboos";
+    String url = "http://10.0.2.2:3000/banboo/delete-banboos";
     var resp = await http.delete(
       Uri.parse(url),
       headers: {
@@ -165,7 +165,7 @@ class _InsertPage extends State<InsertPage> {
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
       // Insert to DB
-      String url = "http://10.0.2.2:3000/banboos/insert-new-banboo-data";
+      String url = "http://10.0.2.2:3000/banboo/insert-new-banboo-data";
       String json = jsonEncode({
         "BanbooName": _nameController.text,
         "BanbooHP": _HPController.text,

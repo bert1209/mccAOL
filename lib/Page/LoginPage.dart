@@ -38,7 +38,7 @@ void signInGoogles(BuildContext context) async {
     print({account.email});
 
     var validate =
-        "http://10.0.2.2:3000/banboos/${account.email}/${" ".toString()}";
+        "http://10.0.2.2:3000/user/${account.email}/${" ".toString()}";
     var login = await http.get(
       Uri.parse(validate),
       headers: {"Content-Type": "application/json"},
@@ -51,13 +51,13 @@ void signInGoogles(BuildContext context) async {
       // ignore: avoid_print
       print("halo");
       var role =
-          "http://10.0.2.2:3000/banboos/${account.email}/${" ".toString()}";
+          "http://10.0.2.2:3000/user/${account.email}/${" ".toString()}";
       var roleCheck = await http.get(
         Uri.parse(role),
         headers: {"Content-Type": "application/json"},
       );
       if (roleCheck.statusCode == 200) {
-        String url = "http://10.0.2.2:3000/banboos/get-role";
+        String url = "http://10.0.2.2:3000/user/get-role";
         String json = jsonEncode({
           "Email": account.email.toString(),
         });
@@ -70,7 +70,7 @@ void signInGoogles(BuildContext context) async {
         if (result[0]["Role"] == 1) {
           Navigator.pushNamed(context, '/insertPage');
         } else {
-          String url = "http://10.0.2.2:3000/banboos/get-id";
+          String url = "http://10.0.2.2:3000/user/get-id";
           String json = jsonEncode({
             "Email": account.email.toString(),
           });
@@ -137,7 +137,7 @@ void _insertOnPressed(BuildContext context) async {
     );
   } else {
     var validate =
-        "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
+        "http://10.0.2.2:3000/user/${emailControl.text}/${passwordControl.text}";
     var login = await http.get(Uri.parse(validate),
         headers: {"Content-Type": "application/json"});
     // ignore: avoid_print
@@ -150,13 +150,13 @@ void _insertOnPressed(BuildContext context) async {
       // ignore: avoid_print
       print("halo");
       var role =
-          "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
+          "http://10.0.2.2:3000/user/${emailControl.text}/${passwordControl.text}";
       var roleCheck = await http.get(
         Uri.parse(role),
         headers: {"Content-Type": "application/json"},
       );
       if (roleCheck.statusCode == 200) {
-        String url = "http://10.0.2.2:3000/banboos/get-role";
+        String url = "http://10.0.2.2:3000/user/get-role";
         String json = jsonEncode({
           "Email": emailControl.text,
         });
@@ -169,7 +169,7 @@ void _insertOnPressed(BuildContext context) async {
         if (result[0]["Role"] == 1) {
           Navigator.pushNamed(context, '/insertPage');
         } else {
-          String url = "http://10.0.2.2:3000/banboos/get-id";
+          String url = "http://10.0.2.2:3000/user/get-id";
           String json = jsonEncode({
             "Email": emailControl.text,
           });

@@ -21,7 +21,7 @@ class _TopUpPageState extends State<TopUpPage> {
   late Future<List<user>> userList;
 
   Future<List<user>> fetchUser() async {
-    String url = "http://10.0.2.2:3000/banboos/get-user";
+    String url = "http://10.0.2.2:3000/user/get-user";
     String json = jsonEncode({
       "UserID": widget.UserID.toString(),
     });
@@ -50,7 +50,7 @@ class _TopUpPageState extends State<TopUpPage> {
   }
 
   void onPressed(int id) async {
-    String url = "http://10.0.2.2:3000/banboos/update-user-money";
+    String url = "http://10.0.2.2:3000/user/update-user-money";
     String json = jsonEncode({"money": id.toString(), "UserID": widget.UserID});
 
     final resp = await http.post(Uri.parse(url),
@@ -205,8 +205,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                 SizedBox(height: screenHeight * 0.01),
 
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const SizedBox(width: 16.5),
                                     GestureDetector(
                                       onTap: () => onPressed(100),
                                       child: Container(
@@ -229,9 +229,9 @@ class _TopUpPageState extends State<TopUpPage> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
-                                            const Row(
+                                            Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
+                                              children: const [
                                                 SizedBox(height: 40),
                                                 Align(alignment: Alignment.center),
                                                 Icon(
@@ -277,9 +277,9 @@ class _TopUpPageState extends State<TopUpPage> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
-                                            const Row(
+                                            Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
+                                              children: const [
                                                 SizedBox(height: 40),
                                                 Align(alignment: Alignment.center),
                                                 Icon(
@@ -326,9 +326,9 @@ class _TopUpPageState extends State<TopUpPage> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
-                                            const Row(
+                                            Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
+                                              children: const [
                                                 SizedBox(height: 40),
                                                 Align(alignment: Alignment.center),
                                                 Icon(

@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   late Future<List<banboo>> banbooList;
 
   Future<List<banboo>> fetchBanboo() async {
-    String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
+    String url = "http://10.0.2.2:3000/banboo/display-banboos-data";
     var token = AuthService.loggedUser!.token;
     // ignore: avoid_print
     print(token);
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   late Future<List<user>> userList;
 
   Future<List<user>> fetchUser() async {
-    String url = "http://10.0.2.2:3000/banboos/get-user";
+    String url = "http://10.0.2.2:3000/user/get-user";
     String json = jsonEncode({
       "UserID": widget.UserID.toString(),
     });

@@ -26,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   late Future<List<user>> userList;
 
   Future<List<user>> fetchUser() async {
-    String url = "http://10.0.2.2:3000/banboos/get-user";
+    String url = "http://10.0.2.2:3000/user/get-user";
     String json = jsonEncode({
       "UserID": widget.UserID.toString(),
     });
@@ -266,9 +266,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       const SizedBox(height: 5),
-                      const Row(
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: const [
                           Expanded(
                             child: Text(
                               "Bangboo, the spirited mascot of Banboo Store, turns every shopping trip into a comedy show. Need a phone case? He’s juggling three. Checking out a laptop? He’s using it as a surfboard. Lovable and chaotic, he’s the unexpected highlight of every visit!",
@@ -285,8 +285,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      const Row(
-                        children: [
+                      Row(
+                        children: const [
                           Icon(
                             Icons.store,
                             color: Color(0xFFEFEFEF),
@@ -307,8 +307,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       SizedBox(height: 2),
-                      const Row(
-                        children: [
+                      Row(
+                        children: const [
                           Icon(
                             Icons.facebook,
                             color: Color(0xFFEFEFEF),

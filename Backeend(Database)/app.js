@@ -6,7 +6,8 @@ var dotenv = require('dotenv');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var banboosRouter = require('./routes/banboos');
+var userRouter = require('./routes/user');
+var banbooRouter = require('./routes/banboo')
 
 var app = express();
 
@@ -20,7 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/banboos', banboosRouter);
+app.use('/user', userRouter);
+app.use('/banboo', banbooRouter);
 
 
 module.exports = app;

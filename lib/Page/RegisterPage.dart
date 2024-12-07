@@ -25,7 +25,7 @@ void signInGoogle(BuildContext context) async {
   );
   final GoogleSignInAccount? account = await _googleSignIn.signIn();
   if (account != null) {
-    String url = "http://10.0.2.2:3000/banboos/insert-new-users";
+    String url = "http://10.0.2.2:3000/user/insert-new-users";
     String json = jsonEncode({
       "Username": account.displayName,
       "Email": account.email,
@@ -55,7 +55,7 @@ void _insertOnPressed(BuildContext context) async {
         const SnackBar(content: Text('All Fields Must be Filled!')));
   } else {
     // Insert to DB
-    String url = "http://10.0.2.2:3000/banboos/insert-new-users";
+    String url = "http://10.0.2.2:3000/user/insert-new-users";
     String json = jsonEncode({
       "Username": usernameControl.text,
       "Email": emailControl.text,
