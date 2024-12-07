@@ -7,6 +7,7 @@ import 'package:aol_mcc/Page/homePage.dart';
 import 'package:aol_mcc/Page/TopUpPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../Function/AuthService.dart';
 import '../Function/user.dart';
 
 class ProductPage extends StatefulWidget {
@@ -33,9 +34,9 @@ class _ProductPageState extends State<ProductPage> {
     String json = jsonEncode({
       "BanbooID": widget.BanbooID,
     });
-
+    var token = AuthService.loggedUser!.token;
     final resp = await http.post(Uri.parse(url),
-        headers: {"Content-type": "application/json"}, body: json);
+        headers: {"Content-type": "application/json","token" : token }, body: json);
     print(resp.statusCode);
     var result = jsonDecode(resp.body);
 
@@ -303,7 +304,29 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 15,
                                       ),
                                     ),
-                                    // Text(widget.UserMoney.toString())
+                                  ],
+                                ),
+                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Element : ",
+                                      style: TextStyle(
+                                        fontFamily: "Poppin",
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFFFFFFFF),
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    Text(
+                                      e.Element,
+                                      style: const TextStyle(
+                                        fontFamily: "Poppin",
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFFFFFFFF),
+                                        fontSize: 15,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 const SizedBox(height: 15),

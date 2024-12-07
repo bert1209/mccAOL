@@ -1,11 +1,18 @@
 import 'dart:convert';
+// import 'dart:html';
+// import 'dart:html';
+// import 'dart:html';
 
+import 'package:aol_mcc/Function/AuthService.dart';
 import 'package:aol_mcc/Function/ImageButton.dart';
 import 'package:aol_mcc/Function/MyTextField.dart';
 import 'package:aol_mcc/Function/TextButton.dart';
 import 'package:aol_mcc/Function/elevatedButtons.dart';
+import 'package:aol_mcc/Function/googleAuth.dart';
+import 'package:aol_mcc/Function/user.dart';
 import 'package:aol_mcc/Page/homePage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
@@ -19,79 +26,189 @@ class LoginPage extends StatefulWidget {
 var emailControl = TextEditingController();
 var passwordControl = TextEditingController();
 
-void _insertOnPressed(BuildContext context) async {
-  var validate =
-      "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
-  var login = await http.get(
-    Uri.parse(validate),
-    headers: {"Content-Type": "application/json"},
+void signInGoogles(BuildContext context) async {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email'],
   );
+  final GoogleSignInAccount? account = await _googleSignIn.signIn();
+  if (account != null) {
+    print({account.displayName});
+    print({account.email});
 
-  print(login.body);
-
-  if (login.statusCode == 200 && login.body != '[]') {
-    var role =
-        "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
-    var roleCheck = await http.get(
-      Uri.parse(role),
+    var validate =
+        "http://10.0.2.2:3000/banboos/${account.email}/${" ".toString()}";
+    var login = await http.get(
+      Uri.parse(validate),
       headers: {"Content-Type": "application/json"},
     );
-    if (roleCheck.statusCode == 200) {
-      String url = "http://10.0.2.2:3000/banboos/get-role";
-      String json = jsonEncode({
-        "Email": emailControl.text,
-      });
-      var resp = await http.post(
-        Uri.parse(url),
+    // // ignore: avoid_print
+    print(login.body);
+    var data = json.decode(login.body);
+    AuthService.loggedUser = user.fromJson(data);
+    if (login.statusCode == 200 && login.body != "[]") {
+      // ignore: avoid_print
+      print("halo");
+      var role =
+          "http://10.0.2.2:3000/banboos/${account.email}/${" ".toString()}";
+      var roleCheck = await http.get(
+        Uri.parse(role),
         headers: {"Content-Type": "application/json"},
-        body: json,
       );
-      var result = jsonDecode(resp.body);
-      if(result[0]["Role"] == 1){
-        Navigator.pushNamed(context, '/insertPage');
-      }
-      else{
-        String url = "http://10.0.2.2:3000/banboos/get-id";
-      String json = jsonEncode({
-        "Email": emailControl.text,
-      });
+      if (roleCheck.statusCode == 200) {
+        String url = "http://10.0.2.2:3000/banboos/get-role";
+        String json = jsonEncode({
+          "Email": account.email.toString(),
+        });
+        var resp = await http.post(
+          Uri.parse(url),
+          headers: {"Content-Type": "application/json"},
+          body: json,
+        );
+        var result = jsonDecode(resp.body);
+        if (result[0]["Role"] == 1) {
+          Navigator.pushNamed(context, '/insertPage');
+        } else {
+          String url = "http://10.0.2.2:3000/banboos/get-id";
+          String json = jsonEncode({
+            "Email": account.email.toString(),
+          });
 
-      var resp = await http.post(
-        Uri.parse(url),
-        headers: {"Content-Type": "application/json"},
-        body: json,
-      );
-      var result = jsonDecode(resp.body);
-      var navigator = Navigator.of(context);
-      navigator.push(
-        MaterialPageRoute(
-          builder: (builder) {
-            return HomePage(
-              UserID: result[0]["UserID"],
-              UserMoney: result[0]["UserMoney"],
-            );
-          },
-        ),
-      );
+          var resp = await http.post(
+            Uri.parse(url),
+            headers: {"Content-Type": "application/json"},
+            body: json,
+          );
+          var result = jsonDecode(resp.body);
+          var navigator = Navigator.of(context);
+          navigator.push(
+            MaterialPageRoute(
+              builder: (builder) {
+                return HomePage(
+                  UserID: result[0]["UserID"],
+                  UserMoney: result[0]["UserMoney"],
+                );
+              },
+            ),
+          );
+        }
+        // Navigator.pushNamed(context, '/insertPage');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Error Login',
+              style: TextStyle(
+                fontFamily: 'Poppin',
+              ),
+            ),
+          ),
+        );
       }
-      // Navigator.pushNamed(context, '/insertPage');
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'Error Login',
-          style: TextStyle(
-            fontFamily: 'Poppin',
+        const SnackBar(
+          content: Text(
+            'Wrong Email or Password',
+            style: TextStyle(
+              fontFamily: 'Poppin',
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
+  }
+}
+
+void _insertOnPressed(BuildContext context) async {
+  if (passwordControl.text != " " ||
+      passwordControl.text != "" ||
+      emailControl != "") {
+    var validate =
+        "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
+    var login = await http.get(Uri.parse(validate),
+        headers: {"Content-Type": "application/json"});
+    // ignore: avoid_print
+    // print(login.body);
+    var data = json.decode(login.body);
+    // ignore: avoid_print
+    print(data);
+    AuthService.loggedUser = user.fromJson(data);
+    if (login.statusCode == 200 && login.body != "[]") {
+      // ignore: avoid_print
+      print("halo");
+      var role =
+          "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
+      var roleCheck = await http.get(
+        Uri.parse(role),
+        headers: {"Content-Type": "application/json"},
+      );
+      if (roleCheck.statusCode == 200) {
+        String url = "http://10.0.2.2:3000/banboos/get-role";
+        String json = jsonEncode({
+          "Email": emailControl.text,
+        });
+        var resp = await http.post(
+          Uri.parse(url),
+          headers: {"Content-Type": "application/json"},
+          body: json,
+        );
+        var result = jsonDecode(resp.body);
+        if (result[0]["Role"] == 1) {
+          Navigator.pushNamed(context, '/insertPage');
+        } else {
+          String url = "http://10.0.2.2:3000/banboos/get-id";
+          String json = jsonEncode({
+            "Email": emailControl.text,
+          });
+
+          var resp = await http.post(
+            Uri.parse(url),
+            headers: {"Content-Type": "application/json"},
+            body: json,
+          );
+          var result = jsonDecode(resp.body);
+          var navigator = Navigator.of(context);
+          navigator.push(
+            MaterialPageRoute(
+              builder: (builder) {
+                return HomePage(
+                  UserID: result[0]["UserID"],
+                  UserMoney: result[0]["UserMoney"],
+                );
+              },
+            ),
+          );
+        }
+        // Navigator.pushNamed(context, '/insertPage');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Error Login',
+              style: TextStyle(
+                fontFamily: 'Poppin',
+              ),
+            ),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Wrong Email or Password',
+            style: TextStyle(
+              fontFamily: 'Poppin',
+            ),
+          ),
+        ),
+      );
     }
   } else {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(
-          'Wrong Email or Password',
+          'All Fields must be filled!',
           style: TextStyle(
             fontFamily: 'Poppin',
           ),
@@ -178,24 +295,40 @@ class _LoginPageState extends State<LoginPage> {
                 height: 20,
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  imageButton(
-                    images: 'lib/Assets/google.png',
-                    onTap: () {},
-                    height: 65,
-                    widht: 65,
-                    padding: 10,
-                  ),
-                  imageButton(
-                    images: 'lib/Assets/X.png',
-                    onTap: () {},
-                    height: 65,
-                    widht: 65,
-                    padding: 10,
-                  ),
-                ],
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: ElevatedButton(
+                    onPressed: () {
+                      // googleSignIn();
+                      signInGoogles(context);
+                      // signOutGoogle();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color(0xFF333333),
+                      backgroundColor: const Color(0xFF999999),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "lib/Assets/google.png",
+                          height: 37,
+                          width: 37,
+                        ),
+                        const SizedBox(width: 5),
+                        const Text(
+                          "Google",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "Poppin",
+                          ),
+                        ),
+                      ],
+                    )),
               ),
               const SizedBox(
                 height: 10,

@@ -4,6 +4,7 @@ import '../Function/ImageButton.dart';
 import '../Function/MyTextField.dart';
 import '../Function/elevatedButtons.dart';
 import 'package:http/http.dart' as http;
+import 'package:google_sign_in/google_sign_in.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -17,10 +18,38 @@ var emailControl = TextEditingController();
 var passwordControl = TextEditingController();
 var cPasswordControl = TextEditingController();
 
+void signInGoogle(BuildContext context) async {
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email'],
+  );
+  final GoogleSignInAccount? account = await _googleSignIn.signIn();
+  if (account != null) {
+    String url = "http://10.0.2.2:3000/banboos/insert-new-users";
+    String json = jsonEncode({
+      "Username": account.displayName,
+      "Email": account.email,
+      "Password": " ".toString(),
+    });
+    final resp = await http.post(Uri.parse(url),
+        headers: {"Content-type": "application/json"}, body: json);
+
+    if (resp.statusCode == 200) {
+      Navigator.pushNamed(context, '/loginPage');
+    } else if (resp.statusCode == 400) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Email Already Exists'),
+        ),
+      );
+    }
+  }
+}
+
 void _insertOnPressed(BuildContext context) async {
   if (usernameControl.text == "" ||
       emailControl.text == "" ||
-      passwordControl.text == "") {
+      passwordControl.text == "" ||
+      passwordControl.text == " ") {
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('All Fields Must be Filled!')));
   } else {
@@ -38,8 +67,8 @@ void _insertOnPressed(BuildContext context) async {
     if (resp.statusCode == 200) {
       Navigator.pushNamed(context, '/loginPage');
     } else if (resp.statusCode == 400) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Email Already Exists')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Email Already Exists')));
     }
   }
 }
@@ -85,9 +114,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: "Password",
               ),
 
-            
-              
-
               const SizedBox(height: 25),
 
               elevatedButtons(
@@ -103,35 +129,39 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
 
               const SizedBox(height: 15),
-
-              const Text(
-                "---Or Register With---",
-                style: TextStyle(
-                  color: Color(0xFFFFFFFF),
-                  fontSize: 15,
-                ),
-              ),
-
-              const SizedBox(height: 15),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  imageButton(
-                    images: 'lib/Assets/google.png',
-                    onTap: () {},
-                    height: 65,
-                    widht: 65,
-                    padding: 10,
-                  ),
-                  imageButton(
-                    images: 'lib/Assets/X.png',
-                    onTap: () {},
-                    height: 65,
-                    widht: 65,
-                    padding: 10,
-                  ),
-                ],
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: ElevatedButton(
+                    onPressed: () {
+                      // googleSignIn();
+                      signInGoogle(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: const Color(0xFF333333),
+                      backgroundColor: const Color(0xFF999999),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "lib/Assets/google.png",
+                          height: 37,
+                          width: 37,
+                        ),
+                        const SizedBox(width: 5),
+                        const Text(
+                          "Google",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "Poppin",
+                          ),
+                        ),
+                      ],
+                    )),
               ),
             ],
           ),

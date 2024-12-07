@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.5
   image_picker: ^1.0.2
   draggable_fab: ^0.1.4
+  google_sign_in: ^6.1.4
 
 
 dev_dependencies:

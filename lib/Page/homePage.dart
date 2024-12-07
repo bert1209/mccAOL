@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:aol_mcc/Function/AuthService.dart';
 import 'package:aol_mcc/Function/NavBar.dart';
 import 'package:aol_mcc/Page/ProductPage.dart';
 import 'package:aol_mcc/Page/ProfilePage.dart';
@@ -6,7 +7,6 @@ import 'package:aol_mcc/Page/TopUpPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:aol_mcc/Function/imageCarousel.dart';
-
 import '../Function/user.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,11 +26,13 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<banboo>> fetchBanboo() async {
     String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
-
-    var resp = await http.get(Uri.parse(url));
+    var token = AuthService.loggedUser!.token;
+    // ignore: avoid_print
+    print(token);
+    var resp = await http.get(Uri.parse(url), headers: {"token": token});
     var result = jsonDecode(resp.body);
 
-    print(result);
+    // print(result);
 
     List<banboo> banbooList = [];
 
@@ -55,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     print(resp.statusCode);
     var result = jsonDecode(resp.body);
 
-    print(result);
+    // print(result);
 
     List<user> userList = [];
 
@@ -77,8 +79,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+    final screenHeight = MediaQuery.of(context)
+        .size
+        .height; //buat screen height tapi pake persentase dari screen
     final screenWidth = MediaQuery.of(context).size.width;
 
     return WillPopScope(
@@ -91,10 +94,10 @@ class _HomePageState extends State<HomePage> {
           leading: Container(
             decoration: BoxDecoration(
                 color: const Color(0xFF999999),
-                borderRadius: BorderRadius.circular(15)
-            ),
+                borderRadius: BorderRadius.circular(15)),
 
-            margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+            margin: const EdgeInsets.fromLTRB(
+                16, 20, 0, 20), // Adds 16px space on the left
             child: IconButton(
               color: const Color(0xFF333333),
               onPressed: () {
@@ -111,9 +114,7 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.person),
             ),
           ),
-
-          title:
-          Container(
+          title: Container(
             child: RichText(
               textAlign: TextAlign.center,
               text: const TextSpan(
@@ -217,31 +218,36 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     SizedBox(height: screenHeight * 0.03),
-
                     Align(
                       alignment: Alignment.topLeft,
                       child: Container(
                           padding: const EdgeInsets.only(left: 18),
-                          child: const Text("Popular Arts", style: TextStyle(fontFamily: 'Poppin', color: Color(0xFF333333), fontWeight: FontWeight.bold, fontSize: 35),)
-                      ),
+                          child: const Text(
+                            "Popular Arts",
+                            style: TextStyle(
+                                fontFamily: 'Poppin',
+                                color: Color(0xFF333333),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 35),
+                          )),
                     ),
-
                     SizedBox(height: screenHeight * 0.01),
-
                     const ImageCarousel(),
-
                     SizedBox(height: screenHeight * 0.035),
-
                     Align(
                       alignment: Alignment.topLeft,
                       child: Container(
                           padding: const EdgeInsets.only(left: 18),
-                          child: const Text("All Banboos", style: TextStyle(fontFamily: 'Poppin', color: Color(0xFF333333), fontWeight: FontWeight.bold, fontSize: 35),)
-                      ),
+                          child: const Text(
+                            "All Banboos",
+                            style: TextStyle(
+                                fontFamily: 'Poppin',
+                                color: Color(0xFF333333),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 35),
+                          )),
                     ),
-
                     SizedBox(height: screenHeight * 0.01),
-
                     Container(
                       color: Colors.transparent,
                       padding: const EdgeInsets.only(left: 18, right: 18),
@@ -288,15 +294,16 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         item.BanbooImage.isNotEmpty
                                             ? Image.memory(
                                                 base64Decode(item.BanbooImage),
                                                 width: 135,
                                                 height: 135,
-                                                errorBuilder:
-                                                    (context, error, stackTrace) {
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
                                                   return const Icon(Icons.error,
                                                       size: 50);
                                                 },
@@ -311,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                               }),
                             );
                           } else {
-                            return const Text("data");
+                            return const Text("Missing Token");
                           }
                         },
                       ),

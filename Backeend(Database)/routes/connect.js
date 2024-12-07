@@ -1,5 +1,5 @@
 const mysql = require('mysql2')
-const jwtSecret = 'banboo_store'; // Ganti dengan secret key yang aman
+//const jwtSecret = 'banboo_store'; // Ganti dengan secret key yang aman
 
 
 const connection = mysql.createConnection({

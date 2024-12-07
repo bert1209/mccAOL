@@ -4,12 +4,17 @@ var con = require('./connect')
 const bcrypt = require('bcrypt');
 var mysql2 = require('mysql2');
 const jwt = require('jsonwebtoken');
-const jwtSecret = 'banboo_store'; // Ganti dengan secret key yang aman
+const jwtSecret = 'SECRET KEY'; // Ganti dengan secret key yang aman
 
 // Fungsi untuk membuat token
-function generateToken(payload) {
-    return jwt.sign(payload, jwtSecret, { expiresIn: '1h' }); // Token berlaku 1 jam
-}
+function generateToken(user) {
+    var payload = {
+      UserID: user.UserID,
+      Username: user.Username,
+    };
+  
+    return jwt.sign(payload, 'SECRET KEY');
+  }
 
 
 var opt = {
@@ -29,23 +34,19 @@ router.get('/', function(req, res, next) {
     })
 });
 
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) return res.status(401).json({ message: "Access denied, token missing" });
-
-    jwt.verify(token, jwtSecret, (err, user) => {
-        if (err) return res.status(403).json({ message: "Invalid token" });
-
-        req.user = user; // Simpan payload token ke req
-        next();
-    });
-}
-
-router.get('/protected', authenticateToken, (req, res) => {
-    res.json({ message: "This is a protected route", user: req.user });
-});
+function authenticateToken(req, res, next){
+    var token = req.headers.token;
+    console.log(token);
+    if(!token){
+      return res.status(401).send('Unauthorized access!');
+    }
+    try {
+      jwt.verify(token, 'SECRET KEY');
+      next();
+    }catch (e) {
+      return res.status(401).send('Unauthorized access!');
+    }
+  }
 
 
 
@@ -56,9 +57,9 @@ router.post('/insert-new-user', (req, res) => {
     const query =  `INSERT INTO user (Username, Email, Password, Role) VALUES 
     ('${data.Username}','${data.Email}','${data.Password}','0')`
 
-    con.query(query, (err, result) =>{
+    con.query(query, (err, results) =>{
         if(err) throw err;
-        res.send(result)
+        res.send(results)
     })
 })
 
@@ -82,6 +83,8 @@ router.delete('/delete-user', (req, res) => {
 }
 )
 
+
+
 router.post('/insert-new-users', (req, res) => {
     const data = req.body;
 
@@ -97,63 +100,96 @@ router.post('/insert-new-users', (req, res) => {
         // If email does not exist, insert the new user
         const insertQuery = `INSERT INTO user (Username, Email, Password, Role) VALUES (?, ?, ?, ?)`;
         con.query(insertQuery, [data.Username, data.Email, data.Password, 0], (err, result) => {
-            if (err) return res.status(500).send(err);
-
-            res.status(200).json({ message: "User created successfully", result });
+            if (err) {
+                return res.status(500).json({ message: "Database error", error: err });
+            }
+    
+            if (result.length === 0) {
+                return res.status(401).json({ message: "Invalid email or password" });
+            }
+           
+            
+               
+                return res.status(200).json(result);
+                
+          
         });
     });
 });
 
-router.get('/:email/:password', function (req, res, next) {
-    const email = req.params.email;
-    const password = req.params.password;
+router.post('/login', function (req, res, next) {
+    var Email = req.body.email;
+    var Password = req.body.password;
+    var connection = mysql.createConnection(opt);
+    connection.connect();
+  
+    // QUERY
+    connection.query("SELECT * FROM user WHERE Email = ? AND Password = ?", [Email, Password], function (err, results) {
+  
+      if (err) throw err;
+      if (results.length === 0) {
+        return res.status(403).send('Invalid user creds.');
+      }
+  
+      var user = results[0];
+      var token = generateToken(user);
+  
+      connection.query("UPDATE user SET userToken = ? WHERE UserID = ?", [token, user.UserId]);
+      connection.end();
+      var data = {
+        UserID: user.UserID,
+        Username: user.Username,
+        token: token
+      }
+      return res.status(200).json(data);
+    });
+  });
 
+router.get('/:Email/:Password', function (req, res, next) {
+    const Email = req.params.Email;
+    const Password = req.params.Password;
     const connection = mysql2.createConnection(opt);
 
     connection.connect();
 
-    connection.query("SELECT UserID FROM user WHERE email = ? AND BINARY password = ?", [email, password], function (err, results) {
-        connection.end(); // Tutup koneksi setelah query selesai
+    connection.query("SELECT * FROM user WHERE Email = ? AND BINARY Password = ?", [Email, Password], function (err, results) {
+         // Tutup koneksi setelah query selesai
 
-        if (err) {
-            return res.status(500).json({ message: "Database error", error: err });
-        }
-
+        if (err) throw err;
         if (results.length === 0) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(403).json("invalid");
         }
 
-        const user = results[0];
-        const token = jwt.sign({ userId: user.UserID, email: email, role: user.Role }, jwtSecret, { expiresIn: '1h' });
+        var user = results[0];
+        var token = generateToken(user)
+        
+        connection.query("UPDATE user SET token = ? WHERE UserID = ?", [token, user.UserID]);
+        connection.end();
+        var data = {
+            UserId : user.UserID,
+            Username: user.Username,
+            Password : user.Password,
+            Email : user.Email,
+            Role : user.Role,
+            UserMoney : user.UserMoney,
+            token : token,
+        }
+            return res.status(200).json(data);
 
-        const updateQuery = `UPDATE user SET userToken = ? WHERE UserID = ?`;
-        con.query(updateQuery, [token, user.UserID], (updateErr) => {
-            if (updateErr) {
-                return res.status(500).json({ message: "Error updating token in database", error: updateErr });
-            }
-
-            return res.status(200).json({
-                message: "Login successful",
-                token: token,
-                role: user.Role
-            });
-        });
+        //     return res.status(200).json(results);
     });
 });
 
 
-
   router.post('/insert-new-banboo-data', (req, res) => {
    const data = req.body;
-   //var connection = mysql.createConnection(opt);
-   //connection.connect();
     const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
     const insertQuery = `INSERT INTO banboo (Banbooname, BanbooHP, BanbooATK, BanbooDEF, BanbooImpact, BanbooCRate, BanbooCDmg, BanbooPRatio, 
-    BanbooAMastery, BanbooRank, BanbooImage, BanbooDescription, BanbooPrice, BanbooLevel) VALUES (?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    BanbooAMastery, BanbooRank, BanbooImage, BanbooDescription, BanbooPrice, BanbooLevel, ElementID) VALUES (?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     con.query(insertQuery, [data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, 
        data.BanbooCRate, data.BanbooCDmg, data.BanbooPRatio, data.BanbooAMastery, 
-        data.BanbooRank, imageBuffer, data.BanbooDescription, data.BanbooPrice, data.BanbooLevel], (err, result) => {
+        data.BanbooRank, imageBuffer, data.BanbooDescription, data.BanbooPrice, data.BanbooLevel, data.ElementID], (err, result) => {
             if (err) {
                 console.error('Database error:', err); // Log the error for debugging
                 return res.status(500).send({ message: 'Database error', error: err });
@@ -165,7 +201,7 @@ router.get('/:email/:password', function (req, res, next) {
     });
 });
 
-router.get('/display-banboos-data', (req,res) => {
+router.get('/display-banboos-data',authenticateToken, (req,res) => {
     const data =  req.body;
     const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
@@ -187,8 +223,8 @@ router.post('/update-banboos-data', (req, res) => {
     const data = req.body;
     const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
-    const insertsQuery = "UPDATE banboo SET Banbooname = ?, BanbooHP = ?, BanbooATK = ?, BanbooDEF = ?, BanbooImpact = ?, BanbooCRate = ?, BanbooCDmg = ?, BanbooPRatio = ?, BanbooAMastery = ?, BanbooRank = ?, BanbooImage = ?, BanbooDescription = ?, BanbooPrice = ?, BanbooLevel = ? WHERE BanbooID = ?";
-    con.query(insertsQuery,[data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, data.BanbooCRate,data.BanbooCDmg,data.BanbooPRatio,data.BanbooAMastery, data.BanbooRank, imageBuffer, data.BanbooDescription,data.BanbooPrice,data.BanbooLevel, data.BanbooID ] ,(err, result) => {
+    const insertsQuery = "UPDATE banboo SET Banbooname = ?, BanbooHP = ?, BanbooATK = ?, BanbooDEF = ?, BanbooImpact = ?, BanbooCRate = ?, BanbooCDmg = ?, BanbooPRatio = ?, BanbooAMastery = ?, BanbooRank = ?, BanbooImage = ?, BanbooDescription = ?, BanbooPrice = ?, BanbooLevel = ?, ElementID = ? WHERE BanbooID = ?";
+    con.query(insertsQuery,[data.BanbooName, data.BanbooHP, data.BanbooATK, data.BanbooDEF, data.BanbooImpact, data.BanbooCRate,data.BanbooCDmg,data.BanbooPRatio,data.BanbooAMastery, data.BanbooRank, imageBuffer, data.BanbooDescription,data.BanbooPrice,data.BanbooLevel,data.ElementID, data.BanbooID ] ,(err, result) => {
         if(err) throw err;
 
         res.send(result)
@@ -263,11 +299,25 @@ router.post('/get-user', (req, res) => {
     })
 })
 
+// router.post('/get-banboo-detail', (req, res) => {
+//     const data = req.body
+
+//     const query = `SELECT * FROM banboo WHERE BanbooID = ${data.BanbooID}`
+//     con.query(query, (err, result) => {
+//         if(err) throw err;
+//         result.forEach(result => {
+//             if(result.BanbooImage){
+//               result.BanbooImage = Buffer.from(result.BanbooImage).toString('base64');
+//             }
+//          });
+//         res.send(result)
+//     })
+// });
+
 router.post('/get-banboo-detail', (req, res) => {
     const data = req.body
-    // const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
 
-    const query = `SELECT * FROM banboo WHERE BanbooID = ${data.BanbooID}`
+    const query = `SELECT b.*, e.* FROM Banboo b INNER JOIN elements e ON b.ElementID = e.ElementID WHERE b.BanbooID = ${data.BanbooID}`
     con.query(query, (err, result) => {
         if(err) throw err;
         result.forEach(result => {
@@ -306,6 +356,8 @@ router.post('/checkout-banboo', (req, res) => {
     });
     
 });
+
+
 
 
 module.exports = router;

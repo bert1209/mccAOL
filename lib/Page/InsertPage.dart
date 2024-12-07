@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:aol_mcc/Function/user.dart';
 
+import '../Function/AuthService.dart';
+
 class InsertPage extends StatefulWidget {
   const InsertPage({super.key});
 
@@ -32,6 +34,7 @@ class _InsertPage extends State<InsertPage> {
     String desc,
     int price,
     int level,
+    int ElementID,
   ) {
     var navigator = Navigator.of(context);
     navigator.push(
@@ -53,6 +56,7 @@ class _InsertPage extends State<InsertPage> {
             image: image,
             price: price,
             level: level,
+            ElementID: ElementID,
           );
         },
       ),
@@ -63,8 +67,8 @@ class _InsertPage extends State<InsertPage> {
 
   Future<List<banboo>> fetchBanboo() async {
     String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
-
-    var resp = await http.get(Uri.parse(url));
+    var token = AuthService.loggedUser!.token;
+    var resp = await http.get(Uri.parse(url), headers: {"token": token});
     var result = jsonDecode(resp.body);
 
     print(result);
@@ -130,6 +134,7 @@ class _InsertPage extends State<InsertPage> {
   Uint8List? _ImageController;
   final _PriceController = TextEditingController();
   final _LevelController = TextEditingController();
+  final _ElementIDController = TextEditingController();
 
   void _insertOnPressed(BuildContext context) async {
     if (_nameController.text == "" ||
@@ -146,7 +151,8 @@ class _InsertPage extends State<InsertPage> {
         _descriptionController == "" ||
         _PriceController == "" ||
         _ImageController == "" ||
-        _LevelController == "") {
+        _LevelController == "" ||
+        _ElementIDController == "") {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('All Fields Must be Filled!')));
     } else {
@@ -168,6 +174,7 @@ class _InsertPage extends State<InsertPage> {
             _ImageController != null ? base64Encode(_ImageController!) : null,
         "BanbooPrice": _PriceController.text,
         "BanbooLevel": _LevelController.text,
+        "ElementID": _ElementIDController.text,
       });
 
       final resp = await http.post(Uri.parse(url),
@@ -187,7 +194,9 @@ class _InsertPage extends State<InsertPage> {
   @override
   // sign / home / catalog / deskripsi / admin / user
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+    final screenHeight = MediaQuery.of(context)
+        .size
+        .height; //buat screen height tapi pake persentase dari screen
     final screenWidth = MediaQuery.of(context).size.width;
 
     return WillPopScope(
@@ -223,6 +232,7 @@ class _InsertPage extends State<InsertPage> {
                   )
                 ],
               ),
+              leading: Text(""),
               actions: [
                 IconButton(
                     onPressed: () {
@@ -543,6 +553,28 @@ class _InsertPage extends State<InsertPage> {
                                     ],
                                   ),
                                   const SizedBox(height: 30),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: TextField(
+                                          controller: _ElementIDController,
+                                          decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            label: const Text('ElementID'),
+                                            filled: true,
+                                            fillColor: const Color(0xFFFFFFFF),
+                                            border: const OutlineInputBorder(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
                                   TextField(
                                     maxLines: null,
                                     minLines: 5,
@@ -660,6 +692,7 @@ class _InsertPage extends State<InsertPage> {
                                         item.BanbooDescription,
                                         item.BanbooPrice,
                                         item.BanbooLevel,
+                                        item.ElementID,
                                       ),
                                       child: Card(
                                         margin: const EdgeInsets.symmetric(

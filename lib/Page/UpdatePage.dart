@@ -25,6 +25,7 @@ class UpdatePage extends StatefulWidget {
   String desc;
   int price;
   int level;
+  int ElementID;
 
   UpdatePage(
       {super.key,
@@ -42,7 +43,8 @@ class UpdatePage extends StatefulWidget {
       required this.image,
       required this.desc,
       required this.price,
-      required this.level});
+      required this.level,
+      required this.ElementID});
 
   @override
   State<UpdatePage> createState() => _UpdatePageState();
@@ -103,6 +105,7 @@ class _UpdatePageState extends State<UpdatePage> {
             _ImageController != null ? base64Encode(_ImageController!) : null,
         "BanbooPrice": _PriceController.text.toString(),
         "BanbooLevel": _LevelController.text.toString(),
+        "ElementID": _ElementIDController.text.toString(),
       });
 
       final resp = await http.post(Uri.parse(url),
@@ -133,6 +136,7 @@ class _UpdatePageState extends State<UpdatePage> {
   Uint8List? _ImageController;
   final _PriceController = TextEditingController();
   final _LevelController = TextEditingController();
+  final _ElementIDController = TextEditingController();
 
   @override
   void initState() {
@@ -152,6 +156,7 @@ class _UpdatePageState extends State<UpdatePage> {
     _ImageController = widget.image;
     _PriceController.text = widget.price.toString();
     _LevelController.text = widget.level.toString();
+    _ElementIDController.text = widget.ElementID.toString();
   }
 
   @override
@@ -166,7 +171,9 @@ class _UpdatePageState extends State<UpdatePage> {
         toolbarHeight: 100,
         leading: IconButton(
           splashColor: const Color(0xFF111111),
-          onPressed: () {},
+          onPressed: () {
+             Navigator.pushNamed(context, '/insertPage');
+          },
           icon: const Icon(Icons.arrow_back_rounded),
           color: const Color(0xFF333333),
           iconSize: 25,
@@ -436,6 +443,25 @@ class _UpdatePageState extends State<UpdatePage> {
                                         borderRadius: BorderRadius.circular(15),
                                       ),
                                       label: const Text('Rank'),
+                                      filled: true,
+                                      fillColor: const Color(0xFFFFFFFF),
+                                      border: const OutlineInputBorder(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    controller: _ElementIDController,
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      label: const Text('ElementID'),
                                       filled: true,
                                       fillColor: const Color(0xFFFFFFFF),
                                       border: const OutlineInputBorder(),

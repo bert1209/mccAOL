@@ -156,8 +156,8 @@ class _TopUpPageState extends State<TopUpPage> {
                             (e) => Column(
                               children: [
                                 const SizedBox(height: 25),
-                                const Row(
-                                  children: [
+                                Row(
+                                  children: const [
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
                                       child: Text(
@@ -202,8 +202,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 80),
-                                const Row(
-                                  children: [
+                                Row(
+                                  children: const [
                                     Padding(
                                       padding: EdgeInsets.only(left: 20),
                                       child: Text(
@@ -232,8 +232,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: const Column(
-                                          children: [
+                                        child: Column(
+                                          children: const [
                                             SizedBox(height: 40),
                                             Align(alignment: Alignment.center),
                                             Icon(
@@ -265,8 +265,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: const Column(
-                                          children: [
+                                        child: Column(
+                                          children: const [
                                             SizedBox(height: 40),
                                             Align(alignment: Alignment.center),
                                             Icon(
@@ -298,8 +298,8 @@ class _TopUpPageState extends State<TopUpPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: const Column(
-                                          children: [
+                                        child: Column(
+                                          children: const [
                                             SizedBox(height: 40),
                                             Align(alignment: Alignment.center),
                                             Icon(

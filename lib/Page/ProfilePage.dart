@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:aol_mcc/Function/googleAuth.dart';
 import 'package:aol_mcc/Page/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -55,7 +56,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+    final screenHeight = MediaQuery.of(context)
+        .size
+        .height; //buat screen height tapi pake persentase dari screen
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -68,10 +71,10 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: Container(
           decoration: BoxDecoration(
               color: const Color(0xFF999999),
-              borderRadius: BorderRadius.circular(15)
-          ),
+              borderRadius: BorderRadius.circular(15)),
 
-          margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+          margin: const EdgeInsets.fromLTRB(
+              16, 20, 0, 20), // Adds 16px space on the left
           child: IconButton(
             color: const Color(0xFF333333),
             onPressed: () {
@@ -88,9 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
             icon: const Icon(Icons.arrow_back_rounded),
           ),
         ),
-        title:
-        Container(
-
+        title: Container(
           child: RichText(
             textAlign: TextAlign.center,
             text: const TextSpan(
@@ -115,7 +116,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-
         actions: [
           Container(
             margin: const EdgeInsets.fromLTRB(0, 20, 16, 20),
@@ -128,6 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/authPage');
+                signOutGoogle();
               },
               icon: const Icon(Icons.logout),
               color: Color(0xFF333333), // Change icon color if needed
@@ -143,14 +144,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 Image.asset(
                   "lib/Assets/GambarProfilePage.png",
                   width: screenWidth * 1, // Set desired width
-                  height: screenHeight * 0.33, // Set desired height
+                  height: screenHeight * 0.32, // Set desired height
                   fit: BoxFit.cover, // Adjust how the image scales
                 ),
 
                 //const SizedBox(height: 15),
 
                 Container(
-                  padding: const EdgeInsets.only(top: 15, right: 40), // Padding inside the container
+                  padding: const EdgeInsets.only(
+                      top: 15, right: 40), // Padding inside the container
                   decoration: const BoxDecoration(
                     // warna border
                     color: Color(0xFF555555),
@@ -183,7 +185,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                           fontFamily: "Poppin",
                                           fontWeight: FontWeight.bold,
                                           fontSize: 40,
-                                          color: Color(0xFFEFEFEF),
                                         ),
                                       ),
                                       const TextSpan(text: "\n"),
@@ -192,7 +193,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                         style: const TextStyle(
                                           fontFamily: "SemiPoppins",
                                           fontSize: 20,
-                                          color: Color(0xFFEFEFEF),
                                         ),
                                       ),
                                       const TextSpan(
@@ -200,7 +200,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                         style: TextStyle(
                                           fontFamily: "SemiPoppins",
                                           fontSize: 20,
-                                          color: Color(0xFFEFEFEF),
                                         ),
                                       ),
                                       TextSpan(
@@ -208,7 +207,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                         style: const TextStyle(
                                           fontFamily: "SemiPoppins",
                                           fontSize: 20,
-                                          color: Color(0xFFEFEFEF),
                                         ),
                                       )
                                     ],
@@ -227,6 +225,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Container(
                   padding: const EdgeInsets.only(left: 25),
                   color: const Color(0xFF777777),
+                  height: 420,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -237,35 +236,28 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontFamily: "Poppin",
                           fontWeight: FontWeight.bold,
                           fontSize: 30,
-                          color: Color(0xFFEFEFEF),
+                          color: Color(0xFFFFFFFF),
                         ),
                       ),
                       const SizedBox(height: 5),
-                      const Row(
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "Bangboo, the spirited mascot of Banboo Store, turns every shopping trip into a comedy show. Need a phone case? He’s juggling three. Checking out a laptop? He’s using it as a surfboard. Lovable and chaotic, he’s the unexpected highlight of every visit!",
-                              style: TextStyle(
+                        children: const [
+                          Text(
+                            "Bangboo, the spirited mascot of Banboo Store, \nturns every shopping trip into a comedy \nshow. Need a phone case? He’s juggling three. \nChecking out a laptop? He’s using it as a surfboard. \nLovable and chaotic, he’s the unexpected \nhighlight of every visit!",
+                            style: TextStyle(
                                 fontFamily: "SemiPoppins",
-                                color: Color(0xFFEFEFEF),
-                                fontSize: 17,
-                              ),
-                              softWrap: true,
-                              overflow: TextOverflow.clip,
-                            ),
+                                color: Color(0xFFFFFFFF)),
                           ),
-
                         ],
                       ),
                       const SizedBox(height: 20),
-                      const Row(
-                        children: [
+                      Row(
+                        children: const [
                           Icon(
                             Icons.store,
-                            color: Color(0xFFEFEFEF),
-                            size: 35,
+                            color: Color(0xFFFFFFFF),
+                            size: 30,
                           ),
                           SizedBox(
                             width: 10,
@@ -275,19 +267,18 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                              color: Color(0xFFEFEFEF),
+                              fontSize: 15,
+                              color: Color(0xFFFFFFFF),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 2),
-                      const Row(
-                        children: [
+                      Row(
+                        children: const [
                           Icon(
                             Icons.facebook,
-                            color: Color(0xFFEFEFEF),
-                            size: 35,
+                            color: Color(0xFFFFFFFF),
+                            size: 30,
                           ),
                           SizedBox(
                             width: 10,
@@ -297,18 +288,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                              color: Color(0xFFEFEFEF),
+                              fontSize: 15,
+                              color: Color(0xFFFFFFFF),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 2),
                       Row(
                         children: [
                           Image.asset(
                             "lib/Assets/instagram.png",
-                            height: 35,
+                            height: 30,
                           ),
                           const SizedBox(
                             width: 10,
@@ -318,18 +308,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                              color: Color(0xFFEFEFEF),
+                              fontSize: 15,
+                              color: Color(0xFFFFFFFF),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 5),
                       Row(
                         children: [
                           Image.asset(
                             "lib/Assets/youtube.png",
-                            height: 25,
+                            height: 21.5,
                           ),
                           const SizedBox(
                             width: 10,
@@ -339,13 +328,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontFamily: "Poppin",
                               fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                              color: Color(0xFFEFEFEF),
+                              fontSize: 15,
+                              color: Color(0xFFFFFFFF),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: screenHeight * 0.15),
                     ],
                   ),
                 ),

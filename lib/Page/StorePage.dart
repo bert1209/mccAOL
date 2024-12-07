@@ -4,6 +4,7 @@ import 'package:aol_mcc/Page/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
+import '../Function/AuthService.dart';
 import '../Function/NavBar.dart';
 import '../Function/elevatedButtons.dart';
 import '../Function/user.dart';
@@ -29,8 +30,10 @@ class _StorePageState extends State<StorePage> {
   Future<List<banboo>> fetchBanboo() async {
     if (searchController.text == "") {
       String url = "http://10.0.2.2:3000/banboos/display-banboos-data";
-
-      var resp = await http.get(Uri.parse(url));
+      var token = AuthService.loggedUser!.token;
+      // ignore: avoid_print
+    print(token);
+      var resp = await http.get(Uri.parse(url), headers: {"token": token});
       var result = jsonDecode(resp.body);
 
       print(result);

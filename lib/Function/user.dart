@@ -1,10 +1,11 @@
 class user {
-  int UserID;
+  String UserID;
   String Username;
   String Email;
   String Password;
   int Role;
   int UserMoney;
+  String token;
 
   user({
     required this.UserID,
@@ -13,15 +14,17 @@ class user {
     required this.Password,
     required this.Role,
     required this.UserMoney,
+    required this.token,
   });
 
   factory user.fromJson(Map<String, dynamic> json) => user(
-        UserID: json["UserID"] as int,
+        UserID: json["UserID"].toString(),
         Username: json["Username"].toString(),
         Email: json["Email"].toString(),
         Password: json["Password"].toString(),
         Role: json["Role"] as int,
         UserMoney: json["UserMoney"] as int,
+        token: json["token"].toString(),
       );
 }
 
@@ -41,6 +44,8 @@ class banboo {
   String BanbooDescription;
   int BanbooPrice;
   int BanbooLevel;
+  int ElementID;
+  String Element;
 
   banboo({
     required this.BanbooID,
@@ -58,6 +63,8 @@ class banboo {
     required this.BanbooDescription,
     required this.BanbooPrice,
     required this.BanbooLevel,
+    required this.ElementID,
+    required this.Element,
   });
   factory banboo.fromJson(Map<String, dynamic> json) => banboo(
         BanbooID: json["BanbooID"] as int,
@@ -75,5 +82,7 @@ class banboo {
         BanbooDescription: json["BanbooDescription"].toString(),
         BanbooPrice: json["BanbooPrice"] as int,
         BanbooLevel: json["BanbooLevel"] as int,
+        ElementID: json["ElementID"] as int,
+        Element: json["Element"].toString(),
       );
 }
