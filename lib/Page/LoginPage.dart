@@ -120,9 +120,20 @@ void signInGoogles(BuildContext context) async {
 }
 
 void _insertOnPressed(BuildContext context) async {
-  if (passwordControl.text != " " ||
-      passwordControl.text != "" ||
-      emailControl != "") {
+  if (passwordControl.text == " " ||
+      passwordControl.text == "" ||
+      emailControl == "") {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'All Fields must be filled!',
+          style: TextStyle(
+            fontFamily: 'Poppin',
+          ),
+        ),
+      ),
+    );
+  } else {
     var validate =
         "http://10.0.2.2:3000/banboos/${emailControl.text}/${passwordControl.text}";
     var login = await http.get(Uri.parse(validate),
@@ -204,17 +215,6 @@ void _insertOnPressed(BuildContext context) async {
         ),
       );
     }
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'All Fields must be filled!',
-          style: TextStyle(
-            fontFamily: 'Poppin',
-          ),
-        ),
-      ),
-    );
   }
 }
 
