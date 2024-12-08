@@ -225,32 +225,34 @@ class _TopUpPageState extends State<TopUpPage> {
                                             ),
                                           ],
                                         ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: const [
-                                                SizedBox(height: 40),
-                                                Align(alignment: Alignment.center),
-                                                Icon(
-                                                  Icons.monetization_on_rounded,
-                                                  size: 35,
-                                                  color: Color(0xFF333333),
-                                                ),
-                                                Text(
-                                                  "100",
-                                                  style: TextStyle(
-                                                    fontFamily: "Poppin",
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 25,
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset("lib/Assets/moneybag.png", width: 80, height: 80),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: const [
+                                                  SizedBox(height: 40),
+                                                  Align(alignment: Alignment.center),
+                                                  Icon(
+                                                    Icons.monetization_on_rounded,
+                                                    size: 35,
                                                     color: Color(0xFF333333),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                                  Text(
+                                                    "100",
+                                                    style: TextStyle(
+                                                      fontFamily: "Poppin",
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 25,
+                                                      color: Color(0xFF333333),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

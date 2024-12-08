@@ -269,16 +269,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               const SizedBox(
-                height: 15,
+                height: 25,
               ),
 
               elevatedButtons(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.normal,
                 width: 325,
                 height: 50,
-                fontSize: 22,
+                fontSize: 20,
                 text: "Sign In",
-                textColor: const Color(0xFFFFFFFF),
+                textColor: const Color(0xFFEFEFEF),
                 buttonColor: const Color(0xFF333333),
                 onPressed: () {
                   _insertOnPressed(context);
@@ -287,29 +287,28 @@ class _LoginPageState extends State<LoginPage> {
                   //},
                 },
                 borderRadius: 10,
-                FontType: "Poppin",
+                FontType: "SemiPoppins",
               ),
 
               const SizedBox(
-                height: 70,
+                height: 45,
               ),
 
               const Text(
-                "---Or Continue With---",
+                "---Or continue with---",
                 style: TextStyle(
                   color: Color(0xFF333333),
-                  fontSize: 15,
-                  fontFamily: "Poppin",
-                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+
                 ),
               ),
 
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
 
               SizedBox(
-                width: 350,
+                width: 325,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
@@ -352,14 +351,15 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           fontSize: 20,
                           fontFamily: "SemiPoppins",
-                          fontWeight: FontWeight.bold,
+                          //fontWeight: FontWeight.bold,
+                          color: Color(0xFF333333),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

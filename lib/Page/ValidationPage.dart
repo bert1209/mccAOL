@@ -26,8 +26,10 @@ class ValidationPage extends StatefulWidget {
 class _ValidationPageState extends State<ValidationPage> {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height; //buat screen height tapi pake persentase dari screen
+
     return Scaffold(
-      backgroundColor: const Color(0xFF999999),
+      backgroundColor: const Color(0xFF777777),
       body: SafeArea(
           child: Center(
         child: Column(
@@ -37,31 +39,31 @@ class _ValidationPageState extends State<ValidationPage> {
               width: 200,
               child: Image.asset("lib/Assets/Judul.png"),
             ),
-            const SizedBox(height: 100),
+            SizedBox(height: screenHeight * 0.2),
             ImagesFunction(
               images: widget.Images,
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
             TextFunc(
               Text1: widget.Text1,
               Text2: widget.Text2,
               jenisFont: "Poppin",
               tipeFont: FontWeight.bold,
-              ukuranFont: 25,
+              ukuranFont: 30,
               warnaFont: Colors.white,
-              jenisFonts: "Poppin",
+              jenisFonts: "SemiPoppins",
               tipeFonts: FontWeight.bold,
-              ukuranFonts: 15,
+              ukuranFonts: 16,
               warnaFonts: const Color(0xFF333333),
             ),
-            const SizedBox(height: 130),
+            SizedBox(height: screenHeight * 0.15),
             elevatedButtons(
               fontWeight: FontWeight.bold,
-                width: 90,
+                width: 100,
                 height: 40,
                 fontSize: 20,
-                text: "OK",
-                textColor: Colors.white,
+                text: "Ok",
+                textColor: Color(0xFFEFEFEF),
                 buttonColor: const Color(0xFF333333),
                 onPressed: () {
                   Navigator.push(
@@ -74,8 +76,8 @@ class _ValidationPageState extends State<ValidationPage> {
                     ),
                   );
                 },
-                borderRadius: 15,
-                FontType: "Poppin")
+                borderRadius: 10,
+                FontType: 'SemiPoppins')
           ],
         ),
       )),

@@ -153,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 //const SizedBox(height: 15),
 
                 Container(
-                  padding: const EdgeInsets.only(top: 15, right: 40, left: 15), // Padding inside the container
+                  padding: const EdgeInsets.only(top: 15, right: 40), // Padding inside the container
                   decoration: const BoxDecoration(
                     // warna border
                     color: Color(0xFF333333),
@@ -181,20 +181,24 @@ class _ProfilePageState extends State<ProfilePage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AutoSizeText(
-                                  e.Username,
-                                  style: const TextStyle(
-                                    fontFamily: "Poppin",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 40,
-                                    color: Color(0xFF999999),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 25),
+                                  child: AutoSizeText(
+                                    e.Username,
+                                    style: const TextStyle(
+                                      fontFamily: "Poppin",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 40,
+                                      color: Color(0xFF999999),
+                                    ),
+                                    maxLines: 1,
+                                    minFontSize: 33,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 1,
-                                  minFontSize: 33,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 Row(
                                   children: [
+                                    SizedBox(width: 25),
                                     // Flexible ensures the email takes only as much space as it needs without pushing the RichText.
                                     Flexible(
                                       child: AutoSizeText(
@@ -250,7 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 15),
                 Container(
-                  padding: const EdgeInsets.only(left: 25),
+                  padding: const EdgeInsets.only(left: 25, right: 25),
                   color: const Color(0xFF777777),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

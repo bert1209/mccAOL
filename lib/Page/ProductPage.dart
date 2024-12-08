@@ -129,6 +129,8 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF777777),
@@ -184,580 +186,620 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
         ),
-        actions: [
-          FutureBuilder(
-            future: userList,
-            builder: (context, snapshot) {
-              var data = snapshot.data;
-
-              if (data != null) {
-                return Column(
-                    children: data
-                        .map(
-                          (e) => Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => TopUpPage(
-                                        UserID: widget.UserID,
-                                        UserMoney: widget.UserMoney,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 16, right: 20, top: 16, bottom: 0),
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(
-                                        color: const Color(0xFF999999),
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            const WidgetSpan(
-                                              child: Icon(
-                                                  Icons.monetization_on_rounded,
-                                                  size: 20,
-                                                  color: Color(0xFF333333)),
-                                            ),
-                                            TextSpan(
-                                              text:
-                                                  "  ${e.UserMoney.toString()}",
-                                              style: const TextStyle(
-                                                  color: Color(0xFF333333),
-                                                  fontSize: 20,
-                                                  fontFamily: "Poppin",
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                        .toList());
-              } else {
-                return const Text("error");
-              }
-            },
-          )
-        ],
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
-            child: Container(
-              child: FutureBuilder(
-                future: banbooList,
-                builder: (context, snapshot) {
-                  var data = snapshot.data;
+            child:
+            FutureBuilder(
+              future: banbooList,
+              builder: (context, snapshot) {
+                var data = snapshot.data;
 
-                  if (data != null) {
-                    return Column(
-                      // crossAxisAlignment: CrossAxisAlignment.stretch,
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: data
-                          .map(
-                            (e) => Column(
+                if (data != null) {
+                  return Column(
+                    // crossAxisAlignment: CrossAxisAlignment.stretch,
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    children: data
+                        .map(
+                          (e) => Stack(
+                        children: [
+                          SizedBox(height: 25),
+                          Container(
+
+                            height: screenHeight * 0.35,
+                            alignment: Alignment.center,
+                            child: Image.memory(
+                              base64Decode(e.BanbooImage),
+                              height: screenHeight * 0.35,
+                              width: screenWidth * 0.35,
+                            ),
+                          ),
+
+                          Positioned(
+                            top: screenHeight * 0.295,
+                            left: screenWidth * 0.05,
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(height: 25),
-                                Container(
-                                  height: screenHeight * 0.28,
-                                  alignment: Alignment.center,
-                                  child: Image.memory(
-                                    base64Decode(e.BanbooImage),
+                                const Text(
+                                  "Banboo ID : ",
+                                  style: TextStyle(
+                                    fontFamily: "Poppin",
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFEFEFEF),
+                                    fontSize: 16,
                                   ),
                                 ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Banboo ID : ",
-                                      style: TextStyle(
-                                        fontFamily: "Poppin",
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFFFFFFFF),
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    Text(
-                                      e.BanbooID.toString(),
-                                      style: const TextStyle(
-                                        fontFamily: "Poppin",
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFFFFFFFF),
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Element : ",
-                                      style: TextStyle(
-                                        fontFamily: "Poppin",
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFFFFFFFF),
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    Text(
-                                      e.Element,
-                                      style: const TextStyle(
-                                        fontFamily: "Poppin",
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFFFFFFFF),
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                                Container(
-                                  height: 600,
-                                  width: double.infinity,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFF999999),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(height: 25),
-                                      Row(
-                                        children: [
-                                          const Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 35)),
-                                          Text(
-                                            e.BanbooName,
-                                            style: const TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 40,
-                                                color: Color(0xFF333333)),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text(
-                                            "(${e.BanbooRank})",
-                                            style: const TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 30,
-                                                color: Color(0xFF333333)),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Padding(
-                                            padding: EdgeInsets.only(left: 35),
-                                          ),
-                                          SizedBox(
-                                            width: 350,
-                                            child: Text(
-                                              e.BanbooDescription,
-                                              style: const TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                                color: Color(0xFF555555),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(height: 25),
-                                      Row(
-                                        children: const [
-                                          Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 35)),
-                                          Text(
-                                            "Stats :",
-                                            style: TextStyle(
-                                                fontFamily: "Poppin",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 30,
-                                                color: Color(0xFF333333)),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Padding(
-                                            padding: EdgeInsets.only(
-                                              left: 22.5,
-                                              right: 22.5,
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 322.5,
-                                            height: 250,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: (Color(0xFF777777)),
-                                              boxShadow: const [
-                                                BoxShadow(
-                                                  spreadRadius: 1,
-                                                  color: Color(0xFF333333),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 15, left: 10, right: 10),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Health Point",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooHP.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Attack",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooATK.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Deffence",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooDEF.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Impact",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooImpact.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Critical Rate",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooCRate.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Critical Damage",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooCDmg.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Penetration Ratio",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooDEF.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      SizedBox(width: 10),
-                                                      SizedBox(
-                                                        width: 170,
-                                                        child: Text(
-                                                          "Anomaly Mastery",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          ": ${e.BanbooImpact.toString()}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppin",
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 18,
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 20),
-                                        ],
-                                      ),
-                                      SizedBox(height: 40),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.monetization_on_rounded,
-                                            size: 40,
-                                            color: Color(0xFF333333),
-                                          ),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            e.BanbooPrice.toString(),
-                                            style: TextStyle(
-                                              fontFamily: "Poppin",
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(width: 30),
-                                          elevatedButtons(
-                                            fontWeight: FontWeight.bold,
-                                            width: 100,
-                                            height: 30,
-                                            fontSize: 20,
-                                            text: "Buy",
-                                            textColor: Color(0xFFFFFFFF),
-                                            buttonColor: Color(0xFF333333),
-                                            onPressed: () => onPressed(
-                                                widget.UserMoney,
-                                                e.BanbooPrice),
-                                            borderRadius: 5,
-                                            FontType: "SemiPoppins",
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                Text(
+                                  e.BanbooID.toString(),
+                                  style: const TextStyle(
+                                    fontFamily: "Poppin",
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFEFEFEF),
+                                    fontSize: 16,
                                   ),
                                 ),
                               ],
                             ),
-                          )
-                          .toList(),
-                    );
-                  } else {
-                    return const Text("error");
-                  }
-                },
-              ),
+                          ),
+
+                          Positioned(
+                            top: screenHeight * 0.293,
+                            right: screenWidth * 0.05,
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                e.Element != null && e.Element == 'Fire' ? Image.asset('lib/Assets/fire.png', height: 25, width: 25) : Text(''),
+                                e.Element != null && e.Element == 'ICE' ? Image.asset('lib/Assets/ice.png', height: 25, width: 25) : Text(''),
+                                e.Element != null && e.Element == 'Physical' ? Image.asset('lib/Assets/physical.png', height: 25, width: 25) : Text(''),
+                                e.Element != null && e.Element == 'Ether' ? Image.asset('lib/Assets/ether.png', height: 25, width: 25) : Text(''),
+                                e.Element != null && e.Element == 'Electric' ? Image.asset('lib/Assets/electric.png', height: 25, width: 25) : Text(''),
+
+                                SizedBox(width: 5),
+
+                                Text(
+                                  e.Element,
+                                  style: const TextStyle(
+                                    fontFamily: "Poppin",
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFEFEFEF),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Column(
+                            children: [
+                              SizedBox(height: screenHeight * 0.33),
+                              Container(
+                                width: screenWidth * 1,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF333333),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: screenHeight * 0.035),
+                                    Row(
+                                      children: [
+                                        const Padding(
+                                            padding:
+                                            EdgeInsets.only(left: 25)),
+                                        Text(
+                                          e.BanbooName,
+                                          style: const TextStyle(
+                                              fontFamily: "Poppin",
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 35,
+                                              color: Color(0xFF999999)),
+                                        ),
+                                        SizedBox(width: screenWidth * 0.03),
+                                        Container(
+                                          height: 45,
+                                          width: 45,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(30),
+                                            color: Color(0xFF999999),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "${e.BanbooRank}",
+                                              style: const TextStyle(
+                                                  fontFamily: "Poppin",
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 30,
+                                                  color: Color(0xFF333333)),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: screenHeight * 0.01),
+                                    Row(
+                                      children: [
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 25),
+                                        ),
+                                        SizedBox(
+                                          width: screenWidth * 0.8,
+                                          child: Text(
+                                            e.BanbooDescription,
+                                            style: const TextStyle(
+                                              fontFamily: "SemiPoppins",
+                                              fontSize: 18,
+                                              color: Color(0xFF999999),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: screenHeight * 0.035),
+
+
+                                    Container(
+                                      width: screenWidth * 1,
+                                      color: Color(0xFF777777),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(height: screenHeight * 0.035),
+                                            Row(
+                                              children: const [
+                                                Padding(
+                                                    padding:
+                                                    EdgeInsets.only(left: 25)),
+                                                Text(
+                                                  "Stats :",
+                                                  style: TextStyle(
+                                                      fontFamily: "Poppin",
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 30,
+                                                      color: Color(0xFFEFEFEF)),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Health Point",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFEFEFEF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooHP.toString()}",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Attack",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooATK.toString()}",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Defence",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooDEF.toString()}",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Impact",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooImpact.toString()}",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Critical Rate",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooCRate.toString()}%",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Critical Damage",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooCDmg.toString()}%",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Penetration Ratio",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooDEF.toString()}%",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                            SizedBox(height: screenHeight * 0.01),
+
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15),
+                                                color: Color(0xFF333333),
+                                              ),
+                                              width: screenWidth * 0.9,
+                                              child: Row(
+                                                children: [
+                                                  SizedBox(width: 25),
+                                                  SizedBox(
+                                                    width: 170,
+                                                    child: Text(
+                                                      "Anomaly Mastery",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      ": ${e.BanbooImpact.toString()}",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                        "Poppin",
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 18,
+                                                        color: Color(
+                                                            0xFFFFFFFF),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: screenHeight * 0.15)
+                                          ],
+                                        ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                        .toList(),
+                  );
+                } else {
+                  return const Text("error");
+                }
+              },
             ),
           ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child:
+              Container(
+                width: screenWidth * 1,
+                height: screenHeight * 0.1,
+                color: Color(0xFF333333),
+                child: FutureBuilder(
+                    future: banbooList,
+                    builder: (context, snapshot) {
+                      var data = snapshot.data;
+
+                      if(data != null){
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: data.map((e) =>
+                              Row(
+                                children: [
+                                  SizedBox(width: 40,),
+                                  Icon(
+                                    Icons.monetization_on_rounded,
+                                    size: 35,
+                                    color: Color(0xFFEFEFEF),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    e.BanbooPrice.toString(),
+                                    style: TextStyle(
+                                      fontFamily: "Poppin",
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFEFEFEF),
+                                    ),
+                                  ),
+                                  SizedBox(width: screenWidth * 0.3),
+                                  elevatedButtons(
+                                    fontWeight: FontWeight.bold,
+                                    width: 100,
+                                    height: 40,
+                                    fontSize: 20,
+                                    text: "Buy",
+                                    textColor: Color(0xFFEFEFEF),
+                                    buttonColor: Color(0xFF555555),
+                                    onPressed: () => onPressed(
+                                        widget.UserMoney,
+                                        e.BanbooPrice),
+                                    borderRadius: 5,
+                                    FontType: "SemiPoppins",
+                                  ),
+                                ],
+                              ),
+                          )
+                              .toList(),
+                        );
+                      } else {
+                        return const Text("error");
+                      }
+                    }
+                ),
+              )
+          ),
         ],
-      ),
+      )
     );
   }
 }
