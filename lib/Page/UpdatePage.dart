@@ -134,6 +134,7 @@ class _UpdatePageState extends State<UpdatePage> {
   final _RankController = TextEditingController();
   final _ImageControll = TextEditingController();
   Uint8List? _ImageController;
+  File? ImageControll;
   final _PriceController = TextEditingController();
   final _LevelController = TextEditingController();
   final _ElementIDController = TextEditingController();
@@ -172,7 +173,7 @@ class _UpdatePageState extends State<UpdatePage> {
         leading: IconButton(
           splashColor: const Color(0xFF111111),
           onPressed: () {
-             Navigator.pushNamed(context, '/insertPage');
+            Navigator.pushNamed(context, '/insertPage');
           },
           icon: const Icon(Icons.arrow_back_rounded),
           color: const Color(0xFF333333),

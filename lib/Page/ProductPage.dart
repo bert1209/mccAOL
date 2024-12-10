@@ -118,7 +118,7 @@ class _ProductPageState extends State<ProductPage> {
               BanbooID: widget.BanbooID,
               Images: "lib/Assets/Failed.png",
               Text1: "Error",
-              Text2: "Transaction Has Failed"),
+              Text2: "Insufficient Amount"),
         ),
       );
     }

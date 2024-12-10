@@ -7,14 +7,14 @@ const jwt = require('jsonwebtoken');
 const jwtSecret = 'SECRET KEY'; // Ganti dengan secret key yang aman
 
 // Fungsi untuk membuat token
-function generateToken(user) {
-    var payload = {
-      UserID: user.UserID,
-      Username: user.Username,
-    };
+// function generateToken(user) {
+//     var payload = {
+//       UserID: user.UserID,
+//       Username: user.Username,
+//     };
   
-    return jwt.sign(payload, 'SECRET KEY');
-  }
+  //   return jwt.sign(payload, 'SECRET KEY');
+  // }
 
 
 var opt = {
@@ -73,7 +73,7 @@ function authenticateToken(req, res, next){
     });
   });
 
-  router.post('/insert-new-banboo-data', (req, res) => {
+  router.post('/insert-new-banboo-data',authenticateToken, (req, res) => {
     const data = req.body;
      const imageBuffer = data.BanbooImage ? Buffer.from(data.BanbooImage, 'base64') : null;
  
@@ -162,6 +162,7 @@ router.post('/checkout-banboo', (req, res) => {
   });
   
 });
+
 
   module.exports = router;
 

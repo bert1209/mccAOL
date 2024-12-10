@@ -197,7 +197,7 @@ void _insertOnPressed(BuildContext context) async {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
-              'Error Login',
+              'Login Error',
               style: TextStyle(
                 fontFamily: 'Poppin',
               ),

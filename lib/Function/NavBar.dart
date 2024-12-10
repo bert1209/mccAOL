@@ -38,7 +38,7 @@ class navBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-            padding: EdgeInsets.only(top: 10.5),
+            padding: const EdgeInsets.only(top: 10.5),
             onPressed: () {
               Navigator.push(
                 context,
@@ -50,7 +50,7 @@ class navBar extends StatelessWidget {
                 ),
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.account_balance_wallet_rounded,
               size: 35,
               color: Color(0xFF999999)

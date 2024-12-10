@@ -51,74 +51,67 @@ function authenticateToken(req, res, next){
 
 
 //Insert User
-router.post('/insert-new-user', (req, res) => {
-    const data = req.body
+// router.post('/insert-new-user', (req, res) => {
+//     const data = req.body
 
-    const query =  `INSERT INTO user (Username, Email, Password, Role) VALUES 
-    ('${data.Username}','${data.Email}','${data.Password}','0')`
+//     const query =  `INSERT INTO user (Username, Email, Password, Role) VALUES 
+//     ('${data.Username}','${data.Email}','${data.Password}','0')`
 
-    con.query(query, (err, results) =>{
-        if(err) throw err;
-        res.send(results)
-    })
-})
+//     con.query(query, (err, results) =>{
+//         if(err) throw err;
+//         res.send(results)
+//     })
+// })
 
 //Update User
-router.post('/update-user', (req, res) => {
-    const data = req.body
+// router.post('/update-user', (req, res) => {
+//     const data = req.body
 
-    const query =  `UPDATE user SET 
-    Username = ${data.Username}, Email = ${data.Email}, Password = ${data.Password}, Role = ${data.Role}` 
+//     const query =  `UPDATE user SET 
+//     Username = ${data.Username}, Email = ${data.Email}, Password = ${data.Password}, Role = ${data.Role}` 
 
-    con.query(query, (err, result) =>{
-        if(err) throw err;
-        res.send(result)
-    })
-})
+//     con.query(query, (err, result) =>{
+//         if(err) throw err;
+//         res.send(result)
+//     })
+// })
 
-router.delete('/delete-user', (req, res) => {
-    const data = req.body
+// router.delete('/delete-user', (req, res) => {
+//     const data = req.body
 
-    const query = `DELETE FROM user WHERE UserID = ${data.UserID}`
-}
-)
+//     const query = `DELETE FROM user WHERE UserID = ${data.UserID}`
+// }
+// )
 
 
 
 router.post('/insert-new-users', (req, res) => {
     const data = req.body;
 
-    // Check if email already exists
+    
     const checkQuery = `SELECT * FROM user WHERE Email = ?`;
     con.query(checkQuery, [data.Email], (err, result) => {
         if (err) return res.status(500).send(err);
-
+        // Cek email ada atau tidak
         if (result.length > 0) {
             return res.status(400).json({ message: "Email already exists" });
         }
-
-        // If email does not exist, insert the new user
+        // Kalau tidak ada, insert user
         const insertQuery = `INSERT INTO user (Username, Email, Password, Role) VALUES (?, ?, ?, ?)`;
         con.query(insertQuery, [data.Username, data.Email, data.Password, 0], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: "Database error", error: err });
             }
-    
             if (result.length === 0) {
                 return res.status(401).json({ message: "Invalid email or password" });
-            }
-           
-            
-               
+            }    
                 return res.status(200).json(result);
-                
-          
         });
     });
 });
 
 
-router.get('/:Email/:Password', function (req, res, next) {
+router.get('/:Email/:Password', function (req, res) {
     const Email = req.params.Email;
     const Password = req.params.Password;
     const connection = mysql2.createConnection(opt);
@@ -126,9 +119,9 @@ router.get('/:Email/:Password', function (req, res, next) {
     connection.connect();
 
     connection.query("SELECT * FROM user WHERE Email = ? AND BINARY Password = ?", [Email, Password], function (err, results) {
-         // Tutup koneksi setelah query selesai
 
         if (err) throw err;
+
         if (results.length === 0) {
             return res.status(403).json("invalid");
         }
@@ -149,7 +142,6 @@ router.get('/:Email/:Password', function (req, res, next) {
         }
             return res.status(200).json(data);
 
-        //     return res.status(200).json(results);
     });
 });
 

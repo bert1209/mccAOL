@@ -82,10 +82,10 @@ class _StorePageState extends State<StorePage> {
         leading: Container(
           decoration: BoxDecoration(
               color: const Color(0xFF999999),
-              borderRadius: BorderRadius.circular(15)
-          ),
+              borderRadius: BorderRadius.circular(15)),
 
-          margin: const EdgeInsets.fromLTRB(16, 20, 0, 20), // Adds 16px space on the left
+          margin: const EdgeInsets.fromLTRB(
+              16, 20, 0, 20), // Adds 16px space on the left
           child: IconButton(
             color: const Color(0xFF333333),
             onPressed: () {
@@ -102,7 +102,6 @@ class _StorePageState extends State<StorePage> {
             icon: const Icon(Icons.arrow_back_rounded),
           ),
         ),
-
         actions: [
           Container(
             margin: const EdgeInsets.fromLTRB(0, 20, 16, 20),
@@ -261,11 +260,12 @@ class _StorePageState extends State<StorePage> {
             ),
           ),
           Align(
-              alignment: Alignment.bottomCenter,
-              child: navBar(
-                UserID: widget.UserID,
-                UserMoney: widget.UserMoney,
-              )),
+            alignment: Alignment.bottomCenter,
+            child: navBar(
+              UserID: widget.UserID,
+              UserMoney: widget.UserMoney,
+            ),
+          ),
         ],
       ),
     );
