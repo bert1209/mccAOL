@@ -1,6 +1,6 @@
 # aol_mcc
 
-A new Flutter project.
+Banboo Store is a digital platform that provides a secure and efficient marketplace for buying and selling in-game items called Banboo. Players can purchase Banboo and view detailed statistics such as rarity, attributes, and performance data. The platform is designed to deliver a seamless trading experience with a clean interface, and secure transactions.
 
 ## Getting Started
 
